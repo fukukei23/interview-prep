@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Claude Code Guide: Markdown → モバイル最適化HTML変換スクリプト."""
+"""Interview Prep Guide: Markdown → モバイル最適化HTML変換スクリプト."""
 
 import re
 import unicodedata
@@ -307,23 +307,23 @@ CHAPTER_TEMPLATE = Template("""\
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} — Claude Code Guide</title>
-    <meta name="description" content="Claude Code CLI {{ title }}の解説 — AIコーディングアシスタント完全ガイド">
-    <meta property="og:title" content="{{ title }} — Claude Code Guide">
-    <meta property="og:description" content="Claude Code CLI {{ title }}の解説">
+    <title>{{ title }} — 面接対策ガイド</title>
+    <meta name="description" content="面接対策 {{ title }}の解説 — プロジェクト詳細・技術判断・想定質問">
+    <meta property="og:title" content="{{ title }} — 面接対策ガイド">
+    <meta property="og:description" content="面接対策 {{ title }}の解説">
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://fukukei23.github.io/claude-code-guide/chapters/{{ slug }}.html">
-    <meta property="og:image" content="https://fukukei23.github.io/claude-code-guide/assets/ogp.png">
+    <meta property="og:url" content="https://fukukei23.github.io/interview-prep/chapters/{{ slug }}.html">
+    <meta property="og:image" content="https://fukukei23.github.io/interview-prep/assets/ogp.png">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="../assets/style.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
 </head>
 <body>
     <header class="site-header">
         <button class="menu-toggle" aria-label="メニュー" id="menuToggle">
             <span></span><span></span><span></span>
         </button>
-        <a href="../index.html" class="site-title">⚡ Claude Code Guide</a>
+        <a href="../index.html" class="site-title">💼 面接対策ガイド</a>
         <button class="theme-toggle" id="themeToggle" aria-label="テーマ切替">
             <span class="icon-light">☀️</span>
             <span class="icon-dark">🌙</span>
@@ -393,20 +393,20 @@ INDEX_TEMPLATE = Template("""\
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claude Code 完全ガイド</title>
-    <meta name="description" content="AIコーディングアシスタント Claude Code CLI の使い方を基礎から応用まで完全解説">
-    <meta property="og:title" content="Claude Code 完全ガイド">
-    <meta property="og:description" content="AIコーディングアシスタント Claude Code CLI の使い方を基礎から応用まで完全解説">
+    <title>面接対策ガイド — ふくけい</title>
+    <meta name="description" content="プロジェクト解説・技術判断・想定質問 — 面接前にサクッと復習">
+    <meta property="og:title" content="面接対策ガイド — ふくけい">
+    <meta property="og:description" content="プロジェクト解説・技術判断・想定質問 — 面接前にサクッと復習">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://fukukei23.github.io/claude-code-guide/">
-    <meta property="og:image" content="https://fukukei23.github.io/claude-code-guide/assets/ogp.png">
+    <meta property="og:url" content="https://fukukei23.github.io/interview-prep/">
+    <meta property="og:image" content="https://fukukei23.github.io/interview-prep/assets/ogp.png">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="assets/style.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
 </head>
 <body class="index-page">
     <header class="site-header">
-        <span class="site-title">⚡ Claude Code Guide</span>
+        <span class="site-title">💼 面接対策ガイド</span>
         <button class="theme-toggle" id="themeToggle" aria-label="テーマ切替">
             <span class="icon-light">☀️</span>
             <span class="icon-dark">🌙</span>
@@ -415,8 +415,8 @@ INDEX_TEMPLATE = Template("""\
 
     <main class="content">
         <section class="hero">
-            <h1>Claude Code 完全ガイド</h1>
-            <p>AIコーディングアシスタント Claude Code CLI の使い方を、<br>基礎から応用まで完全解説</p>
+            <h1>面接対策ガイド</h1>
+            <p>プロジェクト解説・技術判断・想定質問<br>面接前にサクッと復習</p>
         </section>
 
         <section class="chapter-grid">
