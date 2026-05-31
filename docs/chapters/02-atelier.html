@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>atelier-kyo-manager — Claude Code Guide</title>
+    <meta name="description" content="Claude Code CLI atelier-kyo-managerの解説 — AIコーディングアシスタント完全ガイド">
+    <meta property="og:title" content="atelier-kyo-manager — Claude Code Guide">
+    <meta property="og:description" content="Claude Code CLI atelier-kyo-managerの解説">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://fukukei23.github.io/claude-code-guide/chapters/02-atelier.html">
+    <meta property="og:image" content="https://fukukei23.github.io/claude-code-guide/assets/ogp.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+<body>
+    <header class="site-header">
+        <button class="menu-toggle" aria-label="メニュー" id="menuToggle">
+            <span></span><span></span><span></span>
+        </button>
+        <a href="../index.html" class="site-title">⚡ Claude Code Guide</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="テーマ切替">
+            <span class="icon-light">☀️</span>
+            <span class="icon-dark">🌙</span>
+        </button>
+    </header>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="../index.html">🏠 ホーム</a>
+        </div>
+        
+        <a href="00-overview.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📋</span>
+            プロジェクト一覧
+        </a>
+        
+        <a href="01-nexuscore.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🤖</span>
+            NexusCore
+        </a>
+        
+        <a href="02-atelier.html"
+           class="sidebar-link active">
+            <span class="sidebar-icon">🛒</span>
+            atelier-kyo-manager
+        </a>
+        
+        <a href="03-reserve.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📅</span>
+            reserve-optimizer
+        </a>
+        
+        <a href="04-openclaw.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🦉</span>
+            OpenClaw
+        </a>
+        
+        <a href="05-numbers.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📊</span>
+            数字で語る
+        </a>
+        
+        <a href="06-qa.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">💬</span>
+            想定質問
+        </a>
+        
+    </nav>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="content">
+        <div class="chapter-nav-top">
+            
+            <a href="01-nexuscore.html" class="nav-prev">← NexusCore</a>
+            
+            
+            <a href="03-reserve.html" class="nav-next">reserve-optimizer →</a>
+            
+        </div>
+
+        <article class="chapter-body">
+            <h1>atelier-kyo-manager</h1>
+<div class="callout callout-info"><p>BUYMA転売管理システム。出品パイプライン・自動発注ステートマシン・
+AIチャットボット・価格スクレイピングを統合したFlaskアプリ。</p></div>
+<h2>なぜ作ったか</h2>
+<p>BUYMA（海外ブランドの買い付け代行プラットフォーム）での転売業務は、出品・価格調整・発注・顧客対応など多岐にわたる手作業が発生します。これらをFlask Webアプリ + AI/LLMで自動化し、1人でもスケール可能な物販システムを目指して開発しました。</p>
+<h2>アーキテクチャ</h2>
+<pre><code>Flask App Factory (create_app)
+  ├── Blueprint (6モジュール)    ← HTTPルーティング
+  │     analytics / orders / partners / products / misc / warehouse_webhook
+  ├── Service層 (8モジュール)    ← ビジネスロジック
+  │     auto_order / chatbot / image / notification / pipeline
+  │     price_scraper / template / warehouse_event
+  ├── Models (16種)              ← SQLAlchemyデータモデル
+  ├── Utils (20+モジュール)      ← ai_llm_controller / fx_utils / pricing_calculator 等
+  └── Templates / Static         ← Jinja2 + CSS/JS
+</code></pre>
+<p><strong>設計のポイント</strong>: FlaskのBlueprint + Service層の2層構造にすることで、ルーティング（Blueprint）とビジネスロジック（Service）を分離。テスト時にService層だけを単体テスト可能にしています。</p>
+<h2>主要ビジネスロジック</h2>
+<h3>自動発注ステートマシン</h3>
+<p>注文の状態遷移を自動管理する仕組みです：</p>
+<pre><code>pending → sourcing → cart_added → checkout → payment_done → shipped → completed
+</code></pre>
+<p>各状態遷移には<strong>ガード条件</strong>（遷移可能かの判定）があります。例えば <code>sourcing → cart_added</code> に遷移するには「仕入先の在庫確認が完了していること」が必要です。</p>
+<h3>出品パイプライン</h3>
+<pre><code>画像収集 → AI背景除去（rembg） → AI説明文生成（LLM） → 出品テキスト生成 → BUYMA出品
+</code></pre>
+<p>各ステップが独立しているため、途中で失敗しても再開可能です。</p>
+<h3>AIチャットボット（3段階分類）</h3>
+<p>顧客からの問い合わせを3段階で処理します：</p>
+<ol>
+<li><strong>FAQテンプレートマッチ</strong>: 既知の質問パターンに一致するか確認</li>
+<li><strong>AI回答生成</strong>: 一致しない場合、LLMで回答を生成</li>
+<li><strong>エスカレーション判定</strong>: AIが自信を持てない場合は人間（私）に通知</li>
+</ol>
+<p><strong>なぜ3段階にしたか</strong>: 全ての問い合わせをAIに任せると不正確な回答のリスクがある。FAQで確実に回答できるものは高速に処理し、AIが必要なものだけLLMを使うことで、品質とコストのバランスを取っています。</p>
+<h3>価格スクレイピング</h3>
+<p>Playwrightヘッドレスブラウザで仕入先の価格を自動取得します。</p>
+<p><strong>なぜrequests/BeautifulSoupではなくPlaywrightか</strong>: 仕入先サイトがJavaScriptレンダリングに依存しているため、静的HTMLの取得では価格情報が取得できませんでした。Playwrightなら実際のブラウザと同じようにJSを実行してからDOMを取得できます。</p>
+<h3>18日ルール管理</h3>
+<p>BUYMAには「18日以内に発送しないとキャンセルされる」ルールがあります。決済方法によって延長期限が異なるため、これを自動計算・管理します：</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>決済方法</th>
+<th>延長期限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>クレジットカード</td>
+<td>45日</td>
+</tr>
+<tr>
+<td>銀行振込</td>
+<td>90日</td>
+</tr>
+<tr>
+<td>コンビニ決済</td>
+<td>30日</td>
+</tr>
+</tbody>
+</table></div>
+<h2>面接で聞かれそうなポイント</h2>
+<h3>「なぜFlask？Djangoではない理由」</h3>
+<ul>
+<li>atelier-kyo-managerは管理画面 + APIの構成で、DjangoのORM/admin/templates等の「全部入り」機能が不要だった</li>
+<li>Flaskの方が軽量で、必要なライブラリ（SQLAlchemy / Playwright / rembg等）を自由に選べる</li>
+<li>結果的にFlask App Factory + Blueprintの構成で十分スケールした</li>
+</ul>
+<h3>「なぜSQLite？PostgreSQLではない理由」</h3>
+<ul>
+<li>個人利用のシステムで同時接続数が少ないため、SQLiteで十分</li>
+<li>デプロイが簡単（サーバー不要、ファイル1つで完結）</li>
+<li>将来的にスケールする必要があれば、SQLAlchemy経由でPostgreSQLに移行可能（モデル層の変更なし）</li>
+</ul>
+<h3>技術スタック</h3>
+<ul>
+<li>Python 3.10+ / Flask / SQLAlchemy</li>
+<li>Playwright（ヘッドレスブラウザ）</li>
+<li>pytest（967テストケース）</li>
+<li>rembg（AI背景除去）</li>
+</ul>
+
+        </article>
+
+        <nav class="chapter-nav-bottom">
+            
+            <a href="01-nexuscore.html" class="nav-card prev">
+                <span class="nav-label">← 前の章</span>
+                <span class="nav-title">🤖 NexusCore</span>
+            </a>
+            
+            
+            <a href="03-reserve.html" class="nav-card next">
+                <span class="nav-label">次の章 →</span>
+                <span class="nav-title">📅 reserve-optimizer</span>
+            </a>
+            
+        </nav>
+    </main>
+
+    <script src="../assets/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default',
+            themeVariables: { fontSize: '14px' }
+        });
+    </script>
+</body>
+</html>

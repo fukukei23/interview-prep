@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusCore — Claude Code Guide</title>
+    <meta name="description" content="Claude Code CLI NexusCoreの解説 — AIコーディングアシスタント完全ガイド">
+    <meta property="og:title" content="NexusCore — Claude Code Guide">
+    <meta property="og:description" content="Claude Code CLI NexusCoreの解説">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://fukukei23.github.io/claude-code-guide/chapters/01-nexuscore.html">
+    <meta property="og:image" content="https://fukukei23.github.io/claude-code-guide/assets/ogp.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+<body>
+    <header class="site-header">
+        <button class="menu-toggle" aria-label="メニュー" id="menuToggle">
+            <span></span><span></span><span></span>
+        </button>
+        <a href="../index.html" class="site-title">⚡ Claude Code Guide</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="テーマ切替">
+            <span class="icon-light">☀️</span>
+            <span class="icon-dark">🌙</span>
+        </button>
+    </header>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="../index.html">🏠 ホーム</a>
+        </div>
+        
+        <a href="00-overview.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📋</span>
+            プロジェクト一覧
+        </a>
+        
+        <a href="01-nexuscore.html"
+           class="sidebar-link active">
+            <span class="sidebar-icon">🤖</span>
+            NexusCore
+        </a>
+        
+        <a href="02-atelier.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🛒</span>
+            atelier-kyo-manager
+        </a>
+        
+        <a href="03-reserve.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📅</span>
+            reserve-optimizer
+        </a>
+        
+        <a href="04-openclaw.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🦉</span>
+            OpenClaw
+        </a>
+        
+        <a href="05-numbers.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📊</span>
+            数字で語る
+        </a>
+        
+        <a href="06-qa.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">💬</span>
+            想定質問
+        </a>
+        
+    </nav>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="content">
+        <div class="chapter-nav-top">
+            
+            <a href="00-overview.html" class="nav-prev">← プロジェクト一覧</a>
+            
+            
+            <a href="02-atelier.html" class="nav-next">atelier-kyo-manager →</a>
+            
+        </div>
+
+        <article class="chapter-body">
+            <h1>NexusCore</h1>
+<div class="callout callout-info"><p>マルチエージェントAI開発フレームワーク。14の専門エージェントが協調動作し、
+要件分析→設計→コード生成→テスト→品質保証まで自動化。</p></div>
+<h2>なぜ作ったか</h2>
+<p>ソフトウェア開発の各フェーズ（要件定義・設計・実装・テスト・レビュー）は、本来それぞれ異なる視点と専門性が必要です。一人のエンジニアが全フェーズを兼務すると、どうしても視点が偏ります。そこで<strong>各フェーズに専門のAIエージェントを割り当て、協調させる</strong>ことで、一人開発でも多様な視点での品質担保を実現できないか——という構想から生まれました。</p>
+<h2>アーキテクチャ</h2>
+<h3>14の専門エージェント</h3>
+<p>エージェントは大きく3つのグループに分かれています：</p>
+<p><strong>① 開発パイプライン（上流→下流）</strong></p>
+<pre><code>Requirement（要件分析）
+    ↓ 要件仕様書
+Planner（実装計画）
+    ↓ 実装プラン
+Architect（アーキテクチャ設計）
+    ↓ 設計書
+Coder（コード生成）
+    ↓ コード
+Tester（テスト自動生成）
+    ↓ テスト結果
+Guardian（品質ゲート判定）
+    ↓ 合格/不合格
+</code></pre>
+<p><strong>② 品質保証・分析</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>エージェント</th>
+<th>役割</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reviewer</td>
+<td>コードレビュー（静的解析）</td>
+</tr>
+<tr>
+<td>Debugger</td>
+<td>エラー修正・デバッグ</td>
+</tr>
+<tr>
+<td>Mutation Tester</td>
+<td>テストスイートの強度測定（ミューテーションテスト）</td>
+</tr>
+<tr>
+<td>Postmortem</td>
+<td>失敗分析・事後検証</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>③ ガバナンス・管理</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>エージェント</th>
+<th>役割</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Policy</td>
+<td>ポリシー適用（コーディング規約等）</td>
+</tr>
+<tr>
+<td>Constitutional Council</td>
+<td>ガバナンス・意思決定</td>
+</tr>
+<tr>
+<td>Knowledge Curator</td>
+<td>ナレッジ管理</td>
+</tr>
+<tr>
+<td>Context</td>
+<td>プロジェクトコンテキスト管理</td>
+</tr>
+</tbody>
+</table></div>
+<h3>設計上の判断と理由</h3>
+<p><strong>Q: なぜ14エージェントに分割したのか？</strong></p>
+<p>1つの巨大エージェントに全役割を担わせることも可能ですが、あえて分割した理由は：</p>
+<ul>
+<li><strong>責任の分離</strong>: 各エージェントが単一責任を持つことで、出力の品質が安定する</li>
+<li><strong>品質ゲートの客観性</strong>: Coderが書いたコードをReviewerが批判的に検証できる（自分の書いたコードを自分でレビューする問題を回避）</li>
+<li><strong>差し替え可能性</strong>: 各エージェントの背後にあるLLMを独立に変更できる（コスト最適化）</li>
+</ul>
+<p><strong>Q: なぜ2層の品質ゲートにしたのか？</strong></p>
+<ul>
+<li><strong>Tier 1（静的解析）</strong>: カバレッジ80%+ / Pylint 8.0+ / Mypy / Bandit → 機械的に検出できる問題は即座に弾く</li>
+<li><strong>Tier 2（動的テスト）</strong>: ミューテーションテスト → テストコードが「本当にバグを検出できるか」を検証する</li>
+<li><strong>理由</strong>: 静的解析だけでは「テストが形式的で実質的にバグを検出できない」問題を発見できないため</li>
+</ul>
+<h3>LLMルーティング（8プロバイダー）</h3>
+<pre><code>Task → LLM Router → [品質ティア: GPT-5.5 / Sonnet 4.6 / Gemini 3.1 Pro]
+                     [軽量ティア: Claude / 代替プロバイダー / DeepSeek / Moonshot]
+                      ↕
+                 Budget Manager（日次上限・フォールバック制御）
+</code></pre>
+<p>33種のタスクを自動分類し、最適なLLMにルーティングします。コード生成などの重要タスクは品質ティア、チャットや分類は軽量ティアに振り分け、月額コストを最適化しています。</p>
+<h2>面接で聞かれそうなポイント</h2>
+<h3>「ミューテーションテストとは？」</h3>
+<p>通常のテストは「コードが正しく動くか」を検証します。ミューテーションテストは逆に「<strong>テストが本当にバグを見つけられるか</strong>」を検証します。</p>
+<p>具体的には：</p>
+<ol>
+<li>本体コードに意図的に小さなバグ（ミュータント）を注入する</li>
+<li>テストを実行する</li>
+<li>テストがバグを検出（kill）できればOK、見逃せばテストが不十分</li>
+</ol>
+<p>例：<code>if a &gt; 0</code> を <code>if a &gt;= 0</code> に変えて、テストが失敗するか確認する。失敗しなければ <code>a == 0</code> の境界値テストが漏れていることになります。</p>
+<h3>「Authority Runnerとは？」</h3>
+<p>変更の重要度に応じて、実行の自動化レベルを3段階に切り替える仕組みです：</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>レベル</th>
+<th>名称</th>
+<th>動作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>HUMAN_CONTROLLED</td>
+<td>人間の承認が必要</td>
+</tr>
+<tr>
+<td>2</td>
+<td>PARTIALLY_AUTONOMOUS</td>
+<td>重要な変更のみ人間確認</td>
+</tr>
+<tr>
+<td>3</td>
+<td>FULLY_AUTONOMOUS</td>
+<td>完全自動実行</td>
+</tr>
+</tbody>
+</table></div>
+<h3>技術スタック</h3>
+<ul>
+<li>Python 3.12 / FastAPI / Gradio</li>
+<li>pytest（4,895テストケース）</li>
+<li>GitHub Actions CI/CD</li>
+<li>Apache 2.0 ライセンス</li>
+</ul>
+
+        </article>
+
+        <nav class="chapter-nav-bottom">
+            
+            <a href="00-overview.html" class="nav-card prev">
+                <span class="nav-label">← 前の章</span>
+                <span class="nav-title">📋 プロジェクト一覧</span>
+            </a>
+            
+            
+            <a href="02-atelier.html" class="nav-card next">
+                <span class="nav-label">次の章 →</span>
+                <span class="nav-title">🛒 atelier-kyo-manager</span>
+            </a>
+            
+        </nav>
+    </main>
+
+    <script src="../assets/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default',
+            themeVariables: { fontSize: '14px' }
+        });
+    </script>
+</body>
+</html>

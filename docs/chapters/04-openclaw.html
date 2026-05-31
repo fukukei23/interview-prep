@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw — Claude Code Guide</title>
+    <meta name="description" content="Claude Code CLI OpenClawの解説 — AIコーディングアシスタント完全ガイド">
+    <meta property="og:title" content="OpenClaw — Claude Code Guide">
+    <meta property="og:description" content="Claude Code CLI OpenClawの解説">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://fukukei23.github.io/claude-code-guide/chapters/04-openclaw.html">
+    <meta property="og:image" content="https://fukukei23.github.io/claude-code-guide/assets/ogp.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+<body>
+    <header class="site-header">
+        <button class="menu-toggle" aria-label="メニュー" id="menuToggle">
+            <span></span><span></span><span></span>
+        </button>
+        <a href="../index.html" class="site-title">⚡ Claude Code Guide</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="テーマ切替">
+            <span class="icon-light">☀️</span>
+            <span class="icon-dark">🌙</span>
+        </button>
+    </header>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="../index.html">🏠 ホーム</a>
+        </div>
+        
+        <a href="00-overview.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📋</span>
+            プロジェクト一覧
+        </a>
+        
+        <a href="01-nexuscore.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🤖</span>
+            NexusCore
+        </a>
+        
+        <a href="02-atelier.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🛒</span>
+            atelier-kyo-manager
+        </a>
+        
+        <a href="03-reserve.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📅</span>
+            reserve-optimizer
+        </a>
+        
+        <a href="04-openclaw.html"
+           class="sidebar-link active">
+            <span class="sidebar-icon">🦉</span>
+            OpenClaw
+        </a>
+        
+        <a href="05-numbers.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📊</span>
+            数字で語る
+        </a>
+        
+        <a href="06-qa.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">💬</span>
+            想定質問
+        </a>
+        
+    </nav>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="content">
+        <div class="chapter-nav-top">
+            
+            <a href="03-reserve.html" class="nav-prev">← reserve-optimizer</a>
+            
+            
+            <a href="05-numbers.html" class="nav-next">数字で語る →</a>
+            
+        </div>
+
+        <article class="chapter-body">
+            <h1>OpenClaw</h1>
+<div class="callout callout-info"><p>AIエージェント24時間運用インフラ。VPS + ローカルPCの2台体制で、
+59体の専門エージェントが常時稼働。3ヶ月連続稼働中。</p></div>
+<h2>なぜ作ったか</h2>
+<p>AIエージェントを「たまに使うツール」ではなく「24時間働く従業員」にしたい——その目的で構築しました。具体的には：</p>
+<ul>
+<li>Discordでの会話を監視し、TODOやリマインドを自動抽出</li>
+<li>AIニュースを毎日自動収集・動画化</li>
+<li>専門エージェント59体が各領域のタスクを処理</li>
+</ul>
+<h2>アーキテクチャ</h2>
+<h3>2台体制</h3>
+<pre><code>■ VPS（フクロウ）— 本番・常時稼働
+  インターネット → UFW Firewall → Caddy（HTTPS）→ OpenClaw Gateway → AI API
+
+■ ローカルPC（よつば）— 開発・実験用
+  Tailscale VPN → OpenClaw Gateway → AI API
+</code></pre>
+<p><strong>なぜ2台に分けたのか</strong>:</p>
+<ul>
+<li>VPSは本番用。安定稼働が最優先なので実験的変更を加えない</li>
+<li>ローカルPCは開発用。自由に設定変更や新機能のテストができる</li>
+<li>この分離により、本番環境の安定性を犠牲にせず開発を進められる</li>
+</ul>
+<h3>3層Heartbeat監視</h3>
+<p>エージェントが生きているかを3つの間隔で監視します：</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>層</th>
+<th>間隔</th>
+<th>監視内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>緊急監視</td>
+<td>1分</td>
+<td>プロセス生存確認</td>
+</tr>
+<tr>
+<td>設定検知</td>
+<td>5分</td>
+<td>設定ファイルの変更検知</td>
+</tr>
+<tr>
+<td>会話スキャン</td>
+<td>30分</td>
+<td>Discord会話のTODO/リマインド抽出</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>なぜ3層なのか</strong>: 1分ごとに全てをチェックするとAPIコストが膨大になる。重要度に応じて間隔を変えることで、コストと監視精度のバランスを取っています。</p>
+<h3>59体の専門エージェント</h3>
+<p>5カテゴリ59体のエージェントが各領域を担当：</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>カテゴリ</th>
+<th>数</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>engineering</td>
+<td>25体</td>
+<td>コード生成、レビュー、デバッグ、テスト</td>
+</tr>
+<tr>
+<td>specialized</td>
+<td>24体</td>
+<td>セキュリティ、パフォーマンス、DB設計</td>
+</tr>
+<tr>
+<td>testing</td>
+<td>—</td>
+<td>テスト戦略、品質ゲート</td>
+</tr>
+<tr>
+<td>design</td>
+<td>—</td>
+<td>UI/UX、アーキテクチャ</td>
+</tr>
+<tr>
+<td>marketing</td>
+<td>—</td>
+<td>コンテンツ、SEO</td>
+</tr>
+</tbody>
+</table></div>
+<h3>コスト管理</h3>
+<p>AI APIのコストを3段階で管理：</p>
+<pre><code>月額3千円未満   → 完全自動実行
+月額3千〜1万円  → 承認フロー自動分岐
+月額1万円超     → アラート通知 → 人間が判断
+</code></pre>
+<p><strong>実際の運用コスト</strong>: 月額数千円（3モデル使い分け: GLM-5 / Claude / GPT）</p>
+<h2>面接で聞かれそうなポイント</h2>
+<h3>「59体のエージェントとは具体的に？」</h3>
+<p>全てが独立して動いているわけではありません。エージェントには2種類あります：</p>
+<ol>
+<li><strong>常時稼働型</strong>: Heartbeatで定期的に起動するエージェント（ニュース収集・Discord監視等）</li>
+<li><strong>オンデマンド型</strong>: ユーザーからの要求に応じて起動するエージェント（コードレビュー・デバッグ等）</li>
+</ol>
+<p>常時稼働しているのは数体で、残りは必要な時にだけ起動します。</p>
+<h3>「Docker + Caddy構成の理由」</h3>
+<ul>
+<li><strong>Docker</strong>: エージェントの実行環境をコンテナ化し、ホストOSへの影響を最小化</li>
+<li><strong>Caddy</strong>: リバースプロキシ + 自動HTTPS。Let's Encryptの証明書更新も自動</li>
+<li>Nginxより設定がシンプルで、数行でHTTPS化できる</li>
+</ul>
+<h3>技術スタック</h3>
+<ul>
+<li>Docker Compose / Caddy（リバースプロキシ）</li>
+<li>Node.js / TypeScript / Python</li>
+<li>Discord API</li>
+<li>VPS（Ubuntu）+ Tailscale VPN</li>
+</ul>
+
+        </article>
+
+        <nav class="chapter-nav-bottom">
+            
+            <a href="03-reserve.html" class="nav-card prev">
+                <span class="nav-label">← 前の章</span>
+                <span class="nav-title">📅 reserve-optimizer</span>
+            </a>
+            
+            
+            <a href="05-numbers.html" class="nav-card next">
+                <span class="nav-label">次の章 →</span>
+                <span class="nav-title">📊 数字で語る</span>
+            </a>
+            
+        </nav>
+    </main>
+
+    <script src="../assets/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default',
+            themeVariables: { fontSize: '14px' }
+        });
+    </script>
+</body>
+</html>

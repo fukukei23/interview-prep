@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロジェクト一覧 — Claude Code Guide</title>
+    <meta name="description" content="Claude Code CLI プロジェクト一覧の解説 — AIコーディングアシスタント完全ガイド">
+    <meta property="og:title" content="プロジェクト一覧 — Claude Code Guide">
+    <meta property="og:description" content="Claude Code CLI プロジェクト一覧の解説">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://fukukei23.github.io/claude-code-guide/chapters/00-overview.html">
+    <meta property="og:image" content="https://fukukei23.github.io/claude-code-guide/assets/ogp.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+<body>
+    <header class="site-header">
+        <button class="menu-toggle" aria-label="メニュー" id="menuToggle">
+            <span></span><span></span><span></span>
+        </button>
+        <a href="../index.html" class="site-title">⚡ Claude Code Guide</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="テーマ切替">
+            <span class="icon-light">☀️</span>
+            <span class="icon-dark">🌙</span>
+        </button>
+    </header>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="../index.html">🏠 ホーム</a>
+        </div>
+        
+        <a href="00-overview.html"
+           class="sidebar-link active">
+            <span class="sidebar-icon">📋</span>
+            プロジェクト一覧
+        </a>
+        
+        <a href="01-nexuscore.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🤖</span>
+            NexusCore
+        </a>
+        
+        <a href="02-atelier.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🛒</span>
+            atelier-kyo-manager
+        </a>
+        
+        <a href="03-reserve.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📅</span>
+            reserve-optimizer
+        </a>
+        
+        <a href="04-openclaw.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🦉</span>
+            OpenClaw
+        </a>
+        
+        <a href="05-numbers.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📊</span>
+            数字で語る
+        </a>
+        
+        <a href="06-qa.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">💬</span>
+            想定質問
+        </a>
+        
+    </nav>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="content">
+        <div class="chapter-nav-top">
+            
+            
+            <a href="01-nexuscore.html" class="nav-next">NexusCore →</a>
+            
+        </div>
+
+        <article class="chapter-body">
+            <h1>プロジェクト一覧</h1>
+<div class="callout callout-info"><p>2025年5月〜2026年5月の1年間で開発した主なプロジェクト。
+全プロジェクト、要件定義から実装・テスト・運用まで一人で担当。</p></div>
+<h2>累積の定量データ</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>指標</th>
+<th>数値</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>アプリケーションコード</td>
+<td>12万行</td>
+<td>src本体（テスト除く）</td>
+</tr>
+<tr>
+<td>テストコード</td>
+<td>25万行</td>
+<td>7,900+テストケース</td>
+</tr>
+<tr>
+<td>GitHubリポジトリ</td>
+<td>14公開 + 9非公開</td>
+<td></td>
+</tr>
+<tr>
+<td>技術記事</td>
+<td>20本</td>
+<td>Zenn公開済み</td>
+</tr>
+<tr>
+<td>24h本番運用</td>
+<td>3ヶ月連続</td>
+<td>OpenClaw（VPS）</td>
+</tr>
+<tr>
+<td>月間コミット</td>
+<td>3,037件</td>
+<td>2026年5月実績</td>
+</tr>
+<tr>
+<td>月間Issue消化</td>
+<td>78件</td>
+<td>2026年5月実績</td>
+</tr>
+</tbody>
+</table></div>
+<h2>開発スタイル</h2>
+<p>「Vibe Coding」—— コードの記述はAI（Claude Code）が担当し、私は要件定義・品質判定・運用設計を指揮しています。AIの生産性を最大化するため、Hooks（5種）・Skills・MCP統合（10+サーバー）・CronCreate自律ループを組み合わせた開発環境を構築・運用しています。</p>
+<h2>主要プロジェクト</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>プロジェクト</th>
+<th>概要</th>
+<th>技術</th>
+<th>規模</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NexusCore</strong></td>
+<td>マルチエージェントAI開発フレームワーク</td>
+<td>Python / FastAPI / Gradio</td>
+<td>5.6万行 src + 9.8万行 test</td>
+</tr>
+<tr>
+<td><strong>atelier-kyo-manager</strong></td>
+<td>BUYMA転売管理システム</td>
+<td>Python / Flask / Playwright</td>
+<td>3.6万行 src + 2.2万行 test</td>
+</tr>
+<tr>
+<td><strong>reserve-optimizer</strong></td>
+<td>整骨院LINE予約システム</td>
+<td>TypeScript / GAS / Cloudflare Workers</td>
+<td>1.1万行 src + 1.0万行 test</td>
+</tr>
+<tr>
+<td><strong>OpenClaw</strong></td>
+<td>AIエージェント24h運用インフラ</td>
+<td>Docker / Caddy / Discord / Node.js</td>
+<td>3ヶ月連続稼働中</td>
+</tr>
+</tbody>
+</table></div>
+
+        </article>
+
+        <nav class="chapter-nav-bottom">
+            
+            
+            <a href="01-nexuscore.html" class="nav-card next">
+                <span class="nav-label">次の章 →</span>
+                <span class="nav-title">🤖 NexusCore</span>
+            </a>
+            
+        </nav>
+    </main>
+
+    <script src="../assets/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default',
+            themeVariables: { fontSize: '14px' }
+        });
+    </script>
+</body>
+</html>
