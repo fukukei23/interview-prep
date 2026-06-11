@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>実践コード読解 — 面接対策ガイド</title>
+    <meta name="description" content="面接対策 実践コード読解の解説 — プロジェクト詳細・技術判断・想定質問">
+    <meta property="og:title" content="実践コード読解 — 面接対策ガイド">
+    <meta property="og:description" content="面接対策 実践コード読解の解説">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://fukukei23.github.io/interview-prep/chapters/09-practice-reading.html">
+    <meta property="og:image" content="https://fukukei23.github.io/interview-prep/assets/ogp.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
+</head>
+<body>
+    <header class="site-header">
+        <button class="menu-toggle" aria-label="メニュー" id="menuToggle">
+            <span></span><span></span><span></span>
+        </button>
+        <a href="../index.html" class="site-title">💼 面接対策ガイド</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="テーマ切替">
+            <span class="icon-light">☀️</span>
+            <span class="icon-dark">🌙</span>
+        </button>
+    </header>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="../index.html">🏠 ホーム</a>
+        </div>
+        
+        <a href="00-overview.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📋</span>
+            プロジェクト一覧
+        </a>
+        
+        <a href="01-nexuscore.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🤖</span>
+            NexusCore
+        </a>
+        
+        <a href="02-atelier.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🛒</span>
+            atelier-kyo-manager
+        </a>
+        
+        <a href="03-reserve.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📅</span>
+            reserve-optimizer
+        </a>
+        
+        <a href="04-openclaw.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🦉</span>
+            OpenClaw
+        </a>
+        
+        <a href="05-numbers.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📊</span>
+            数字で語る
+        </a>
+        
+        <a href="06-qa.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">💬</span>
+            想定質問
+        </a>
+        
+        <a href="07-why-ai-driven.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🧠</span>
+            なぜAI駆動開発なのか
+        </a>
+        
+        <a href="08-code-reading.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📖</span>
+            コードを読む力
+        </a>
+        
+        <a href="09-practice-reading.html"
+           class="sidebar-link active">
+            <span class="sidebar-icon">🔍</span>
+            実践コード読解
+        </a>
+        
+    </nav>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="content">
+        <div class="chapter-nav-top">
+            
+            <a href="08-code-reading.html" class="nav-prev">← コードを読む力</a>
+            
+            
+        </div>
+
+        <article class="chapter-body">
+            <h1>実践コード読解 —— NexusCoreのリアルコミットを読む</h1>
+<div class="callout callout-info"><p>自分のプロジェクトの実際のコミットを使った、コード読解の練習教科書。5問付き。</p></div>
+<hr />
+<h2>この教科書の使い方</h2>
+<ol>
+<li><strong>まず自分で考える</strong> — diffを見て「何を変更したか」を予想する</li>
+<li><strong>解説を読む</strong> — 自分の理解と照らし合わせる</li>
+<li><strong>用語を確認する</strong> — 分からない言葉は「用語メモ」を読む</li>
+</ol>
+<div class="callout callout-info"><p><strong>出典</strong>: すべてNexusCoreリポジトリの実際のコミット（2026年6月11日）。</p></div>
+<hr />
+<h2>問1: セキュリティ修正（最もシンプル）</h2>
+<h3>コミットメッセージ</h3>
+<pre><code>fix: openrouter_key APIのログから例外詳細を除去（情報漏洩防止）
+</code></pre>
+<h3>diff</h3>
+<pre><code class="language-diff">--- a/src/nexuscore/api/routes/openrouter_key.py
++++ b/src/nexuscore/api/routes/openrouter_key.py
+@@ -31,7 +31,7 @@ async def save_openrouter_key(
+     try:
+         user.openrouter_key_enc = encrypt_string(request.api_key)
+     except ValueError as e:
+-        logger.error(&quot;Encryption failed: %s&quot;, e)
++        logger.error(&quot;Encryption failed for OpenRouter key storage&quot;)
+         raise HTTPException(status_code=500, detail=&quot;NEXUS_ENCRYPTION_KEY is not configured.&quot;)
+     db.session.commit()
+     return {&quot;message&quot;: &quot;OpenRouter key saved&quot;}
+</code></pre>
+<h3>自分で考えてみよう</h3>
+<ul>
+<li><strong>何が変わった？</strong>（1行だけ注目）</li>
+<li><strong>なぜ変わった？</strong>（コミットメッセージのヒント: 「情報漏洩防止」）</li>
+</ul>
+<hr />
+<h3>解説</h3>
+<p><strong>変更内容</strong>: エラーログのメッセージから <code>e</code>（例外の詳細）を削除し、固定の文字列に置き換えました。</p>
+<p><strong>Before</strong>（変更前）:</p>
+<pre><code class="language-python">logger.error(&quot;Encryption failed: %s&quot;, e)
+</code></pre>
+<p>→ エラーの内容（例: &quot;Encryption key is empty&quot;）がログに書かれる</p>
+<p><strong>After</strong>（変更後）:</p>
+<pre><code class="language-python">logger.error(&quot;Encryption failed for OpenRouter key storage&quot;)
+</code></pre>
+<p>→ エラーの事実だけをログに書く。原因の詳細は書かない</p>
+<p><strong>なぜ？</strong>: ログファイルは開発者以外の人（運用担当者、監査人、攻撃者）が見る可能性があります。暗号化の失敗理由をログに残すと、<strong>システムの弱点を攻撃者に教える</strong>ことになります。これを「情報漏洩」と呼びます。</p>
+<h3>用語メモ</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>用語</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>logger.error()</code></td>
+<td>エラーをログファイルに記録するPythonの命令</td>
+</tr>
+<tr>
+<td><code>%s</code></td>
+<td>文字列を埋め込む場所。<code>e</code>の中身がここに入る</td>
+</tr>
+<tr>
+<td><code>HTTPException</code></td>
+<td>Web APIで「エラーが起きました」と返す仕組み</td>
+</tr>
+<tr>
+<td><code>encrypt_string()</code></td>
+<td>文字列を暗号化する関数</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>問2: セキュリティ方針の変更（中難易度）</h2>
+<h3>コミットメッセージ</h3>
+<pre><code>fix: key_store fail-closed — NEXUS_ENCRYPTION_KEY未設定時は保存拒否
+</code></pre>
+<h3>diff（重要部分だけ抜粋）</h3>
+<pre><code class="language-diff">--- a/src/nexuscore/utils/key_store.py
++++ b/src/nexuscore/utils/key_store.py
+@@ -44,33 +43,30 @@ def _flush(keys: dict) -&gt; None:
+
+
+ def save_key(provider: str, api_key: str) -&gt; None:
+-    &quot;&quot;&quot;Save an encrypted API key for *provider*.&quot;&quot;&quot;
+-    keys = _load_all()
+-    try:
+-        from nexuscore.utils.crypto_utils import encrypt_string
++    &quot;&quot;&quot;Save an encrypted API key for *provider*.
++
++    Raises ``ValueError`` if ``NEXUS_ENCRYPTION_KEY`` is not set
++    (fail-closed: never stores keys in plaintext).
++    &quot;&quot;&quot;
++    from nexuscore.utils.crypto_utils import encrypt_string
++
++    keys = _load_all()
++    keys[provider] = {&quot;encrypted&quot;: encrypt_string(api_key)}
+     _flush(keys)
+-    except ValueError:
+-        # NEXUS_ENCRYPTION_KEY not set — plaintext fallback (local dev only)
+-        logger.warning(&quot;NEXUS_ENCRYPTION_KEY not set; storing %s key in plaintext&quot;, provider)
+-        keys[provider] = {&quot;plain&quot;: api_key}
+-        _flush(keys)
+</code></pre>
+<h3>テストのdiff</h3>
+<pre><code class="language-diff">-    def test_save_and_load_plaintext_fallback(self, ...):
++    def test_save_refuses_without_encryption_key(self, ...):
++        &quot;&quot;&quot;Fail-closed: save_key MUST raise when NEXUS_ENCRYPTION_KEY is not set.&quot;&quot;&quot;
+         monkeypatch.delenv(&quot;NEXUS_ENCRYPTION_KEY&quot;, raising=False)
+-        save_key(&quot;openrouter&quot;, &quot;sk-or-plain-key&quot;)
+-        assert load_key(&quot;openrouter&quot;) == &quot;sk-or-plain-key&quot;
++        with pytest.raises(ValueError, match=&quot;NEXUS_ENCRYPTION_KEY&quot;):
++            save_key(&quot;openrouter&quot;, &quot;sk-or-plain-key&quot;)
+</code></pre>
+<h3>自分で考えてみよう</h3>
+<ul>
+<li><strong>「fail-closed」とは何か？</strong>（ヒント: 辞書で &quot;fail&quot; と &quot;closed&quot; を組み合わせて想像してみよう）</li>
+<li><strong>変更前の動き</strong>と<strong>変更後の動き</strong>の違いは？</li>
+</ul>
+<hr />
+<h3>解説</h3>
+<p><strong>変更前の動き</strong>（fail-open）:</p>
+<pre><code>暗号化キーがある？ → YES → 暗号化して保存 ✅
+                      → NO  → 平文で保存 ⚠️（警告は出る）
+</code></pre>
+<p><strong>変更後の動き</strong>（fail-closed）:</p>
+<pre><code>暗号化キーがある？ → YES → 暗号化して保存 ✅
+                      → NO  → 保存を拒否（エラーを投げる）❌
+</code></pre>
+<p><strong>「fail-closed」</strong> = 「何か問題が起きたら、安全な方向（閉じる方向）に失敗する」という設計方針です。</p>
+<p><strong>具体例</strong>: 暗号化キーの設定を忘れた場合、</p>
+<ul>
+<li><strong>fail-open</strong>: 平文で保存してしまう → APIキーが丸見え → 危険！</li>
+<li><strong>fail-closed</strong>: 保存を拒否する → APIキーは保存されない → 安全</li>
+</ul>
+<p><strong>テストの変更点</strong>: 「平文で保存できること」を確認するテストを、「暗号化キーがない場合にエラーになること」を確認するテストに変更しました。</p>
+<h3>用語メモ</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>用語</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fail-closed</code></td>
+<td>エラー時は「安全な方向」に倒す設計方針。ドアで例えると「停電したら鍵がかかったまま」</td>
+</tr>
+<tr>
+<td><code>fail-open</code></td>
+<td>エラー時は「緩い方向」に倒す。ドアで例えると「停電したら誰でも通れる」</td>
+</tr>
+<tr>
+<td>平文（plaintext）</td>
+<td>暗号化されていない、そのまま読めるデータ</td>
+</tr>
+<tr>
+<td><code>pytest.raises(ValueError)</code></td>
+<td>「このエラーが起きるはず」というテストの書き方</td>
+</tr>
+<tr>
+<td><code>monkeypatch.delenv()</code></td>
+<td>テスト中だけ環境変数を削除する（「設定がなかったら？」を再現）</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>問3: 新機能追加（大規模・設計読解）</h2>
+<h3>コミットメッセージ</h3>
+<pre><code>feat: Gradio UI OpenRouter BYOK設定画面 + 5プロファイル追加
+</code></pre>
+<h3>変更統計</h3>
+<pre><code> src/nexuscore/llm/llm_profiles.py            | 36 +++++++++++
+ src/nexuscore/ui/settings_tab.py             | 69 +++++++++++++++++++++
+ src/nexuscore/utils/key_store.py             | 92 ++++++++++++++++++++++++++++
+ tests/llm/test_llm_profiles_comprehensive.py |  2 +-
+ tests/llm/test_openrouter_provider.py        | 32 ++++++++++
+ tests/utils/test_key_store.py                | 80 ++++++++++++++++++++++++
+ 6 files changed, 310 insertions(+), 1 deletion(-)
+</code></pre>
+<h3>設定画面のdiff（重要部分）</h3>
+<pre><code class="language-python">def _save_openrouter_key(api_key: str) -&gt; tuple[str, str]:
+    &quot;&quot;&quot;OpenRouterキーを暗号化保存 → (結果メッセージ, ステータス表示).&quot;&quot;&quot;
+    if not api_key or not api_key.strip():
+        return &quot;⚠️ APIキーを入力してください&quot;, _openrouter_byok_status()
+    try:
+        from nexuscore.utils.key_store import save_key
+        save_key(&quot;openrouter&quot;, api_key.strip())
+        return &quot;✅ OpenRouter APIキーを保存しました&quot;, _openrouter_byok_status()
+    except Exception as e:
+        return f&quot;❌ 保存エラー: {e}&quot;, _openrouter_byok_status()
+</code></pre>
+<h3>プロファイルのdiff（抜粋）</h3>
+<pre><code class="language-python"># --- OpenRouter BYOK profiles ---
+&quot;or_gpt_codex&quot;: LLMProfile(
+    name=&quot;or_gpt_codex&quot;,
+    provider=&quot;openrouter&quot;,
+    model=&quot;openai/gpt-4.1&quot;,
+    description=&quot;GPT-4.1 via OpenRouter — code generation&quot;,
+    default_temperature=0.2,
+),
+&quot;or_sonnet&quot;: LLMProfile(
+    name=&quot;or_sonnet&quot;,
+    provider=&quot;openrouter&quot;,
+    model=&quot;anthropic/claude-sonnet-4-6&quot;,
+    description=&quot;Claude Sonnet via OpenRouter — reviews &amp; architecture&quot;,
+    default_temperature=0.15,
+),
+</code></pre>
+<h3>自分で考えてみよう</h3>
+<ul>
+<li><strong>このコミットは全体で何を追加した？</strong>（6ファイルの役割を整理してみよう）</li>
+<li><strong>データの流れ</strong>: ユーザーが画面でキーを入力してから、暗号化されて保存されるまでの流れを追ってみよう</li>
+</ul>
+<hr />
+<h3>解説</h3>
+<p><strong>6ファイルの役割分担</strong>:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>ファイル</th>
+<th>役割</th>
+<th>レイヤー</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>llm_profiles.py</code></td>
+<td>どのAIモデルを使えるかの定義</td>
+<td>設定（Config）</td>
+</tr>
+<tr>
+<td><code>settings_tab.py</code></td>
+<td>設定画面のUIとロジック</td>
+<td>画面（UI）</td>
+</tr>
+<tr>
+<td><code>key_store.py</code></td>
+<td>APIキーの暗号化保存・読込</td>
+<td>データ（Data）</td>
+</tr>
+<tr>
+<td><code>test_llm_profiles_*.py</code></td>
+<td>プロファイル定義が正しいか確認</td>
+<td>テスト</td>
+</tr>
+<tr>
+<td><code>test_openrouter_provider.py</code></td>
+<td>OpenRouter連携が動くか確認</td>
+<td>テスト</td>
+</tr>
+<tr>
+<td><code>test_key_store.py</code></td>
+<td>キーの保存・読込が正しいか確認</td>
+<td>テスト</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>データの流れ</strong>:</p>
+<pre><code>① ユーザーが画面にAPIキーを入力
+        ↓
+② settings_tab.py の _save_openrouter_key() が呼ばれる
+        ↓
+③ 入力チェック（空文字じゃないか？）
+        ↓
+④ key_store.py の save_key() が呼ばれる
+        ↓
+⑤ crypto_utils の encrypt_string() で暗号化
+        ↓
+⑥ ~/.nexuscore/byok/keys.json に保存
+</code></pre>
+<p>この「画面 → ロジック → データ保存」の流れは、<strong>どんなWebアプリでも同じパターン</strong>です。これが読めれば、他のプロジェクトのコードも追えるようになります。</p>
+<h3>用語メモ</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>用語</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tuple[str, str]</code></td>
+<td>2つの文字列をまとめて返す型（例: 結果メッセージとステータス）</td>
+</tr>
+<tr>
+<td><code>LLMProfile</code></td>
+<td>AIモデルの設定をまとめたデータ型</td>
+</tr>
+<tr>
+<td><code>provider</code></td>
+<td>AIサービスの提供元（OpenAI, Anthropic, Google等）</td>
+</tr>
+<tr>
+<td><code>temperature</code></td>
+<td>AIの出力の「ランダムさ」。0に近いほど決定的、高いほど多様</td>
+</tr>
+<tr>
+<td>BYOK</td>
+<td>Bring Your Own Key — ユーザーが自分のAPIキーを持ち込む仕組み</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>問4: Web画面の追加（HTML読解）</h2>
+<h3>コミットメッセージ</h3>
+<pre><code>feat: OpenRouterキー登録UI追加（/settings/）
+</code></pre>
+<h3>テンプレートHTMLのdiff（抜粋）</h3>
+<pre><code class="language-html">&lt;p&gt;
+  現在の状態:
+  {% if key_configured %}
+    &lt;span class=&quot;status-configured&quot;&gt;✅ 登録済み&lt;/span&gt;
+  {% else %}
+    &lt;span class=&quot;status-not-configured&quot;&gt;未登録&lt;/span&gt;
+  {% endif %}
+&lt;/p&gt;
+
+&lt;form method=&quot;post&quot; action=&quot;/settings/openrouter-key&quot;&gt;
+  &lt;div class=&quot;form-row&quot;&gt;
+    &lt;input type=&quot;password&quot; name=&quot;api_key&quot; placeholder=&quot;sk-or-xxxx&quot; required /&gt;
+</code></pre>
+<h3>Flask Blueprintの登録</h3>
+<pre><code class="language-diff">-    from nexuscore.webapp import views_dashboard, views_logs, views_projects
++    from nexuscore.webapp import views_dashboard, views_logs, views_projects, views_settings
+
+     app.register_blueprint(views_settings.bp)
+</code></pre>
+<h3>自分で考えてみよう</h3>
+<ul>
+<li><strong><code>{% if key_configured %}</code></strong> は何をしている？（ヒント: <code>if</code> という言葉に注目）</li>
+<li><strong><code>type=&quot;password&quot;</code></strong> はなぜ <code>type=&quot;text&quot;</code> ではないのか？</li>
+</ul>
+<hr />
+<h3>解説</h3>
+<p><strong><code>{% if key_configured %}</code></strong>: Jinja2テンプレートの「条件分岐」です。</p>
+<pre><code>key_configured が True  → 「✅ 登録済み」を表示
+key_configured が False → 「未登録」を表示
+</code></pre>
+<p>これはWeb画面でよく使われるパターン「<strong>状態に応じて表示を変える</strong>」です。</p>
+<p><strong><code>type=&quot;password&quot;</code></strong>: 入力欄に入力した文字が <strong>●●●●</strong> で隠されます。APIキーは秘密情報なので、画面にそのまま表示してはいけません。<code>type=&quot;text&quot;</code> だと入力したキーが丸見えになります。</p>
+<p><strong><code>register_blueprint</code></strong>: Flask（PythonのWeb framework）で「このURLパターンはこのファイルが担当する」と登録する仕組みです。<code>/settings/</code> にアクセスが来たら <code>views_settings.py</code> が処理します。</p>
+<hr />
+<h2>問5: ドキュメント追加（全体像の理解）</h2>
+<h3>コミットメッセージ</h3>
+<pre><code>docs: OpenRouter BYOK セットアップガイドと.env.template追記
+</code></pre>
+<h3>変更内容</h3>
+<pre><code> .env.template                       |  3 ++
+ docs/setup/openrouter_byok_setup.md | 93 +++++++++++++++++++++++++++++
+ 2 files changed, 96 insertions(+), 1 deletion(-)
+</code></pre>
+<h3>.env.templateのdiff</h3>
+<pre><code class="language-diff">+# OpenRouter BYOK: python -c &quot;from nexuscore.utils.crypto_utils import generate_encryption_key; print(generate_encryption_key())&quot;
++NEXUS_ENCRYPTION_KEY=
++OPENROUTER_API_KEY=
+</code></pre>
+<h3>自分で考えてみよう</h3>
+<ul>
+<li>このコミットは<strong>コードを変更していない</strong>。では何を変更したのか？</li>
+<li>なぜ <code>.env.template</code> に <code>=</code> の右側が空の状態で追加したのか？（実際の値はどこに書く？）</li>
+</ul>
+<hr />
+<h3>解説</h3>
+<p><strong>コードではなく「設定ファイルのひな形」と「説明書」を追加したコミット</strong>です。</p>
+<p><code>.env.template</code> は「必要な環境変数の一覧」です。<code>=</code> の右側が空なのは、<strong>実際の値は各ユーザーが自分で設定する</strong>からです。これは「秘密情報をGitにコミットしない」というセキュリティルールの実践です。</p>
+<pre><code>.env.template → 「NEXUS_ENCRYPTION_KEY= が必要ですよ」という案内
+.secrets.env  → 実際の値（NEXUS_ENCRYPTION_KEY=abc123...）。Gitには含めない
+</code></pre>
+<p><strong>5つのコミットの全体像</strong>:</p>
+<pre><code>問5 ドキュメント追加（説明書を書いた）
+  ↓
+問4 Web画面追加（設定ページを作った）
+  ↓
+問3 新機能追加（画面・プロファイル・テストを一気に追加）
+  ↓
+問2 セキュリティ方針変更（平文保存を廃止）
+  ↓
+問1 ログの修正（エラー詳細をログに残さない）
+</code></pre>
+<p><strong>→ この5つを上から下に読むと、「OpenRouter BYOK機能を追加して、セキュリティを固めた」1つのストーリーが見えます。</strong></p>
+<hr />
+<h2>振り返り</h2>
+<h3>読めるようになったこと</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>問</th>
+<th>読んだ内容</th>
+<th>身につく力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>問1</td>
+<td>1行の変更</td>
+<td>ログに何を書いていいか/悪いかの判断</td>
+</tr>
+<tr>
+<td>問2</td>
+<td>セキュリティ方針の変更</td>
+<td>fail-closed vs fail-open の理解</td>
+</tr>
+<tr>
+<td>問3</td>
+<td>6ファイル・310行の追加</td>
+<td>画面→ロジック→データの流れ</td>
+</tr>
+<tr>
+<td>問4</td>
+<td>HTMLテンプレート</td>
+<td>画面のコードの基本パターン</td>
+</tr>
+<tr>
+<td>問5</td>
+<td>ドキュメント追加</td>
+<td>コミットの全体像（ストーリー）</td>
+</tr>
+</tbody>
+</table></div>
+<h3>次のステップ</h3>
+<ol>
+<li><strong>自分の他のリポジトリ</strong>（atelier-kyo-manager等）でも同じ練習をする</li>
+<li><strong>エラーメッセージを読む練習</strong> — <code>pytest</code> の失敗出力を読んでみる</li>
+<li><strong>PRのdiffを読む練習</strong> — <code>git diff main..feature-branch</code> を読んでみる</li>
+</ol>
+
+        </article>
+
+        <nav class="chapter-nav-bottom">
+            
+            <a href="08-code-reading.html" class="nav-card prev">
+                <span class="nav-label">← 前の章</span>
+                <span class="nav-title">📖 コードを読む力</span>
+            </a>
+            
+            
+        </nav>
+    </main>
+
+    <script src="../assets/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default',
+            themeVariables: { fontSize: '14px' }
+        });
+    </script>
+</body>
+</html>
