@@ -24,6 +24,7 @@ CHAPTER_MAP = {
     "05_数字で語る.md": {"slug": "05-numbers", "title": "数字で語る", "icon": "📊", "desc": "定量指標の正しい伝え方"},
     "06_想定質問.md": {"slug": "06-qa", "title": "想定質問", "icon": "💬", "desc": "面接で聞かれやすいQ&A"},
     "07_なぜAI駆動開発なのか.md": {"slug": "07-why-ai-driven", "title": "なぜAI駆動開発なのか", "icon": "🧠", "desc": "選択としてのAI駆動開発——理由と根拠"},
+    "08_コードを読む力.md": {"slug": "08-code-reading", "title": "コードを読む力", "icon": "📖", "desc": "2026年に人間に残された必須スキル"},
 }
 
 
