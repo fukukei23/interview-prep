@@ -23,6 +23,7 @@ CHAPTER_MAP = {
     "04_OpenClaw.md": {"slug": "04-openclaw", "title": "OpenClaw", "icon": "🦉", "desc": "AIエージェント24h運用インフラ"},
     "05_数字で語る.md": {"slug": "05-numbers", "title": "数字で語る", "icon": "📊", "desc": "定量指標の正しい伝え方"},
     "06_想定質問.md": {"slug": "06-qa", "title": "想定質問", "icon": "💬", "desc": "面接で聞かれやすいQ&A"},
+    "07_なぜAI駆動開発なのか.md": {"slug": "07-why-ai-driven", "title": "なぜAI駆動開発なのか", "icon": "🧠", "desc": "選択としてのAI駆動開発——理由と根拠"},
 }
 
 

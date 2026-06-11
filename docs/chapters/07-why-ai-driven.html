@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>なぜAI駆動開発なのか — 面接対策ガイド</title>
+    <meta name="description" content="面接対策 なぜAI駆動開発なのかの解説 — プロジェクト詳細・技術判断・想定質問">
+    <meta property="og:title" content="なぜAI駆動開発なのか — 面接対策ガイド">
+    <meta property="og:description" content="面接対策 なぜAI駆動開発なのかの解説">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://fukukei23.github.io/interview-prep/chapters/07-why-ai-driven.html">
+    <meta property="og:image" content="https://fukukei23.github.io/interview-prep/assets/ogp.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
+</head>
+<body>
+    <header class="site-header">
+        <button class="menu-toggle" aria-label="メニュー" id="menuToggle">
+            <span></span><span></span><span></span>
+        </button>
+        <a href="../index.html" class="site-title">💼 面接対策ガイド</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="テーマ切替">
+            <span class="icon-light">☀️</span>
+            <span class="icon-dark">🌙</span>
+        </button>
+    </header>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="../index.html">🏠 ホーム</a>
+        </div>
+        
+        <a href="00-overview.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📋</span>
+            プロジェクト一覧
+        </a>
+        
+        <a href="01-nexuscore.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🤖</span>
+            NexusCore
+        </a>
+        
+        <a href="02-atelier.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🛒</span>
+            atelier-kyo-manager
+        </a>
+        
+        <a href="03-reserve.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📅</span>
+            reserve-optimizer
+        </a>
+        
+        <a href="04-openclaw.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🦉</span>
+            OpenClaw
+        </a>
+        
+        <a href="05-numbers.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📊</span>
+            数字で語る
+        </a>
+        
+        <a href="06-qa.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">💬</span>
+            想定質問
+        </a>
+        
+        <a href="07-why-ai-driven.html"
+           class="sidebar-link active">
+            <span class="sidebar-icon">🧠</span>
+            なぜAI駆動開発なのか
+        </a>
+        
+    </nav>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="content">
+        <div class="chapter-nav-top">
+            
+            <a href="06-qa.html" class="nav-prev">← 想定質問</a>
+            
+            
+        </div>
+
+        <article class="chapter-body">
+            <h1>なぜ「AI駆動開発」なのか</h1>
+<div class="callout callout-info"><p>「コードが書けないから」ではなく「AIに書かせる方が合理的だから」——この選択の理由を整理する章。</p></div>
+<hr />
+<h2>1. 2026年の開発現場の現実</h2>
+<p>2026年現在、<strong>世界のトップエンジニアが手書きでコードを書かなくなっている</strong>のは事実です。</p>
+<h3>Anthropicのエンジニアが語る現場の実態</h3>
+<p>2026年1月、Anthropicのエンジニア <strong>Boris Cherny</strong> がX（旧Twitter）でこう発言しました：</p>
+<div class="callout callout-info"><p>「Anthropic全体で、AIが実質 <strong>100% のコードを書いている</strong>」</p>
+<p>— Boris Cherny (@bcherny), 2026年1月27日</p></div>
+<p>Anthropicの<strong>公式見解</strong>はもう少し慎重で：</p>
+<div class="callout callout-info"><p>「社内のコードの <strong>70〜90% がAI生成</strong>。Claude Code自体も約 <strong>90%</strong> がAIによって生成されている」</p>
+<p>— Anthropic 公式発表, 2026年1月</p></div>
+<h3>OpenAI側も同じ</h3>
+<div class="callout callout-info"><p>「100%。もうコードは書かない」</p>
+<p>— roon (@tszzl, OpenAI), 2026年1月25日</p></div>
+<h3>CEOの予測</h3>
+<p>Anthropic CEOの <strong>Dario Amodei</strong> は2026年1月のダボス会議（World Economic Forum）で：</p>
+<div class="callout callout-info"><p>「AIがほぼ全てのソフトウェアエンジニアリングを開始から完了まで遂行するまで、<strong>6〜12ヶ月</strong>の距離にある」</p></div>
+<hr />
+<h2>2. これは「個人の意見」ではない</h2>
+<p>重要なのは、これが私の願望でも勘でもないことです。<strong>業界の構造変化</strong>です。</p>
+<pre><code>2024年: AIはコード補完ツール（Copilot等）
+2025年: AIがコード全体を生成（Vibe Coding）
+2026年: AIが自律的に開発を実行（Agentic Engineering）
+</code></pre>
+<p><strong>Andrej Karpathy</strong>（OpenAI共同創業者）は、2025年に「Vibe Coding」という概念を提唱し、2026年にはさらに一歩進んだ <strong>「Agentic Engineering」</strong> という概念を発表しました。</p>
+<ul>
+<li><strong>Vibe Coding</strong>: 人間がAIにプロンプトで指示してコードを書かせる</li>
+<li><strong>Agentic Engineering</strong>: AIエージェントが自律的にコードを書く。人間の役割は「何を作るか」の設計と品質判定</li>
+</ul>
+<div class="callout callout-info"><p>「Agentic Engineeringと呼ぶのは、エージェントがコードを書くからだけではない。<strong>そこには技術と専門性が必要だからだ</strong>」</p>
+<p>— Andrej Karpathy, 2026年2月</p></div>
+<hr />
+<h2>3. 「コードを書けない」ではなく「書かない」</h2>
+<p>私は「コードが書けないからAIを使っている」のではありません。</p>
+<p><strong>AIが人間より速く・正確に・安く書けるから、AIに書かせている</strong>のです。</p>
+<p>これは建築に例えると分かりやすい：</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>役割</th>
+<th>建築</th>
+<th>AI駆動開発</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>設計図を描く</td>
+<td>建築家</td>
+<td>私（要件定義・仕様設計）</td>
+</tr>
+<tr>
+<td>壁を建てる</td>
+<td>大工</td>
+<td>AI（コード生成）</td>
+</tr>
+<tr>
+<td>検査する</td>
+<td>建築監督</td>
+<td>私（品質判定・テスト確認）</td>
+</tr>
+<tr>
+<td>建物の責任</td>
+<td>建築家</td>
+<td>私</td>
+</tr>
+</tbody>
+</table></div>
+<p>大工が電動工具を使うからといって「手で壁を建てられない人だ」とは言いませんよね。電動工具の方が速いから使っているだけです。AIも同じです。</p>
+<hr />
+<h2>4. 学ぶべきは「AIの使い方」</h2>
+<p>2026年になって「ゼロからプログラミングを学ぶべきか？」と聞かれたら、私はこう答えます：</p>
+<div class="callout callout-info"><p><strong>「AIをどう使いこなすか」を学ぶべきです。</strong></p></div>
+<h3>理由は3つ</h3>
+<p><strong>① 速度の差が埋まらない</strong></p>
+<p>手書きで1機能を1週間かけて実装している間に、AI駆動なら1日で10機能を実装できます。この差は個人の努力で埋まるものではありません。</p>
+<p><strong>② 業界がそちらに向かっている</strong></p>
+<p>Anthropic自身が「ジェネラリスト（ゼネラリスト）を採用する」と方針転換しています。手書きコードの専門家より、AIを使いこなすゼネラリストを求めている。</p>
+<p><strong>③ 価値は「何を作るか」にある</strong></p>
+<p>コードは手段です。解決すべき課題を見つけ、要件を定義し、品質を判定する能力——これが2026年の開発現場で求められるスキルです。</p>
+<hr />
+<h2>5. 私の1年間が証明していること</h2>
+<p>「AIに書かせるだけで本当にプロダクトが作れるのか？」——この疑問に対する答えが、私の1年間の実績です。</p>
+<h3>数字で見る</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>指標</th>
+<th>数値</th>
+<th>何を意味するか</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>月間コミット</td>
+<td>3,037件</td>
+<td>手書きでは不可能な開発速度</td>
+</tr>
+<tr>
+<td>テストケース</td>
+<td>8,000+件</td>
+<td>品質判定を徹底している証拠</td>
+</tr>
+<tr>
+<td>本番運用</td>
+<td>3ヶ月連続</td>
+<td>「動いた」で終わらず「動き続けている」</td>
+</tr>
+<tr>
+<td>受託納品</td>
+<td>ココナラ案件完了</td>
+<td>実際の顧客がお金を払って満足した</td>
+</tr>
+<tr>
+<td>技術記事</td>
+<td>20本公開</td>
+<td>理解度を外部に示せる</td>
+</tr>
+</tbody>
+</table></div>
+<h3>「手書き派」との比較で考える</h3>
+<p>仮に私が1年かけてPythonをゼロから学んだとします。1年後の到達点は？</p>
+<ul>
+<li>おそらく「中級者レベル」のコードが手書きで書ける</li>
+<li>でも1つのプロジェクトを完成させるのがやっと</li>
+<li>テスト？書かない。本番運用？しない</li>
+</ul>
+<p><strong>現実の私の1年後：</strong></p>
+<ul>
+<li>20以上のプロジェクトを完成させ本番運用中</li>
+<li>8,000テストで品質担保</li>
+<li>実際の顧客に納品</li>
+<li>技術記事20本で知識を還元</li>
+</ul>
+<p><strong>どちらが「エンジニアとして価値があるか」</strong>——答えは明らかです。</p>
+<hr />
+<h2>6. 面接で聞かれたら</h2>
+<h3>Q: 「コードは自分で書けるのですか？」</h3>
+<div class="callout callout-info"><p>開発手法はAI駆動一択です。実装はAI（Claude Code）が担当し、私は要件定義・品質判定・運用設計を指揮しています。</p>
+<p>これは選択です。2026年現在、Anthropic社内でもコードの70〜90%がAI生成です。私と同じスタイルで開発しているプロがいる現実があります。</p>
+<p>私の1年間の実績——8,000テスト、3ヶ月の本番運用、顧客への納品——が、この手法でプロダクトを作れることを証明しています。</p></div>
+<h3>Q: 「なぜプログラミングを学ばなかったのですか？」</h3>
+<div class="callout callout-info"><p>学ぶ時間を「AIの使い方を極めること」に投資しました。</p>
+<p>仮に1年かけてPythonを学んだとして、到達点は「手書きでコードが書ける」です。でも私はその1年で「AIを使って20以上のプロジェクトを作る」ことを選びました。</p>
+<p>2026年の時点で、どちらが合理的かは数字が語っています。</p></div>
+<h2>7. まとめ</h2>
+<pre><code>┌─────────────────────────────────────────────┐
+│                                             │
+│   2026年の開発現場                           │
+│                                             │
+│   Anthropic: コードの70〜90%がAI生成         │
+│   OpenAI:   「もうコードは書かない」          │
+│   Karpathy: 「Agentic Engineeringの時代」     │
+│                                             │
+│   → 手書きコードは選択肢の一つに過ぎない       │
+│   → 求められるのは「AIを使いこなす力」         │
+│   → 私はそれを1年間、実践し続けている         │
+│                                             │
+└─────────────────────────────────────────────┘
+</code></pre>
+<p><strong>「コードが書けない」は過去の評価基準です。</strong></p>
+<p><strong>「AIで何を作れるか」が2026年の評価基準です。</strong></p>
+<p>私は後者で勝負しています。</p>
+
+        </article>
+
+        <nav class="chapter-nav-bottom">
+            
+            <a href="06-qa.html" class="nav-card prev">
+                <span class="nav-label">← 前の章</span>
+                <span class="nav-title">💬 想定質問</span>
+            </a>
+            
+            
+        </nav>
+    </main>
+
+    <script src="../assets/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default',
+            themeVariables: { fontSize: '14px' }
+        });
+    </script>
+</body>
+</html>
