@@ -26,6 +26,7 @@ CHAPTER_MAP = {
     "07_なぜAI駆動開発なのか.md": {"slug": "07-why-ai-driven", "title": "なぜAI駆動開発なのか", "icon": "🧠", "desc": "選択としてのAI駆動開発——理由と根拠"},
     "08_コードを読む力.md": {"slug": "08-code-reading", "title": "コードを読む力", "icon": "📖", "desc": "2026年に人間に残された必須スキル"},
     "09_実践コード読解.md": {"slug": "09-practice-reading", "title": "実践コード読解", "icon": "🔍", "desc": "NexusCoreのリアルコミットを読む練習5問"},
+    "10_自己紹介.md": {"slug": "10-self-introduction", "title": "自己紹介", "icon": "🎤", "desc": "面接冒頭「自己紹介お願いします」用スクリプト（30秒/1分/2分）"},
 }
 
 
