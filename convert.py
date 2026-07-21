@@ -29,6 +29,8 @@ CHAPTER_MAP = {
     "10_自己紹介.md": {"slug": "10-self-introduction", "title": "自己紹介", "icon": "🎤", "desc": "面接冒頭「自己紹介お願いします」用スクリプト（30秒/1分/2分）"},
     "11_ワークフロー自動化.md": {"slug": "11-workflow-automation", "title": "ワークフロー自動化", "icon": "⚙️", "desc": "Zennパイプライン・RPA・OAuth1.0a署名の自前構築事例"},
     "12_ADiXi技術用語解説.md": {"slug": "12-adixi-glossary", "title": "ADiXi技術用語解説", "icon": "🔬", "desc": "CEOスカウトメールの専門用語（AX/RAG/MLOps等）を読み解く"},
+    "13_自己紹介_ADiXi特化版.md": {"slug": "13-self-introduction-adixi", "title": "自己紹介（ADiXi特化版）", "icon": "🎯", "desc": "ビジョン共感を軸にした語り方"},
+    "14_自己紹介_特性重視版.md": {"slug": "14-self-introduction-personality", "title": "自己紹介（特性重視版）", "icon": "🌱", "desc": "数字でなく人柄・継続力・探求心で語る版"},
 }
 
 
