@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ワークフロー自動化 — 面接対策ガイド</title>
+    <meta name="description" content="面接対策 ワークフロー自動化の解説 — プロジェクト詳細・技術判断・想定質問">
+    <meta property="og:title" content="ワークフロー自動化 — 面接対策ガイド">
+    <meta property="og:description" content="面接対策 ワークフロー自動化の解説">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://fukukei23.github.io/interview-prep/chapters/11-workflow-automation.html">
+    <meta property="og:image" content="https://fukukei23.github.io/interview-prep/assets/ogp.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
+</head>
+<body>
+    <header class="site-header">
+        <button class="menu-toggle" aria-label="メニュー" id="menuToggle">
+            <span></span><span></span><span></span>
+        </button>
+        <a href="../index.html" class="site-title">💼 面接対策ガイド</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="テーマ切替">
+            <span class="icon-light">☀️</span>
+            <span class="icon-dark">🌙</span>
+        </button>
+    </header>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="../index.html">🏠 ホーム</a>
+        </div>
+        
+        <a href="00-overview.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📋</span>
+            プロジェクト一覧
+        </a>
+        
+        <a href="01-nexuscore.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🤖</span>
+            NexusCore
+        </a>
+        
+        <a href="02-atelier.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🛒</span>
+            atelier-kyo-manager
+        </a>
+        
+        <a href="03-reserve.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📅</span>
+            reserve-optimizer
+        </a>
+        
+        <a href="04-openclaw.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🦉</span>
+            OpenClaw
+        </a>
+        
+        <a href="05-numbers.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📊</span>
+            数字で語る
+        </a>
+        
+        <a href="06-qa.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">💬</span>
+            想定質問
+        </a>
+        
+        <a href="07-why-ai-driven.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🧠</span>
+            なぜAI駆動開発なのか
+        </a>
+        
+        <a href="08-code-reading.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📖</span>
+            コードを読む力
+        </a>
+        
+        <a href="09-practice-reading.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🔍</span>
+            実践コード読解
+        </a>
+        
+        <a href="10-self-introduction.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🎤</span>
+            自己紹介
+        </a>
+        
+        <a href="11-workflow-automation.html"
+           class="sidebar-link active">
+            <span class="sidebar-icon">⚙️</span>
+            ワークフロー自動化
+        </a>
+        
+    </nav>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="content">
+        <div class="chapter-nav-top">
+            
+            <a href="10-self-introduction.html" class="nav-prev">← 自己紹介</a>
+            
+            
+        </div>
+
+        <article class="chapter-body">
+            <h1>ワークフロー自動化パイプライン</h1>
+<div class="callout callout-info"><p>自前で構築した、ジョブ連携・スケジュール実行・承認フロー・状態管理の実装集。GitHub Actions・Python・OAuth1.0a・Selenium/Playwright を組み合わせ、ノーコードの連携ツールに依存しない再現可能なパイプラインとして設計・運用している。</p></div>
+<hr />
+<h2>概要</h2>
+<p><strong>「A が起きたら B を動かす」型のワークフロー</strong>を、コードベースで構築・運用している代表例。ジョブ連携・スケジュール実行・承認フロー・状態管理といった統合機能群を、自前の API + コードで設計・実装している。</p>
+<ul>
+<li><strong>公開リポジトリ</strong>（参照可）: Zenn 記事パイプライン・LINE 予約システム・本ガイド</li>
+<li><strong>非公開リポジトリ</strong>（設計思想は本ガイド参照）: X 自動投稿・BUYMA 転売管理</li>
+<li><strong>受託・納品済</strong>: SHOWROOM 楽曲報告 RPA</li>
+</ul>
+<hr />
+<h2>代表事例 1: Zenn 記事 自動投稿パイプライン（公開・稼働中）</h2>
+<p><code>zenn</code> リポジトリで完全公開。GitHub Actions 連鎖による「毎日6時のトピック発掘 → Issue 承認 → Zenn 公開 → SNS 連携」の流れを、コードベースの workflow で回している。</p>
+<h3>パイプライン構成（2 系統）</h3>
+<pre><code>[毎朝 6:00 JST] discover.yml
+   └ 過去コミット解析 → 記事候補生成 → Issue 起票（要承認）
+
+[Issue コメント &quot;/approve&quot;] publish.yml
+   └ 本文整形 → Zenn API 投稿 → 120秒待機 → SNS 連携 → Issue クローズ
+</code></pre>
+<h3>設計の要点</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>観点</th>
+<th>設計</th>
+<th>効果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>人間承認ゲート</td>
+<td>GitHub Issue の <code>/approve</code> コメントで公開可否判定</td>
+<td>自動実行と品質管理の両立</td>
+</tr>
+<tr>
+<td>リポジトリでの workflow 公開</td>
+<td><code>.github/workflows/discover.yml</code> <code>publish.yml</code> を公開</td>
+<td>第三者による検証・再現が可能</td>
+</tr>
+<tr>
+<td>JST タイムゾーン固定</td>
+<td>環境変数 <code>TZ: Asia/Tokyo</code> で CI 内 UTC と分離</td>
+<td>実行時刻の意図ズレ防止</td>
+</tr>
+<tr>
+<td>段階的リトライ</td>
+<td>失敗時の Issue コメント通知 + 手動再承認</td>
+<td>無音失敗を排除</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>代表事例 2: デスクトップ RPA — SHOWROOM 楽曲報告自動入力</h2>
+<p><strong>ココナラ受注 → 2025 年 12 月納品完了</strong>の実績。Selenium / Playwright ベースの RPA。Excel から楽曲コードを読み取り、JASRAC / NexTone 入力欄を自動判別して入力、ポップアップ広告や通信エラー時は画面リセット &amp; 再入力で自己修復する。</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>観点</th>
+<th>実装</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>自律復帰ロジック</td>
+<td>ポップアップ広告・通信エラーを自動検知し、画面リセット → 再入力で自己修復</td>
+</tr>
+<tr>
+<td>自動判別</td>
+<td>楽曲コード頭文字から JASRAC / NexTone 欄を振り分け</td>
+</tr>
+<tr>
+<td>フェイルセーフ</td>
+<td>空行自動削除・50 件上限到達で自動停止</td>
+</tr>
+<tr>
+<td>提供形態</td>
+<td>Python 環境がないクライアント向けに <strong>exe ファイル</strong>化（ダブルクリック即実行）</td>
+</tr>
+<tr>
+<td>開発期間</td>
+<td>実質 4 日間・バグ報告から 2.5 時間で修正納品</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>代表事例 3: X 自動投稿（非公開リポジトリ・設計思想のみ公開）</h2>
+<p>OAuth1.0a 署名を自前実装した、ジョブ連携 + 状態管理 + ガードロジックの統合システム。</p>
+<h3>構成要素</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>構成</th>
+<th>役割</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>post_tweet.py</code></td>
+<td>投稿 CLI（72h 重複 / レートガード / dry-run / UA 独自 / <code>--confirm</code> 付き）</td>
+</tr>
+<tr>
+<td><code>lib/oauth1_signer.py</code></td>
+<td>OAuth1.0a 署名（外部ライブラリ非依存）</td>
+</tr>
+<tr>
+<td><code>lib/safety.py</code></td>
+<td>重複チェック・レートガード・<strong>bigram Jaccard 類似 0.7 ガード</strong></td>
+</tr>
+<tr>
+<td><code>lib/content.py</code></td>
+<td>記事選択（LRU + 3日 cooldown）+ テンプレ適用 + 語彙注入</td>
+</tr>
+<tr>
+<td><code>scheduled_tweet.py</code></td>
+<td>定期実行入口（dry-run / <code>--post</code>）</td>
+</tr>
+<tr>
+<td><code>scripts/jitter_schedule.py</code></td>
+<td>重み付きジッター時刻生成</td>
+</tr>
+<tr>
+<td><code>data/posted_log.jsonl</code></td>
+<td>投稿履歴（gitignore）</td>
+</tr>
+<tr>
+<td>Windows Task Scheduler</td>
+<td>ジッター時刻での定期実行</td>
+</tr>
+</tbody>
+</table></div>
+<h3>設計の要点</h3>
+<ul>
+<li><strong>重複投稿ガード</strong>: 72 時間以内の同一本文ブロック + bigram 類似度 0.7 超えで投稿拒否</li>
+<li><strong>OAuth1.0a 自前署名</strong>: ライブラリ任せにせず署名仕様を理解して実装</li>
+<li><strong>ジッター時刻</strong>: 固定時刻での投稿を避け、時間帯に自然なばらつきを与える</li>
+<li><strong>Discord 承認フロー</strong>: 投稿前に Discord へ承認依頼を送り、人の確認を経て投稿する半自動経路も併設</li>
+</ul>
+<hr />
+<h2>採用している技術スタック</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>カテゴリ</th>
+<th>技術</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ジョブスケジューラ</td>
+<td>GitHub Actions（毎日 6:00 / Issue トリガー）/ Windows Task Scheduler</td>
+</tr>
+<tr>
+<td>言語</td>
+<td>Python 3.12</td>
+</tr>
+<tr>
+<td>API 認証</td>
+<td>OAuth1.0a（自前署名）/ Personal Access Token</td>
+</tr>
+<tr>
+<td>ブラウザ自動化</td>
+<td>Selenium / Playwright</td>
+</tr>
+<tr>
+<td>RPA パッケージング</td>
+<td>PyInstaller（exe 化）</td>
+</tr>
+<tr>
+<td>状態管理</td>
+<td>JSON / JSONL（git 管理 or gitignore 区別）</td>
+</tr>
+<tr>
+<td>承認 UI</td>
+<td>GitHub Issue コメント / Discord メッセージ</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>この設計方針を選んだ理由（中立版）</h2>
+<p>「コードベースで組む」選択には <strong>技術選定の合理性</strong>がある。</p>
+<ol>
+<li><strong>精密な制御ロジック</strong>: 類似度計算やクールダウン等の数値閾値ベースの判定は、視覚的な GUI ブロックよりもコードの方が正確に表現できる</li>
+<li><strong>再現性・テスト可能性</strong>: Git 管理されるため変更履歴・CI による回帰テストが回る</li>
+<li><strong>長期運用コスト</strong>: 毎日動くジョブは公開リポジトリの GitHub Actions で実質無料で運用可能</li>
+</ol>
+<hr />
+
+        </article>
+
+        <nav class="chapter-nav-bottom">
+            
+            <a href="10-self-introduction.html" class="nav-card prev">
+                <span class="nav-label">← 前の章</span>
+                <span class="nav-title">🎤 自己紹介</span>
+            </a>
+            
+            
+        </nav>
+    </main>
+
+    <script src="../assets/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default',
+            themeVariables: { fontSize: '14px' }
+        });
+    </script>
+</body>
+</html>
