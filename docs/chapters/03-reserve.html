@@ -189,6 +189,48 @@
 <li>Stripe API / Google Spreadsheets</li>
 <li>代替プロバイダー M2.7（AIチャット）</li>
 </ul>
+<hr />
+<h2>用語の平易な解説（専門用語を読み解く）</h2>
+<h3>☁️ サーバーレス・EC2</h3>
+<p><strong>一言で</strong>: 「サーバーを常に立てず、必要な時だけ動かす仕組み」と「常に動くサーバー」。</p>
+<ul>
+<li><strong>サーバーレス</strong>: 「サーバーがない」のではなく「サーバーの管理が不要」な仕組み。アクセスが来た時だけ処理が動き、使わない時は課金されない</li>
+<li><strong>EC2（イーシーツー）</strong>: Amazon AWSが提供する「常に動く仮想サーバー」。使っていなくも時間課金される</li>
+<li>本章では「1日のアクセスが数十件なので、常に立てるEC2よりサーバーレスがお得」と判断</li>
+</ul>
+<h3>🔔 Webhook（ウェブフック）</h3>
+<p><strong>一言で</strong>: 「イベントが起きた時に、別のサービスへ自動で連絡する仕組み」。</p>
+<ul>
+<li>ユーザーがLINEでメッセージを送った瞬間に、LINE側からこちらのシステムへ「メッセージ来ましたよ」と連絡が来る。この連絡の仕組みがWebhook</li>
+<li>電話でいう「呼び出しベル」のようなもの</li>
+</ul>
+<h3>⚡ Cloudflare Workers（クラウドフレアワーカーズ）・コールドスタート・waitUntil</h3>
+<p><strong>一言で</strong>: 「世界中に散らばるサーバーで高速に処理を動かす仕組み」と「初回起動のもたつき」。</p>
+<ul>
+<li><strong>Cloudflare Workers</strong>: 世界中のサーバー網（エッジ）でプログラムを動かす仕組み。非常に高速</li>
+<li><strong>コールドスタート</strong>: しばらく動いていなかったプログラムを再び動かす時の、初回のもたつき。GAS（Google Apps Script）はこれが遅い</li>
+<li><strong>waitUntil（ウェイトユンティル）</strong>: 「これが終わるまで待って」と処理を延命する仕組み。即座に応答を返しつつ、裏で別処理を回せる</li>
+</ul>
+<h3>🔐 HMAC-SHA256・署名検証（しょめいかんしょう）</h3>
+<p><strong>一言で</strong>: 「メッセージが本当に正規の送り主からかを確かめる仕組み」。</p>
+<ul>
+<li><strong>署名検証</strong>: 「この連絡、本当にLINEから来たもの？ 偽物じゃない？」を確かめること</li>
+<li><strong>HMAC-SHA256</strong>: 署名を作る・確認する際の計算方式の名前。改ざんを見抜くのに使う</li>
+</ul>
+<h3>📊 GAS（Google Apps Script）・Web App</h3>
+<p><strong>一言で</strong>: 「Googleのサービスを自動化するプログラム」と「Webから呼べる形にしたもの」。</p>
+<ul>
+<li><strong>GAS（Google Apps Script）</strong>: スプレッドシート等のGoogleサービスを操作できるプログラム環境</li>
+<li><strong>Web App</strong>: GASのプログラムを「Webから呼べるサービス」として公開したもの。Webhookの受け口になる</li>
+</ul>
+<h3>💳 Stripe Checkout（ストライプチェックアウト）・デポジット・PCI DSS</h3>
+<p><strong>一言で</strong>: 「安全な決済を簡単に組み込む仕組み」と「カード情報保護の国際基準」。</p>
+<ul>
+<li><strong>Stripe（ストライプ）</strong>: オンライン決済を代行するサービス。自社で決済システムを作らずに済む</li>
+<li><strong>Stripe Checkout</strong>: Stripeが用意した完成品の決済画面。カード入力欄等が最初から用意されている</li>
+<li><strong>デポジット（前払金）</strong>: 予約時に前払いで預かるお金。キャンセル防止の心理的ハードル</li>
+<li><strong>PCI DSS（ピーシーアイディーエスエス）</strong>: クレジットカード情報を安全に扱うための国際基準。自前でカード入力を受けると、この厳しい基準への対応が必要になる</li>
+</ul>
 
         </article>
 

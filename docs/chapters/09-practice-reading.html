@@ -544,6 +544,37 @@ key_configured が False → 「未登録」を表示
 <li><strong>エラーメッセージを読む練習</strong> — <code>pytest</code> の失敗出力を読んでみる</li>
 <li><strong>PRのdiffを読む練習</strong> — <code>git diff main..feature-branch</code> を読んでみる</li>
 </ol>
+<hr />
+<h2>用語の平易な解説（専門用語を読み解く）</h2>
+<h3>📝 コミットメッセージ・コミットハッシュ</h3>
+<p><strong>一言で</strong>: 「保存時に付ける説明文」と「各保存の固有ID」。</p>
+<ul>
+<li><strong>コミットメッセージ</strong>: コミット（保存）時に付ける「何を変更したか」の説明文。「修正: 予約の重複チェックを追加」等</li>
+<li><strong>コミットハッシュ</strong>: 各コミットに自動で割り振られる固有のID文字列（<code>a1b2c3d...</code>）。変更履歴を一意に特定する</li>
+<li>本章では「コミットメッセージを読めば、そのコミットが何をしたか分かる」ことが読解の第一歩</li>
+</ul>
+<h3>🔒 fail-closed（フェイルクローズド） vs fail-open（フェイルオープン）</h3>
+<p><strong>一言で</strong>: 「エラー起きた時、安全側に倒すか、便利側に倒すか」の設計方針。</p>
+<ul>
+<li><strong>fail-closed（閉じて失敗）</strong>: 何か問題が起きた時、<strong>安全のため拒否する</strong>方針。例: 認証で不具合が出たら「ログイン不可」にする</li>
+<li><strong>fail-open（開いて失敗）</strong>: 何か問題が起きた時、<strong>利便性のため通す</strong>方針。例: 認証で不具合が出ても「ログインOK」にする</li>
+<li>セキュリティ系では基本<strong>fail-closed</strong>（怪しい時は弾く）が正解。本章問2でこの判断を読み解く</li>
+</ul>
+<h3>🖼️ HTMLテンプレート（Jinja2等）</h3>
+<p><strong>一言で</strong>: 「画面の雛形（ひながた）に、データを流し込んで表示する仕組み」。</p>
+<ul>
+<li><strong>テンプレート</strong>: 穴あきの雛形。「〇〇様、ご予約日時は△△です」の〇〇△△を後から埋める形式</li>
+<li><strong>Jinja2（ジンジャツー）</strong>: Python（Flask等）でよく使われるテンプレート道具</li>
+<li>本章問4で「画面のコードの基本パターン」としてこれを読み解く</li>
+</ul>
+<h3>🌿 git diff（ジット ディフ）・main ブランチ・feature ブランチ</h3>
+<p><strong>一言で</strong>: 「変更差分を見るコマンド」と「本線・試作線の枝分かれ」。</p>
+<ul>
+<li><strong>git diff</strong>: 変更前後の差分を見るコマンド（第8章「diff」参照）</li>
+<li><strong>ブランチ（枝）</strong>: コードの歴史を枝分かれさせる仕組み。複数人が同時に別の変更を進められる</li>
+<li><strong>main ブランチ</strong>: 本線。完成品が載るメインの履歴</li>
+<li><strong>feature ブランチ</strong>: 機能追加用の試作枝。「main..feature-branch」＝「本線と試作枝の差分を見る」という意味</li>
+</ul>
 
         </article>
 
