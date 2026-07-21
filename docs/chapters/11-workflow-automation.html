@@ -254,6 +254,81 @@
 <li><strong>Discord 承認フロー</strong>: 投稿前に Discord へ承認依頼を送り、人の確認を経て投稿する半自動経路も併設</li>
 </ul>
 <hr />
+<h2>なぜ自前構築を選んだか（ノーコード代替との比較）</h2>
+<p>ワークフロー自動化には、<strong>ノーコードでGUIベースで組む選択肢</strong>（Zapier / Make / n8n / UiPath / WinActor / Dify 等）も存在する。これらを比較した上で<strong>自前コードベースでの構築を選んだ</strong>のは、<strong>技術的に高度だから——というよりもむしろ、要件をコードレベルできめ細かく制御できるから</strong>、が主たる理由。</p>
+<h3>ノーコードツールに対する優位性</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>観点</th>
+<th>ノーコードツール（代表例）</th>
+<th>自前コードベース（本ガイド事例）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>類似度判定</strong></td>
+<td>基本的な重複チェックは可能</td>
+<td><strong>bigram Jaccard 0.7</strong>・LRU・72時間窓を<strong>コードで正確に</strong>定義</td>
+</tr>
+<tr>
+<td><strong>OAuth 署名</strong></td>
+<td>ベンダー提供の認証ブロックを使用</td>
+<td><strong>OAuth1.0a 署名を自前実装</strong>（外部ライブラリ非依存・署名仕様を理解した実装）</td>
+</tr>
+<tr>
+<td><strong>ジョブの分岐・合成</strong></td>
+<td>GUI で if/then を線で繋ぐ</td>
+<td><strong>Python で任意のロジック</strong>（例外処理・リトライ・バックオフを正確に記述）</td>
+</tr>
+<tr>
+<td><strong>テスト・回帰検証</strong></td>
+<td>手動確認中心</td>
+<td><strong>pytest + CI</strong>で挙動を自動検証</td>
+</tr>
+<tr>
+<td><strong>バージョン管理</strong></td>
+<td>GUI 上のスナップショット</td>
+<td><strong>Git で全変更履歴</strong>・コミット単位でレビュー可能</td>
+</tr>
+<tr>
+<td><strong>実行基盤の透明性</strong></td>
+<td>ベンダー依存（仕様変更・値上げ・終了リスク）</td>
+<td><strong>GitHub Actions / Task Scheduler 等 OSS 中心</strong>・仕様が自分の手元</td>
+</tr>
+<tr>
+<td><strong>エラーハンドリング</strong></td>
+<td>ベンダー提供のエラー UI 任せ</td>
+<td><strong>リトライ戦略・通知・フォールバックをコードで明示定義</strong>（SHOWROOM RPA の自律復帰ロジック等）</td>
+</tr>
+<tr>
+<td><strong>状態の永続化</strong></td>
+<td>ベンダー DB 依存</td>
+<td><strong>JSON / JSONL を自前管理</strong>（gitignore と git 管理を使い分け）</td>
+</tr>
+<tr>
+<td><strong>ジョブ間データ受け渡し</strong></td>
+<td>ブロック接続で視覚的に</td>
+<td><strong>コードで任意のスキーマ変換</strong>・型チェック</td>
+</tr>
+</tbody>
+</table></div>
+<h3>選択はあくまで要件次第</h3>
+<p><strong>ノーコードツールが不適切なケース</strong>:</p>
+<ul>
+<li>類似度計算・OAuth 署名・数値閾値の細かいガードが必要なケース</li>
+<li>コードでテストしたい・CI で回帰検証したいケース</li>
+<li>Git で変更履歴を管理したいケース</li>
+<li>長期運用で外部仕様変更リスクを抑えたいケース</li>
+</ul>
+<p><strong>ノーコードツールが適切なケース</strong>（本ガイドで扱わない領域）:</p>
+<ul>
+<li>非エンジニアがGUIで設定変更したい場合</li>
+<li>短期間・小規模な単発連携</li>
+<li>監視・アラート基盤までSaaSに丸投げしたい場合</li>
+</ul>
+<p>つまり「<strong>コードで書けるから</strong>コードを選んだ」のではなく、「<strong>要件がきめ細かい制御を求めていたので、コードが最適だった</strong>」ということ。技術的に高度かどうかよりも、<strong>要件との適合性</strong>が選択の基準。</p>
+<hr />
 <h2>採用している技術スタック</h2>
 <div class="table-wrapper"><table>
 <thead>
