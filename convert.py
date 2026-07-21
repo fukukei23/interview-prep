@@ -28,6 +28,7 @@ CHAPTER_MAP = {
     "09_実践コード読解.md": {"slug": "09-practice-reading", "title": "実践コード読解", "icon": "🔍", "desc": "NexusCoreのリアルコミットを読む練習5問"},
     "10_自己紹介.md": {"slug": "10-self-introduction", "title": "自己紹介", "icon": "🎤", "desc": "面接冒頭「自己紹介お願いします」用スクリプト（30秒/1分/2分）"},
     "11_ワークフロー自動化.md": {"slug": "11-workflow-automation", "title": "ワークフロー自動化", "icon": "⚙️", "desc": "Zennパイプライン・RPA・OAuth1.0a署名の自前構築事例"},
+    "12_ADiXi技術用語解説.md": {"slug": "12-adixi-glossary", "title": "ADiXi技術用語解説", "icon": "🔬", "desc": "CEOスカウトメールの専門用語（AX/RAG/MLOps等）を読み解く"},
 }
 
 

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADiXi技術用語解説 — 面接対策ガイド</title>
+    <meta name="description" content="面接対策 ADiXi技術用語解説の解説 — プロジェクト詳細・技術判断・想定質問">
+    <meta property="og:title" content="ADiXi技術用語解説 — 面接対策ガイド">
+    <meta property="og:description" content="面接対策 ADiXi技術用語解説の解説">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://fukukei23.github.io/interview-prep/chapters/12-adixi-glossary.html">
+    <meta property="og:image" content="https://fukukei23.github.io/interview-prep/assets/ogp.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
+</head>
+<body>
+    <header class="site-header">
+        <button class="menu-toggle" aria-label="メニュー" id="menuToggle">
+            <span></span><span></span><span></span>
+        </button>
+        <a href="../index.html" class="site-title">💼 面接対策ガイド</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="テーマ切替">
+            <span class="icon-light">☀️</span>
+            <span class="icon-dark">🌙</span>
+        </button>
+    </header>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="../index.html">🏠 ホーム</a>
+        </div>
+        
+        <a href="00-overview.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📋</span>
+            プロジェクト一覧
+        </a>
+        
+        <a href="01-nexuscore.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🤖</span>
+            NexusCore
+        </a>
+        
+        <a href="02-atelier.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🛒</span>
+            atelier-kyo-manager
+        </a>
+        
+        <a href="03-reserve.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📅</span>
+            reserve-optimizer
+        </a>
+        
+        <a href="04-openclaw.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🦉</span>
+            OpenClaw
+        </a>
+        
+        <a href="05-numbers.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📊</span>
+            数字で語る
+        </a>
+        
+        <a href="06-qa.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">💬</span>
+            想定質問
+        </a>
+        
+        <a href="07-why-ai-driven.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🧠</span>
+            なぜAI駆動開発なのか
+        </a>
+        
+        <a href="08-code-reading.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">📖</span>
+            コードを読む力
+        </a>
+        
+        <a href="09-practice-reading.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🔍</span>
+            実践コード読解
+        </a>
+        
+        <a href="10-self-introduction.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">🎤</span>
+            自己紹介
+        </a>
+        
+        <a href="11-workflow-automation.html"
+           class="sidebar-link">
+            <span class="sidebar-icon">⚙️</span>
+            ワークフロー自動化
+        </a>
+        
+        <a href="12-adixi-glossary.html"
+           class="sidebar-link active">
+            <span class="sidebar-icon">🔬</span>
+            ADiXi技術用語解説
+        </a>
+        
+    </nav>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="content">
+        <div class="chapter-nav-top">
+            
+            <a href="11-workflow-automation.html" class="nav-prev">← ワークフロー自動化</a>
+            
+            
+        </div>
+
+        <article class="chapter-body">
+            <h1>ADiXi技術用語解説 — CEOスカウトの専門用語を読み解く</h1>
+<div class="callout callout-info"><p>アディクシィ株式会社（ADiXi）代表・金沢氏からの直接スカウトメールに登場する専門用語を解説。技術リーダーが同席する可能性がある面談に備え、意味を正確に押さえておく。</p></div>
+<hr />
+<h2>この面談の背景</h2>
+<ul>
+<li>同社にはすでに<strong>本選考</strong>（2026-07-17最終面談、宮本氏対応）が別ルートで進行中・結果待ち</li>
+<li>今回はCEO直スカウトで、ポジションは「AIエンジニアリングリード〜AIフェロー〜AIスペシャリスト」のオープンポジション</li>
+<li>当日は「現場のAIリーダー」が同席し、よりハイレベルな技術スタック・ビジョンの話になる可能性がある</li>
+</ul>
+<div class="callout callout-info"><p>深掘りされて困るのは「昔（2025年5〜10月頃）作ったNexusCoreの初期設計判断の詳細」。SSOT（判断記録システム）の運用開始は2026年4月以降のため、それ以前の判断理由は記録が残っていない。無理に思い出そうとせず、「初期は勢いで作り、その後SSOTで全判断を記録する運用に切り替えた」という成長ストーリーとして正直に語るのが得策（<a href="06-qa">06_想定質問</a>のQ3・Q6と合わせて準備）。</p></div>
+<hr />
+<h2>用語解説（スカウト文面に登場した順）</h2>
+<h3>🔄 AX（エーエックス）/ AIトランスフォーメーション</h3>
+<p><strong>一言で</strong>: 「AIで会社の業務のやり方そのものを作り変えること」。DX（デジタルトランスフォーメーション）のAI版。</p>
+<ul>
+<li>DXが「紙をデジタルにする」程度の改善だとすると、AXは「AIが業務プロセスの意思決定や実行そのものを担う」レベルの変革を指す言葉</li>
+<li>スカウト文中「顧客のビジネス構造そのものを変革する」＝単なるツール導入ではなく業務フロー自体をAI前提で作り直す、という主張</li>
+</ul>
+<h3>🧪 PoC（ピーオーシー／概念実証）</h3>
+<p><strong>一言で</strong>: 「本当にうまくいくか、小さく試してみる段階」。</p>
+<ul>
+<li>Proof of Conceptの略。「このAIモデルはビジネスで使えそうか」を小規模に検証するだけで終わり、本番導入（社会実装）に至らないケースを指して「PoC止まり」と揶揄されることが多い</li>
+<li>スカウト文の「PoCばかりで社会実装されない」は、業界でよくある課題への言及</li>
+</ul>
+<h3>📚 RAG（ラグ／検索拡張生成）</h3>
+<p><strong>一言で</strong>: 「AIが答える前に、社内資料などを検索して参照する仕組み」。</p>
+<ul>
+<li>Retrieval-Augmented Generationの略。LLM単体では知らない社内情報・最新情報を、検索して回答に組み込む技術</li>
+<li>「LLM、RAG、画像認識、予測モデルなどをエンタープライズのシステムに深く組み込み」＝これらをまとめて企業の基幹システムに統合する、という意味</li>
+</ul>
+<h3>🎛️ LLMのファインチューニング</h3>
+<p><strong>一言で</strong>: 「汎用AIモデルに追加学習させて、特定の業務専用に調整すること」。</p>
+<ul>
+<li>既存の大規模言語モデル（ChatGPT・Claude等の土台となる技術）に、自社データで追加学習を行い、専門領域に特化させる作業</li>
+<li>「独自LLMのファインチューニング」＝汎用モデルをベースに自社専用モデルを作る業務</li>
+</ul>
+<h3>⚙️ MLOps（エムエルオプス）/ LLMOps（エルエルエムオプス）</h3>
+<p><strong>一言で</strong>: 「AIモデルを作って終わりでなく、本番で安定運用し続けるための仕組み作り」。</p>
+<ul>
+<li>MLOps = Machine Learning + Operations。モデルの学習・評価・デプロイ・監視・再学習を仕組み化する運用体制</li>
+<li>LLMOpsはその大規模言語モデル版。プロンプト管理・応答品質の監視・コスト管理などを含む</li>
+<li>「スケーラブルなMLOps/LLMOpsの構築」＝利用が増えても壊れず・コストが破綻しない運用基盤を作ること</li>
+</ul>
+<h3>🤖 AI-DD（エーアイディーディー）/ AI駆動開発</h3>
+<p><strong>一言で</strong>: 「AIツール（Claude Code等）を使って開発すること自体をAIに任せる開発スタイル」。</p>
+<ul>
+<li>スカウト文中の「CursorやClaude Codeなどの生成AIツールを標準導入」がまさにAI-DDの実践例</li>
+<li>自分自身がNexusCore等で実践してきた開発スタイルそのものであり、この点は共感を示しやすい話題</li>
+</ul>
+<h3>🧬 ボイラープレート</h3>
+<p><strong>一言で</strong>: 「毎回同じように書く定型コード」。</p>
+<ul>
+<li>設定ファイルの雛形やCRUD処理など、プロジェクトごとに大きく変わらない繰り返しコードのこと</li>
+<li>「ボイラープレートの生成やテストコード作成を自動化」＝AIにこの定型作業を任せ、人間は設計に集中する、という話</li>
+</ul>
+<h3>🏛️ アーキテクチャ設計 / モデルのチューニング</h3>
+<ul>
+<li><strong>アーキテクチャ設計</strong>: システムの全体構造（骨組み）を決める作業（<a href="06-qa">06_想定質問</a>参照）</li>
+<li><strong>モデルのチューニング</strong>: AIモデルの精度・応答速度・コストのバランスを細かく調整する作業。ファインチューニングより広い意味で「設定・パラメータ調整」全般を指すこともある</li>
+</ul>
+<h3>🔬 AIラボ / AIフェロー / AIスペシャリスト</h3>
+<p><strong>一言で</strong>: 社内の役割呼称。「研究開発拠点」「技術戦略トップ」「特定分野の専門職」。</p>
+<ul>
+<li><strong>AIラボ</strong>: 最新のAI技術を研究・実験し、社内に還元する社内組織（研究開発部門に相当）</li>
+<li><strong>AIフェロー</strong>: 特定の技術者に与えられる、現場マネジメントから離れて技術戦略・R&amp;Dを牽引する上位ポジション（役職というより称号に近い）</li>
+<li><strong>AIスペシャリスト</strong>: 特定の技術領域（RAG設計・MLOps等）を極める専門職ポジション</li>
+<li>いずれも社名独自の呼称であり、標準的な業界用語ではない点に注意（面談で「御社ではどう定義していますか」と質問して良い）</li>
+</ul>
+<h3>🔎 R&amp;D（アールアンドディー）</h3>
+<p><strong>一言で</strong>: 「研究開発」。Research and Developmentの略。すぐに製品化しない、次世代技術の検証・調査活動全般を指す。</p>
+<h3>🥊 壁打ち（かべうち）</h3>
+<p><strong>一言で</strong>: 「一人で考え込まず、相手に話しながら考えを整理すること」。</p>
+<ul>
+<li>壁にボールを打ち返してもらう練習に由来する比喩表現。技術的な悩みや設計案を同僚に話し、フィードバックをもらいながら思考を深める行為</li>
+<li>「知見を持つメンバー同士でハイレベルな壁打ちを行いながら」＝レベルの高い相互レビュー・議論ができる環境、という意味</li>
+</ul>
+<h3>📈 市場価値（しじょうかち）</h3>
+<p><strong>一言で</strong>: 「今の自分のスキル・経験が、転職市場でどれくらいの評価・年収に値するか」という指標。</p>
+<hr />
+<h2>面談での使い方（想定トークポイント）</h2>
+<ol>
+<li><strong>AXという言葉には「PoCで終わらせず実運用に載せる」という強い主張がある</strong> → 自分の開発スタイル（NexusCore・OpenClawの24h本番運用実績）と重ねて「作って終わりでなく運用まで見る」姿勢をアピールできる</li>
+<li><strong>RAG・MLOps/LLMOpsは実務経験が浅い場合、正直に「概念は理解しているが本格的な実装経験はこれから」と伝える</strong> → 隠して深掘りされるより、キャッチアップ意欲を見せる方が良い（<a href="07-why-ai-driven">07_なぜAI駆動開発なのか</a>の姿勢と一貫させる）</li>
+<li><strong>「AIフェロー」等の肩書は社内独自定義</strong> → 意味を決めつけず「具体的にどんな評価基準・裁量を伴うポジションか」を質問して良い</li>
+<li><strong>NexusCoreの初期設計判断を問われたら</strong> → 「2025年当時は記録の運用前で、正直細部の理由は薄れている。そこに気づいて2026年4月以降は全判断をSSOTに記録する体制に切り替えた」と成長ストーリーで返す</li>
+</ol>
+
+        </article>
+
+        <nav class="chapter-nav-bottom">
+            
+            <a href="11-workflow-automation.html" class="nav-card prev">
+                <span class="nav-label">← 前の章</span>
+                <span class="nav-title">⚙️ ワークフロー自動化</span>
+            </a>
+            
+            
+        </nav>
+    </main>
+
+    <script src="../assets/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default',
+            themeVariables: { fontSize: '14px' }
+        });
+    </script>
+</body>
+</html>
