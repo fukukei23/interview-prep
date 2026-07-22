@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>コードを読む力 — 面接対策ガイド</title>
-    <meta name="description" content="面接対策 コードを読む力の解説 — プロジェクト詳細・技術判断・想定質問">
-    <meta property="og:title" content="コードを読む力 — 面接対策ガイド">
-    <meta property="og:description" content="面接対策 コードを読む力の解説">
+    <title>コードを理解する力 — 面接対策ガイド</title>
+    <meta name="description" content="面接対策 コードを理解する力の解説 — プロジェクト詳細・技術判断・想定質問">
+    <meta property="og:title" content="コードを理解する力 — 面接対策ガイド">
+    <meta property="og:description" content="面接対策 コードを理解する力の解説">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://fukukei23.github.io/interview-prep/chapters/08-code-reading.html">
     <meta property="og:image" content="https://fukukei23.github.io/interview-prep/assets/ogp.png">
@@ -82,7 +82,7 @@
         <a href="08-code-reading.html"
            class="sidebar-link active">
             <span class="sidebar-icon">📖</span>
-            コードを読む力
+            コードを理解する力
         </a>
         
         <a href="09-practice-reading.html"
@@ -135,8 +135,10 @@
         </div>
 
         <article class="chapter-body">
-            <h1>コードを読む力 —— 2026年に人間に残された必須スキル</h1>
-<div class="callout callout-info"><p>「書く」はAIに任せていい。でも「読む」は人間の責任。——その理由と、最低限の習得方法。</p></div>
+            <h1>コードを理解する力 —— AI時代の品質担保プロセス</h1>
+<div class="callout callout-info"><p>「書く」はAIに任せていい。でも「<strong>理解して品質を担保する</strong>」は人間の責任。
+コード行を自分で追わなくても、AIに説明させて設計意図と品質を把握すれば、
+最終責任は人間が持てる。——その根拠と具体的なやり方。</p></div>
 <hr />
 <h2>1. Anthropicの研究が証明した事実</h2>
 <p>2026年1月、Anthropicが<strong>52人のジュニアエンジニア</strong>で実験を行いました。</p>
@@ -170,14 +172,16 @@
 <div class="callout callout-danger"><p>「AIによる生産性向上は、<strong>能力への近道ではない</strong>」</p>
 <p>「特に安全上重要な領域では、AI生成コードを検証するスキルが求められる。しかしAIへの依存がそのスキル形成を阻害する可能性がある」</p></div>
 <p><strong>出典</strong>: Anthropic Research, &quot;How AI assistance impacts the formation of coding skills&quot; (2026年1月)</p>
+<h3>この研究が示す本当のメッセージ</h3>
+<p>注目すべきは「AIに<strong>説明を求めた人</strong>がスコア65〜86%に達している」点です。つまり、コードを自分で一行ずつ追わなくても、<strong>AIに「これは何をしている？」「なぜこの実装？」と説明させることで、手書きの人（67%）と同等以上の理解度に達する</strong>。これが本章の核心です。</p>
 <hr />
-<h2>2. 「書けない」と「読めない」は別物</h2>
+<h2>2. 「書けない」と「理解しない」は別物</h2>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
 <th></th>
 <th>書く（Writing）</th>
-<th>読む（Reading）</th>
+<th>理解して品質を担保する（Understanding）</th>
 </tr>
 </thead>
 <tbody>
@@ -187,27 +191,27 @@
 <td>❌ 任せきれない</td>
 </tr>
 <tr>
-<td>習得難易度</td>
-<td>高い（月〜年）</td>
-<td><strong>低い（週〜月）</strong></td>
+<td>コード行を自分で追う必要？</td>
+<td>—</td>
+<td><strong>必ずしも不要</strong>（AIに説明させればよい）</td>
 </tr>
 <tr>
-<td>必要量</td>
-<td>ゼロでOK</td>
-<td><strong>最低限は必須</strong></td>
+<td>必要なのは</td>
+<td>（AIがやる）</td>
+<td><strong>AIに的確に問い、回答を品質判定する力</strong></td>
 </tr>
 <tr>
 <td>比喩</td>
-<td>大工が壁を建てる技術</td>
-<td><strong>建築家が図面を読む技術</strong></td>
+<td>大工が壁を建てる</td>
+<td>建築家が図面の意図を確かめ、検査する</td>
 </tr>
 </tbody>
 </table></div>
-<p>「コードが書けない」は選択です。AIが人間より速いから任せる。——これは2026年の合理判断です。</p>
-<p>「コードが読めない」は<strong>弱点</strong>です。図面が読めない建築家と同じ。</p>
+<p>「コードの記述をAIに任せる」のは2026年の合理判断です。しかし「<strong>作ったものが正しいかを理解しないまま放置する</strong>」のは弱点です。図面の意図を確かめず検査印を押す建築家と同じ。</p>
+<p>重要なのは、コード行を自分で読むことではなく、<strong>AIに説明させて「何をしているか・なぜそうしたか・品質は十分か」を把握し、最終的に自分で品質判定を下すこと</strong>です。</p>
 <hr />
-<h2>3. 「読めない」が致命的な3つの理由</h2>
-<h3>① チーム開発では「読む」ことが仕事の半分</h3>
+<h2>3. 「理解しない（AI丸投げ）」が致命的な3つの理由</h2>
+<h3>① チーム開発では「理解して説明する」ことが仕事の半分</h3>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
@@ -222,7 +226,7 @@
 </tr>
 <tr>
 <td>インシデント対応</td>
-<td>エラーログ・スタックトレースを読む</td>
+<td>エラーの原因をAIに解かせ、結果を判断する</td>
 </tr>
 <tr>
 <td>設計議論</td>
@@ -230,86 +234,90 @@
 </tr>
 <tr>
 <td>ペアプロ・モブプロ</td>
-<td>画面上のコードをリアルタイムで追う</td>
+<td>その場でAIに説明させ、それを相手に翻訳する</td>
 </tr>
 </tbody>
 </table></div>
-<p>会議中に「ちょっとAIに聞いてきます」とは言えません。</p>
-<h3>② 「品質判定」が売りなのに、読めないと判定できない</h3>
+<p>会議中に「ちょっとAIに聞いてきます」と言って終わるわけにはいきません。しかし「AIに説明させて、その内容を自分の言葉で伝える」ことは、AI丸投げの人にはできず、説明を求めた人（理解度65〜86%）にはできることです。</p>
+<h3>② 「品質判定」が売りなのに、理解しないと判定できない</h3>
 <p>私のスタンスは「要件定義・品質判定・運用設計を指揮する」です。</p>
-<p>でも<strong>品質判定の対象がコード</strong>です。コードが読めない状態で品質判定をするのは、図面が読めない建築家が検査印章を押すのと同じ。</p>
+<p>品質判定の対象はコードの挙動ですが、それは「コード行を自力で読む」ことと同義ではありません。<strong>AIにコードを説明させ、テスト結果と動作確認で裏付け、設計意図と照合して判定する</strong>——このプロセスが私の品質担保の方法です。理解（＝AIに説明させて把握すること）を抜きに品質判定はできません。</p>
 <h3>③ AIが書いたコードの「最終責任」は人間</h3>
 <p>Anthropicの研究が指摘：</p>
 <div class="callout callout-danger"><p>「AI生成コードをデプロイ前に<strong>理解し検証する能力</strong>。このスキルは、AIがコードを書く時代にこそ最も重要になる」</p></div>
 <hr />
-<h2>4. 必要な「最低限の読む力」</h2>
+<h2>4. AIに説明させて理解する3レベル</h2>
 <p>完全なプログラマーになる必要はありません。以下の3レベルができれば<strong>実務で困らない</strong>ラインです。</p>
-<h3>Level 1: エラーメッセージが読める（最重要・1〜2週間）</h3>
+<h3>Level 1: エラーの原因をAIに解読させる（最重要・1〜2週間）</h3>
 <pre><code class="language-python">Traceback (most recent call last):
   File &quot;app.py&quot;, line 42, in process_order
     total = price * quantity
 TypeError: unsupported operand type(s) for *: 'str' and 'int'
 </code></pre>
-<p><strong>読み方</strong>:</p>
+<p><strong>AIへの問い方</strong>:</p>
 <ul>
-<li><code>File &quot;app.py&quot;, line 42</code> → どこで起きたか</li>
-<li><code>TypeError</code> → エラーの種類（型が違う）</li>
-<li><code>unsupported operand type(s)</code> → 掛け算できない組み合わせ</li>
-<li><code>'str' and 'int'</code> → 文字列と数値</li>
+<li>「このエラーの原因は？ 修正方法は？」</li>
 </ul>
-<p><strong>→ 「42行目で、文字列と数値を掛け算しようとしてエラー」</strong></p>
-<p>これが読めれば、バグ報告の精度が劇的に上がります。</p>
-<h3>Level 2: PRのdiffが読める（2〜4週間）</h3>
+<p><strong>AIの答えを品質判定する</strong>:</p>
+<ul>
+<li>「42行目で文字列と数値を掛け算しようとしている」→ 納得できるか？</li>
+<li>「<code>quantity</code> が文字列として渡っていた。入力時の型変換漏れが原因」→ 再現するか？</li>
+</ul>
+<p><strong>→ AIに解かせた原因が正しいかを、実際の入力値で確認できれば、バグ報告の精度が劇的に上がります。</strong></p>
+<h3>Level 2: 変更内容（diff）をAIに説明させる（2〜4週間）</h3>
 <pre><code class="language-diff">- def calculate_total(price):
 + def calculate_total(price, tax_rate=0.1):
 +     return price * (1 + tax_rate)
 -     return price
 </code></pre>
-<p><strong>読み方</strong>:</p>
+<p><strong>AIへの問い方</strong>:</p>
 <ul>
-<li><code>-</code>（赤）は消えた行、<code>+</code>（緑）は追加された行</li>
-<li>関数に<code>tax_rate</code>引数が追加された</li>
-<li>デフォルト値は0.1（10%）</li>
-<li>戻り値が「価格×（1+税率）」に変わった</li>
+<li>「この変更は何を意図している？」「副作用はない？」「テストは足りる？」</li>
 </ul>
-<p><strong>→ 「消費税率の引数が追加されて、合計に税が含まれるようになった」</strong></p>
-<p>これが読めれば、コードレビューに参加できます。</p>
-<h3>Level 3: 全体の流れが追える（1〜2ヶ月）</h3>
-<pre><code class="language-python">@app.route(&quot;/api/orders&quot;, methods=[&quot;POST&quot;])   # ① URLとHTTPメソッドの定義
+<p><strong>AIの答えを品質判定する</strong>:</p>
+<ul>
+<li>「消費税率の引数が追加され、合計に税が含まれるようになった」</li>
+<li>「既存の呼び出し元で税なしを期待している場合、影響が出る可能性」</li>
+</ul>
+<p><strong>→ AIに説明させた変更意図と影響範囲を判断できれば、コードレビューに参加できます。</strong></p>
+<h3>Level 3: 全体の流れをAIに解説させる（1〜2ヶ月）</h3>
+<pre><code class="language-python">@app.route(&quot;/api/orders&quot;, methods=[&quot;POST&quot;])
 def create_order():
-    data = request.json                        # ② 入力を受け取る
-    order = Order(**data)                      # ③ DB用オブジェクトに変換
-    db.session.add(order)                      # ④ DBに保存
-    db.session.commit()                        # ⑤ 保存を確定
-    return jsonify(order.to_dict()), 201       # ⑥ レスポンス返す
+    data = request.json
+    order = Order(**data)
+    db.session.add(order)
+    db.session.commit()
+    return jsonify(order.to_dict()), 201
 </code></pre>
-<p><strong>→ 「APIがリクエストを受け取ってDBに保存して返す流れ」</strong></p>
-<p>これが読めれば、設計議論に参加できます。</p>
+<p><strong>AIへの問い方</strong>:</p>
+<ul>
+<li>「この一連の処理の流れを説明して」「セキュリティ上の懸念は？」</li>
+</ul>
+<p><strong>→ AIに解説させた全体像を把握し、設計上の判断（ここは認証が必要等）ができれば、設計議論に参加できます。</strong></p>
 <h3>必要ないもの</h3>
 <ul>
-<li>アルゴリズムの理解</li>
-<li>データ構造の暗記</li>
-<li>複雑な構文の記述</li>
+<li>アルゴリズムの暗記</li>
+<li>データ構造の実装</li>
+<li>複雑な構文をゼロから書くこと</li>
 <li>ホワイトボードコーディング</li>
-<li>ゼロからのコード作成</li>
 </ul>
 <hr />
-<h2>5. 正しい学習方法（Anthropic推奨パターン）</h2>
-<p>Anthropicの研究が示した<strong>スコア65〜86%のパターン</strong>をそのまま適用します。</p>
+<h2>5. 正しい使い方（Anthropic推奨パターン）</h2>
+<p>Anthropicの研究が示した<strong>スコア65〜86%のパターン</strong>をそのまま実践します。</p>
 <h3>❌ やらないこと（スコア24〜39%）</h3>
 <ul>
 <li>AIに「このコードを書いて」とだけ頼む</li>
-<li>エラーが出たらAIに丸投げして直してもらう</li>
+<li>エラーが出たらAIに丸投げして直してもらい、理由を聞かない</li>
 <li>コードをコピペして終わり</li>
 </ul>
 <h3>✅ やること（スコア65〜86%）</h3>
 <ul>
 <li>「このコードが<strong>何をしているか</strong>説明して」</li>
 <li>「このエラーの<strong>原因</strong>は何？」</li>
-<li>「この変更の<strong>意図</strong>は何？」</li>
-<li>「なぜこの実装になっているの？」</li>
+<li>「この変更の<strong>意図と影響</strong>は何？」</li>
+<li>「なぜこの実装になっているの？ もっと良い方法は？」</li>
 </ul>
-<p><strong>AIに「説明させる」ことで、自分の理解が深まる。</strong> これがAnthropic推奨の正しい使い方です。</p>
+<p><strong>AIに「説明させる」ことで、自分の理解が深まる。</strong> これがAnthropic推奨の正しい使い方であり、コード行を直接読まない私が品質を担保する核心の方法です。</p>
 <h3>1日15分の練習メニュー</h3>
 <div class="table-wrapper"><table>
 <thead>
@@ -322,51 +330,53 @@ def create_order():
 <tbody>
 <tr>
 <td>月</td>
-<td>自分のリポジトリのPR diffを1つ読む</td>
-<td>変更の読解</td>
+<td>自分のリポジトリのPR diffをAIに説明させる</td>
+<td>変更内容の把握</td>
 </tr>
 <tr>
 <td>火</td>
-<td>pytestの失敗出力を1つ読む</td>
-<td>エラー読解</td>
+<td>pytestの失敗出力をAIに解読させる</td>
+<td>エラー原因の把握</td>
 </tr>
 <tr>
 <td>水</td>
-<td>自分のプロジェクトの1ファイルの流れを追う</td>
+<td>自分のプロジェクトの1ファイルの流れをAIに解説させる</td>
 <td>全体把握</td>
 </tr>
 <tr>
 <td>木</td>
-<td>エラーメッセージを5個読んで原因を当てる</td>
+<td>エラーメッセージを5個AIに読ませて原因を当てさせる</td>
 <td>トレース力</td>
 </tr>
 <tr>
 <td>金</td>
-<td>新しいライブラリのサンプルコードを読む</td>
-<td>慣れる</td>
+<td>新しいライブラリのサンプルコードをAIに解説させる</td>
+<td>キャッチアップ</td>
 </tr>
 </tbody>
 </table></div>
 <hr />
 <h2>6. まとめ</h2>
-<pre><code>┌─────────────────────────────────────────────────────┐
-│                                                     │
-│   「書けない」→ 選択。AIに任せればいい。OK。         │
-│   「読めない」→ 弱点。2026年でも人間の責任。要改善。  │
-│                                                     │
-│   必要なのは「書く力」ではなく「読む力」              │
-│   習得期間は1〜2ヶ月（書くのの1/10以下）              │
-│   方法は「AIに説明させる」だけでOK                    │
-│                                                     │
-│   → 今日から自分のコードをAIに説明させながら          │
-│     読む習慣をつける                                  │
-│                                                     │
-└─────────────────────────────────────────────────────┘
+<pre><code>┌──────────────────────────────────────────────────────────┐
+│                                                          │
+│   「書けない」→ 選択。AIに任せればいい。OK。              │
+│   「理解しない」→ 弱点。AI時代でも人間の責任。要改善。     │
+│                                                          │
+│   コード行を自力で読まなくても                            │
+│   AIに説明させることで理解度65〜86%に届く（Anthropic）    │
+│                                                          │
+│   人間に残る核心は                                        │
+│   「AIに的確に問い、回答を品質判定する力」                │
+│                                                          │
+│   → 今日から自分のコードをAIに説明させながら              │
+│     理解と品質判定の精度を磨く                            │
+│                                                          │
+└──────────────────────────────────────────────────────────┘
 </code></pre>
 <h3>面接で聞かれたら</h3>
 <p><strong>Q: 「コードは読めるのですか？」</strong></p>
-<div class="callout callout-info"><p>実装はAIに任せていますが、コードの読解には力を入れています。PRレビューで変更内容を理解し、エラーメッセージから原因を特定し、全体のアーキテクチャの流れを追うことは日常的にやっています。</p>
-<p>Anthropicの2026年の研究で、AIに丸投げする人は理解度が24〜39%に落ちる一方、AIに「説明を求める」使い方をすれば65〜86%の理解度を維持できることが分かっています。私は後者の使い方を意識しています。</p></div>
+<div class="callout callout-info"><p>実装はAIに任せていますが、作ったものが正しいかを理解し、品質を担保するプロセスには全力を注いでいます。具体的には、AIにコードを説明させて設計意図と変更内容を把握し、8,000件以上のテストと動作確認で裏付けを取り、セキュリティ要件を満たすかを判定しています。</p>
+<p>Anthropicの2026年の研究で、AIに丸投げする人は理解度が24〜39%に落ちる一方、AIに「説明を求める」使い方をすれば65〜86%の理解度を維持できることが分かっています。私は後者の使い方で、コードの挙動を理解し、品質の最終責任を自分で持つことを徹底しています。</p></div>
 <hr />
 <h2>用語の平易な解説（専門用語を読み解く）</h2>
 <h3>🐛 Traceback（トレースバック）・スタックトレース</h3>
@@ -388,26 +398,26 @@ def create_order():
 <ul>
 <li><strong>diff</strong>: 変更前と変更後を比べて「どこが変わったか」を表示したもの</li>
 <li>表示ルール: <code>-</code>（赤）＝消えた行、<code>+</code>（緑）＝追加された行</li>
-<li>PRレビューの基本は、この diff を読んで「何をどう変えたか」を把握すること</li>
+<li>PRレビューの基本は、この diff をAIに説明させて「何をどう変えたか・影響は」を把握すること</li>
 </ul>
 <h3>👁️ PRレビュー・PR（プルリクエスト）</h3>
 <p><strong>一言で</strong>: 「提案されたコード変更を、他の人が確認する作業」。</p>
 <ul>
 <li><strong>PR（Pull Request・プルリクエスト）</strong>: 「この変更を本体に取り込んでください」という提案。「マージ（統合）の依頼」</li>
-<li><strong>PRレビュー</strong>: 提案された変更を、バグがないか・読みやすいか等の観点で確認すること。本章では「レビューに参加するには diff が読めが必要」</li>
+<li><strong>PRレビュー</strong>: 提案された変更を、バグがないか・読みやすいか等の観点で確認すること</li>
 </ul>
 <h3>👥 ペアプロ・モブプロ</h3>
 <p><strong>一言で</strong>: 「2人〜複数人で1つのコードを見ながら進める開発スタイル」。</p>
 <ul>
 <li><strong>ペアプロ（ペアプログラミング）</strong>: 2人で1台のパソコンを囲んで作業する手法</li>
 <li><strong>モブプロ（モブプログラミング）</strong>: 3人以上で1台のパソコンを囲む手法</li>
-<li>いずれも「画面上のコードをリアルタイムで追う読む力」が必要</li>
+<li>いずれも「その場でAIに説明させ、内容を相手に翻訳する力」が必要</li>
 </ul>
 <h3>📋 ホワイトボードコーディング</h3>
 <p><strong>一言で</strong>: 「面接等で、ホワイトボードに手書きでコードを書かせる試験」。</p>
 <ul>
 <li>昔の技術面接でよく行われた「その場でコードを書いてください」という課題</li>
-<li>AI駆動開発の時代には不要になりつつある。本章でも「必要ないもの」に挙げている</li>
+<li>AI駆動開発の時代には不要になりつつある</li>
 </ul>
 
         </article>
