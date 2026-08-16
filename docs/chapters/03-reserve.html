@@ -142,8 +142,8 @@
 <p>整骨院の予約管理は電話・紙ベースが多く、スタッフの負担が大きいという課題がありました。LINE Botで24時間自動受付・Stripe決済・AIチャット対応を実現し、予約業務をゼロにするために開発しました。</p>
 <h2>アーキテクチャ</h2>
 <h3>レイヤー構成</h3>
-<pre><code>[LINEユーザー] ←→ [LINE Messaging <span class="term" tabindex="0">API<span class="term-popup">Application Programming Interface（エーピーアイ）の略。あるプログラムの機能を、別のプログラムから呼び出せるようにした「窓口」。予約システムがLINE社の機能とやり取りするのもAPI経由</span></span>]
-                      ↓ <span class="term" tabindex="0">Webhook<span class="term-popup">ウェブフック。「イベントが起きたら指定URLに自動で通知を送る」仕組み。GitHubで更新があればDiscordに通知が飛ぶ、等の連携に使う</span></span>
+<pre><code>[LINEユーザー] ←→ [LINE Messaging API]
+                      ↓ Webhook
                  [Cloudflare Worker] ← 署名検証 + 即座に200 OK返却
                       ↓ waitUntil で転送
                  [GAS Web App] ← 会話ステートマシン実行
@@ -153,7 +153,7 @@
                  [Stripe Checkout] ← デポジット決済（1,000円）
 </code></pre>
 <h3>設計上の判断と理由</h3>
-<p><strong>Q: なぜCloudflare Workerを挟んでいるのか？GASに直接Webhookしない理由</strong></p>
+<p><strong>Q: なぜCloudflare Workerを挟んでいるのか？GASに直接<span class="term" tabindex="0">Webhook<span class="term-popup">ウェブフック。「イベントが起きたら指定URLに自動で通知を送る」仕組み。GitHubで更新があればDiscordに通知が飛ぶ、等の連携に使う</span></span>しない理由</strong></p>
 <p>LINEのWebhookは<strong>5秒以内に200 OKを返さないとタイムアウト</strong>します。しかしGASの起動は遅く（<span class="term" tabindex="0">コールドスタート<span class="term-popup">しばらく使われていなかったプログラムを、次に利用が来た時にゼロから起動すること。この起動時間が長いと利用者が待たされる。Cloudflare Workersはこの起動が速いとされる</span></span>で3〜5秒）、処理も含めるとタイムアウトする可能性があります。そこで：</p>
 <ol>
 <li>Cloudflare Workerが即座に200 OKを返す（LINEタイムアウト回避）</li>
@@ -223,7 +223,7 @@
 <p>正直に3つあります。いずれもレビュー議事録に文書化済みで、改善案を把握しているものです。</p>
 <ol>
 <li>
-<p><strong>Workers → GAS 間の通信がGASの302リダイレクト仕様に依存している点</strong>。GASのWeb AppはPOSTを受けると302を返してPOSTをGETに変換する仕様で、それをWorkers側で吸収する工夫をしています。Google側の仕様変更の影響を受ける可能性があり、Apps Script API（実行可能API）化すれば依存を外せる認識で移行を検討中。※署名検証・認証・冪等性などセキュリティの核はWorkers内で別途堅牢に実装済みで、ここが壊れてもデータ漏洩・不正アクセスには直結せず、予約機能の停止（可用性問題）に留まります。</p>
+<p><strong>Workers → GAS 間の通信がGASの302リダイレクト仕様に依存している点</strong>。GASのWeb AppはPOSTを受けると302を返してPOSTをGETに変換する仕様で、それをWorkers側で吸収する工夫をしています。Google側の仕様変更の影響を受ける可能性があり、Apps Script <span class="term" tabindex="0">API<span class="term-popup">Application Programming Interface（エーピーアイ）の略。あるプログラムの機能を、別のプログラムから呼び出せるようにした「窓口」。予約システムがLINE社の機能とやり取りするのもAPI経由</span></span>（実行可能API）化すれば依存を外せる認識で移行を検討中。※署名検証・認証・冪等性などセキュリティの核はWorkers内で別途堅牢に実装済みで、ここが壊れてもデータ漏洩・不正アクセスには直結せず、予約機能の停止（可用性問題）に留まります。</p>
 </li>
 <li>
 <p><strong>顧客の個人情報（氏名・電話番号）がスプレッドシートに平文で保存されている点</strong>。現在はGoogleアカウントの権限管理で守っていますが、Phase 2のSupabase移行で暗号化と細かなアクセス権限（RBAC）を整える前提です。</p>

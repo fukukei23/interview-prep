@@ -148,13 +148,13 @@
     ↓ 要件仕様書
 Planner（実装計画）
     ↓ 実装プラン
-Architect（<span class="term" tabindex="0">アーキテクチャ設計<span class="term-popup">システム全体の骨組み（部品の分け方・データの流れ・技術の選定）を決める設計作業</span></span>）
+Architect（アーキテクチャ設計）
     ↓ 設計書
 Coder（コード生成）
     ↓ コード
 Tester（テスト自動生成）
     ↓ テスト結果
-Guardian（<span class="term" tabindex="0">品質ゲート<span class="term-popup">次の工程（例: 本番公開）に進んで良いかを判定する関門。テストが全部通っているか・コード検査で警告が出ていないか等を機械的にチェックし、不合格なら先に進めないようにする</span></span>判定）
+Guardian（品質ゲート判定）
     ↓ 合格/不合格
 </code></pre>
 <p><strong>② 品質保証・分析</strong></p>
@@ -208,7 +208,7 @@ Guardian（<span class="term" tabindex="0">品質ゲート<span class="term-popu
 <p>1つの巨大エージェントに全役割を担わせることも可能ですが、あえて分割した理由は：</p>
 <ul>
 <li><strong>責任の分離</strong>: 各エージェントが単一責任を持つことで、出力の品質が安定する</li>
-<li><strong>品質ゲートの客観性</strong>: Coderが書いたコードをGuardianが品質ゲートで判定できる（自分の書いたコードを自分で検証する問題を回避）</li>
+<li><strong><span class="term" tabindex="0">品質ゲート<span class="term-popup">次の工程（例: 本番公開）に進んで良いかを判定する関門。テストが全部通っているか・コード検査で警告が出ていないか等を機械的にチェックし、不合格なら先に進めないようにする</span></span>の客観性</strong>: Coderが書いたコードをGuardianが品質ゲートで判定できる（自分の書いたコードを自分で検証する問題を回避）</li>
 <li><strong>差し替え可能性</strong>: 各エージェントの背後にあるLLMを独立に変更できる（コスト最適化）</li>
 </ul>
 <p><strong>Q: なぜ2層の品質ゲートにしたのか？</strong></p>
@@ -218,12 +218,12 @@ Guardian（<span class="term" tabindex="0">品質ゲート<span class="term-popu
 <li><strong>理由</strong>: 静的解析だけでは「テストが形式的で実質的にバグを検出できない」問題を発見できないため</li>
 </ul>
 <h3><span class="term" tabindex="0">LLMルーティング<span class="term-popup">タスクの内容に応じて、どのLLM（AIモデル）に処理させるかを振り分ける（ルーティング＝経路選択する）仕組み。品質とコストのバランスを取るのが目的</span></span>（8プロバイダー）</h3>
-<pre><code>Task → LLM Router → [<span class="term" tabindex="0">品質ティア<span class="term-popup">LLM（AI）を能力と値段のランク（ティア＝階層）で分けて使い分けること。難しい仕事は高性能・高コストのモデルへ、簡単な仕事は低コストのモデルへ振り分けて、全体のコストを下げる</span></span>: GPT-5.5 / Sonnet 4.6 / Gemini 3.1 Pro]
+<pre><code>Task → LLM Router → [品質ティア: GPT-5.5 / Sonnet 4.6 / Gemini 3.1 Pro]
                      [軽量ティア: Claude / 代替プロバイダー / DeepSeek / Moonshot]
                       ↕
                  Budget Manager（日次上限・フォールバック制御）
 </code></pre>
-<p>33種のタスクを自動分類し、最適なLLMにルーティングします。コード生成などの重要タスクは品質ティア、チャットや分類は軽量ティアに振り分け、月額コストを最適化しています。</p>
+<p>33種のタスクを自動分類し、最適なLLMにルーティングします。コード生成などの重要タスクは<span class="term" tabindex="0">品質ティア<span class="term-popup">LLM（AI）を能力と値段のランク（ティア＝階層）で分けて使い分けること。難しい仕事は高性能・高コストのモデルへ、簡単な仕事は低コストのモデルへ振り分けて、全体のコストを下げる</span></span>、チャットや分類は軽量ティアに振り分け、月額コストを最適化しています。</p>
 <h2>面接で聞かれそうなポイント</h2>
 <h3>「ミューテーションテストとは？」</h3>
 <p>通常のテストは「コードが正しく動くか」を検証します。ミューテーションテストは逆に「<strong>テストが本当にバグを見つけられるか</strong>」を検証します。</p>

@@ -148,7 +148,7 @@
 <h2>アーキテクチャ</h2>
 <h3>2台体制</h3>
 <pre><code>■ VPS（フクロウ）— 本番・常時稼働
-  インターネット → UFW Firewall → Caddy（HTTPS）→ OpenClaw Gateway → AI <span class="term" tabindex="0">API<span class="term-popup">Application Programming Interface（エーピーアイ）の略。あるプログラムの機能を、別のプログラムから呼び出せるようにした「窓口」。予約システムがLINE社の機能とやり取りするのもAPI経由</span></span>
+  インターネット → UFW Firewall → Caddy（HTTPS）→ OpenClaw Gateway → AI API
 
 ■ ローカルPC（よつば）— 開発・実験用
   Tailscale VPN → OpenClaw Gateway → AI API
@@ -187,7 +187,7 @@
 </tr>
 </tbody>
 </table></div>
-<p><strong>なぜ3層なのか</strong>: 1分ごとに全てをチェックするとAPIコストが膨大になる。重要度に応じて間隔を変えることで、コストと監視精度のバランスを取っています。</p>
+<p><strong>なぜ3層なのか</strong>: 1分ごとに全てをチェックすると<span class="term" tabindex="0">API<span class="term-popup">Application Programming Interface（エーピーアイ）の略。あるプログラムの機能を、別のプログラムから呼び出せるようにした「窓口」。予約システムがLINE社の機能とやり取りするのもAPI経由</span></span>コストが膨大になる。重要度に応じて間隔を変えることで、コストと監視精度のバランスを取っています。</p>
 <h3>59体の専門エージェント</h3>
 <p>5カテゴリ59体のエージェントが各領域を担当：</p>
 <div class="table-wrapper"><table>

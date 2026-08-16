@@ -148,7 +148,7 @@
 <hr />
 <h2>問1: セキュリティ修正（最もシンプル）</h2>
 <h3>コミットメッセージ</h3>
-<pre><code>fix: openrouter_key <span class="term" tabindex="0">API<span class="term-popup">Application Programming Interface（エーピーアイ）の略。あるプログラムの機能を、別のプログラムから呼び出せるようにした「窓口」。予約システムがLINE社の機能とやり取りするのもAPI経由</span></span>のログから例外詳細を除去（情報漏洩防止）
+<pre><code>fix: openrouter_key APIのログから例外詳細を除去（情報漏洩防止）
 </code></pre>
 <h3>diff</h3>
 <pre><code class="language-diff">--- a/src/nexuscore/api/routes/openrouter_key.py
@@ -199,7 +199,7 @@
 </tr>
 <tr>
 <td><code>HTTPException</code></td>
-<td>Web APIで「エラーが起きました」と返す仕組み</td>
+<td>Web <span class="term" tabindex="0">API<span class="term-popup">Application Programming Interface（エーピーアイ）の略。あるプログラムの機能を、別のプログラムから呼び出せるようにした「窓口」。予約システムがLINE社の機能とやり取りするのもAPI経由</span></span>で「エラーが起きました」と返す仕組み</td>
 </tr>
 <tr>
 <td><code>encrypt_string()</code></td>

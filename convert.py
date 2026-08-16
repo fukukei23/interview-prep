@@ -873,15 +873,31 @@ TERM_TOOLTIPS = {
 }
 
 
+# Mermaid図・コードブロックは用語ラップの対象外（構文破壊防止・2026-08-17）
+_PROTECTED_BLOCK_RE = re.compile(
+    r'(<div class="mermaid">.*?</div>|<pre>.*?</pre>|<code>.*?</code>)',
+    re.DOTALL,
+)
+
+
 def wrap_terms(html: str) -> str:
     """登録用語の最初の出現箇所だけを、クリック解説付きマークアップで囲む.
 
-    2フェーズ構成: 先にプレースホルダー（\\x00TERM{n}\\x00）へ置換し、
-    全用語の走査が終わってから実マークアップへ差し戻す。これにより
-    (1) 挿入済みpopup内の説明文が後続用語で再ラップされるネスト
+    3フェーズ構成: (1) Mermaid図・コードブロックを退避 (2) 用語をプレースホルダー
+    （\\x00TERM{n}\\x00）へ置換 (3) 全走査後に実マークアップと退避ブロックを差し戻し。
+    これにより (1) 挿入済みpopup内の説明文が後続用語で再ラップされるネスト
     (2) 「FastAPI」が「API」で二重ラップされる部分一致
+    (3) Mermaid図のソースとコード表示への混入による構文破壊
     を構造的に防ぐ。
     """
+    blocks: list[str] = []
+
+    def _stash(m: "re.Match[str]") -> str:
+        blocks.append(m.group(1))
+        return f"\x01BLOCK{len(blocks) - 1}\x01"
+
+    html = _PROTECTED_BLOCK_RE.sub(_stash, html)
+
     wraps: dict[str, str] = {}
     for i, (term, desc) in enumerate(TERM_TOOLTIPS.items()):
         if term in html:
@@ -893,6 +909,8 @@ def wrap_terms(html: str) -> str:
             html = html.replace(term, ph, 1)
     for ph, wrapped in wraps.items():
         html = html.replace(ph, wrapped)
+    for i, block in enumerate(blocks):
+        html = html.replace(f"\x01BLOCK{i}\x01", block)
     return html
 
 
