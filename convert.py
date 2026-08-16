@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Interview Prep Guide: Markdown → モバイル最適化HTML変換スクリプト."""
 
+import html as html_mod
 import re
 from pathlib import Path
 
@@ -679,7 +680,7 @@ def wrap_terms(html: str) -> str:
         if term in html:
             wrapped = (
                 f'<span class="term" tabindex="0">{term}'
-                f'<span class="term-popup">{desc}</span></span>'
+                f'<span class="term-popup">{html_mod.escape(desc)}</span></span>'
             )
             html = html.replace(term, wrapped, 1)
     return html
