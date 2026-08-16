@@ -136,14 +136,14 @@
 
         <article class="chapter-body">
             <h1>reserve-optimizer</h1>
-<div class="callout callout-info"><p>整骨院向けLINE予約管理Bot。LINE Bot + GAS + Cloudflare Workers + Stripe決済の
+<div class="callout callout-info"><p>整骨院向けLINE予約管理Bot。LINE Bot + <span class="term" tabindex="0">GAS<span class="term-popup">Google Apps Script（グーグル・アップス・スクリプト）の略。Googleが提供する、Gmailやスプレッドシート等のGoogleサービスを自動化するための簡易プログラミング環境</span></span> + <span class="term" tabindex="0">Cloudflare Workers<span class="term-popup">世界中に分散したサーバー上で小さなプログラムを動かす仕組み（Cloudflare社のサービス）。使った分だけの課金なので、アクセスが少ないサービスなら実質無料で運用できる</span></span> + Stripe決済の
 サーバーレス構成で、24時間自動受付・決済・AIチャット対応を実現。</p></div>
 <h2>なぜ作ったか</h2>
 <p>整骨院の予約管理は電話・紙ベースが多く、スタッフの負担が大きいという課題がありました。LINE Botで24時間自動受付・Stripe決済・AIチャット対応を実現し、予約業務をゼロにするために開発しました。</p>
 <h2>アーキテクチャ</h2>
 <h3>レイヤー構成</h3>
-<pre><code>[LINEユーザー] ←→ [LINE Messaging API]
-                      ↓ Webhook
+<pre><code>[LINEユーザー] ←→ [LINE Messaging <span class="term" tabindex="0">API<span class="term-popup">Application Programming Interface（エーピーアイ）の略。あるプログラムの機能を、別のプログラムから呼び出せるようにした「窓口」。予約システムがLINE社の機能とやり取りするのもAPI経由</span></span>]
+                      ↓ <span class="term" tabindex="0">Webhook<span class="term-popup">ウェブフック。「イベントが起きたら指定URLに自動で通知を送る」仕組み。GitHubで更新があればDiscordに通知が飛ぶ、等の連携に使う</span></span>
                  [Cloudflare Worker] ← 署名検証 + 即座に200 OK返却
                       ↓ waitUntil で転送
                  [GAS Web App] ← 会話ステートマシン実行
@@ -154,30 +154,30 @@
 </code></pre>
 <h3>設計上の判断と理由</h3>
 <p><strong>Q: なぜCloudflare Workerを挟んでいるのか？GASに直接Webhookしない理由</strong></p>
-<p>LINEのWebhookは<strong>5秒以内に200 OKを返さないとタイムアウト</strong>します。しかしGASの起動は遅く（コールドスタートで3〜5秒）、処理も含めるとタイムアウトする可能性があります。そこで：</p>
+<p>LINEのWebhookは<strong>5秒以内に200 OKを返さないとタイムアウト</strong>します。しかしGASの起動は遅く（<span class="term" tabindex="0">コールドスタート<span class="term-popup">しばらく使われていなかったプログラムを、次に利用が来た時にゼロから起動すること。この起動時間が長いと利用者が待たされる。Cloudflare Workersはこの起動が速いとされる</span></span>で3〜5秒）、処理も含めるとタイムアウトする可能性があります。そこで：</p>
 <ol>
 <li>Cloudflare Workerが即座に200 OKを返す（LINEタイムアウト回避）</li>
-<li><code>waitUntil</code> で非同期にGASへ転送</li>
+<li><code>waitUntil</code> で<span class="term" tabindex="0">非同期<span class="term-popup">1つの処理の完了を待たずに、他の処理を同時に進める方式。ファストフードで注文を受けて番号で呼ぶイメージ。Webサーバーが多数の利用者を同時に捌く時に効く</span></span>にGASへ転送</li>
 <li>WorkerでHMAC-SHA256署名検証も行う（セキュリティ層）</li>
 </ol>
 <p><strong>Q: なぜデータベースにGoogle Spreadsheetsを選んだのか？</strong></p>
 <ul>
 <li>運用者が非エンジニア（整骨院スタッフ）のため、スプレッドシートなら直接確認・修正できる</li>
 <li>無料枠で十分に運用可能</li>
-<li>GASと同じGoogleエコシステムで連携が簡単</li>
+<li>GASと同じGoogle<span class="term" tabindex="0">エコシステム<span class="term-popup">ある技術の周りに自然に集まった、関連道具・教材・コミュニティの総体。「エコシステムが豊富」＝困った時に道具や情報がすぐ見つかる状態</span></span>で連携が簡単</li>
 <li>将来的にFirestore等に移行する場合も、データアクセス層を変更するだけで対応可能</li>
 </ul>
 <p><strong>Q: なぜデポジット制（前払い1,000円）なのか？</strong></p>
 <ul>
 <li>無料予約ではキャンセルやドタキャンの問題が頻発する</li>
 <li>1,000円の心理的ハードルで、本気で予約する人だけに絞れる</li>
-<li>Stripe Checkoutを使うことで、PCI DSS準拠の安全な決済を簡単に実装</li>
+<li>Stripe Checkoutを使うことで、P<span class="term" tabindex="0">CI<span class="term-popup">Continuous Integration（シーアイ・継続的インテグレーション）の略。コードを変更するたびに自動でテストとチェックを回し、壊れていないかを常に確認する仕組み</span></span> DSS準拠の安全な決済を簡単に実装</li>
 </ul>
 <p><strong>Q: なぜGAS + Workersという構成を選んだのか（長期的視点）</strong></p>
 <p>3つの軸で判断しました。</p>
 <ol>
 <li><strong>コスト</strong>: 整骨院は零細事業者でランニングコストを極小にしたかった。GASもWorkersも無料枠で動き、月額0円で本番稼働できる</li>
-<li><strong>セキュリティ</strong>: LINEとStripeのWebhookをインターネットに晒す必要があるが、GASのWeb Appは認証が弱い。だからWorkersを前段に置いて署名検証をエッジ（高速）で通し、検証済みリクエストだけを独自トークン付きでGASに転送し、GASのエンドポイント自体は隠す二段構えにした</li>
+<li><strong>セキュリティ</strong>: LINEとStripeのWebhookをインターネットに晒す必要があるが、GASのWeb Appは認証が弱い。だからWorkersを前段に置いて署名検証をエッジ（高速）で通し、検証済みリクエストだけを独自<span class="term" tabindex="0">トークン<span class="term-popup">AIにとっての「文字数」のようなもの。AIは文章をトークンという小片に区切って処理する。課金や入力上限はこの単位で数えられる</span></span>付きでGASに転送し、GASのエンドポイント自体は隠す二段構えにした</li>
 <li><strong>移行前提</strong>: GASは「現在の小規模（1日数十件）に対する選択」であって永遠の答えではない。Phase 2でスケール・SaaS化する段階で <code>Next.js + Vercel + Supabase</code> に移す前提と割り切っている</li>
 </ol>
 <div class="callout callout-tip"><p>💡 <strong>一言で</strong>: 「安く済ませる部分（中身）」と「絶対に手を抜けない部分（入り口の守り）」を分けて考え、大きくなったら移る、という規模に応じた段階的な選択です。</p></div>
@@ -203,7 +203,7 @@
 <h3>③ 決済の冪等性（リプレイ攻撃対策）</h3>
 <p>同じWebhookが複数回送られても二重決済・二重予約にならないよう、処理済みのリクエストは<strong>20分間キャッシュで記憶</strong>して重ねて処理しない仕組み（冪等性）を持たせています。</p>
 <h3>④ 複数LLMクロスレビュー</h3>
-<p>単一のLLMは自分の出力に甘くなる（同じ盲点を共有する）ため、2機の異なるLLMで独立にコードレビューさせ、出た指摘を優先度順に潰す運用にしています。</p>
+<p>単一のLLMは自分の出力に甘くなる（同じ盲点を共有する）ため、2機の異なるLLMで独立に<span class="term" tabindex="0">コードレビュー<span class="term-popup">書かれたコードを、書いた本人以外の視点で読んで問題を指摘する作業。バグ・読みにくさ・危険な書き方を第三者が見つけるのに有効</span></span>させ、出た指摘を優先度順に潰す運用にしています。</p>
 <div class="callout callout-tip"><p>💡 <strong>一言で</strong>: 「AIが書いたから正しい」ではなく、独立した検証層を何重に挟むかが品質を決める、というのが実感です。</p></div>
 <h2>面接で聞かれそうなポイント</h2>
 <h3>「なぜサーバーレス構成？EC2等のサーバーではない理由」</h3>

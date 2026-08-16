@@ -135,7 +135,7 @@
         <article class="chapter-body">
             <h1>プロジェクト一覧</h1>
 <div class="callout callout-info"><p>2025年5月〜2026年5月の1年間で開発した主なプロジェクト。
-全プロジェクト、要件定義から実装・テスト・運用まで一人で担当。</p></div>
+全プロジェクト、<span class="term" tabindex="0">要件定義<span class="term-popup">「何を・何のために作るか」を言葉に整理して関係者で合わせる最初の作業。ここが曖昧だと手戻りが最大になる</span></span>から実装・テスト・運用まで一人で担当。</p></div>
 <h2>累積の定量データ</h2>
 <div class="table-wrapper"><table>
 <thead>
@@ -169,7 +169,7 @@
 <tr>
 <td>24h本番運用</td>
 <td>約5ヶ月連続</td>
-<td>OpenClaw（VPS・2026-02-26運用開始）※NexusCoreは本番運用でなくローカル実行・CI検証まで</td>
+<td>OpenClaw（VPS・2026-02-26運用開始）※NexusCoreは本番運用でなくローカル実行・<span class="term" tabindex="0">CI<span class="term-popup">Continuous Integration（シーアイ・継続的インテグレーション）の略。コードを変更するたびに自動でテストとチェックを回し、壊れていないかを常に確認する仕組み</span></span>検証まで</td>
 </tr>
 <tr>
 <td>月間コミット</td>
@@ -179,7 +179,7 @@
 </tbody>
 </table></div>
 <h2>開発スタイル</h2>
-<p>「Vibe Coding」—— コードの記述はAI（Claude Code）が担当し、私は要件定義・品質判定・運用設計を指揮しています。AIの生産性を最大化するため、Hooks（5種）・Skills・MCP統合（10+サーバー）・CronCreate自律ループを組み合わせた開発環境を構築・運用しています。</p>
+<p>「Vibe Coding」—— コードの記述はAI（Claude Code）が担当し、私は要件定義・品質判定・運用設計を指揮しています。AIの生産性を最大化するため、Hooks（5種）・Skills・<span class="term" tabindex="0">MCP<span class="term-popup">Model Context Protocol（エムシーピー）の略。AIに外部ツール（検索・GitHub・データベース等）を繋ぐための共通接続規格。USBのような「差せば繋がる」仕組みでAIの能力を拡張する</span></span>統合（10+サーバー）・CronCreate自律ループを組み合わせた開発環境を構築・運用しています。</p>
 <h2>主要プロジェクト</h2>
 <div class="table-wrapper"><table>
 <thead>
@@ -193,31 +193,31 @@
 <tbody>
 <tr>
 <td><strong>NexusCore</strong></td>
-<td>マルチエージェントAI開発フレームワーク</td>
-<td>Python / FastAPI / Gradio</td>
+<td>マルチ<span class="term" tabindex="0">エージェント<span class="term-popup">与えられた目標に向かって、自分で手順を組み立てて作業を進めるAIプログラム。質問に答えるだけのチャットAIと違い、「調べる→書く→確認する」を自律的に行う</span></span>AI開発フレームワーク</td>
+<td><span class="term" tabindex="0">Python<span class="term-popup">AI・データ分析の分野で最も使われるプログラミング言語（読み: パイソン）。AI関連の道具が最も豊富で、文法が読みやすいのが特徴</span></span> / <span class="term" tabindex="0">FastAPI<span class="term-popup">PythonでWeb API（他のプログラムから呼び出せる機能）を作るためのフレームワーク（骨組み部品のセット）。処理を待たせない「非同期」方式に対応して高速で、APIの説明書（OpenAPIドキュメント）を自動生成する</span></span> / Gradio</td>
 <td>約4.7万行</td>
 </tr>
 <tr>
 <td><strong>atelier-kyo-manager</strong></td>
 <td>BUYMA転売管理システム</td>
-<td>Python / Flask / Playwright</td>
+<td>Python / <span class="term" tabindex="0">Flask<span class="term-popup">PythonでWebアプリや管理画面を軽く作るためのフレームワーク。必要最小限の機能だけを提供する「軽量」設計が特徴で、小規模な社内ツール等に向く</span></span> / Playwright</td>
 <td>約4.2万行</td>
 </tr>
 <tr>
 <td><strong>reserve-optimizer</strong></td>
 <td>整骨院LINE予約システム</td>
-<td>TypeScript / GAS / Cloudflare Workers</td>
+<td>TypeScript / <span class="term" tabindex="0">GAS<span class="term-popup">Google Apps Script（グーグル・アップス・スクリプト）の略。Googleが提供する、Gmailやスプレッドシート等のGoogleサービスを自動化するための簡易プログラミング環境</span></span> / <span class="term" tabindex="0">Cloudflare Workers<span class="term-popup">世界中に分散したサーバー上で小さなプログラムを動かす仕組み（Cloudflare社のサービス）。使った分だけの課金なので、アクセスが少ないサービスなら実質無料で運用できる</span></span></td>
 <td>約1.4万行</td>
 </tr>
 <tr>
 <td><strong>OpenClaw</strong></td>
 <td>AIエージェント24h運用インフラ</td>
-<td>Docker / Caddy / Discord / Node.js</td>
+<td><span class="term" tabindex="0">Docker<span class="term-popup">ドッカー。プログラムとその実行環境一式を「コンテナ」という箱に梱包して、どのPCでも同じように動かす技術。「私の環境では動くのに」という問題を防ぐ</span></span> / Caddy / Discord / Node.js</td>
 <td>約5ヶ月連続稼働中</td>
 </tr>
 </tbody>
 </table></div>
-<div class="callout callout-warn"><p>⚠ NexusCoreとOpenClawは別物。<strong>NexusCoreはローカルCLIで実行する開発フレームワーク</strong>（テスト・カバレッジで品質を担保、常時稼働の本番運用はしていない）。<strong>OpenClawがVPS上で実際に24時間稼働し続けているエージェント基盤</strong>（ニュース収集・Discord監視等）。「本番運用約5ヶ月」はOpenClawの実績であり、NexusCoreの実績ではない。</p>
+<div class="callout callout-warn"><p>⚠ NexusCoreとOpenClawは別物。<strong>NexusCoreはローカルCLIで実行する開発フレームワーク</strong>（テスト・<span class="term" tabindex="0">カバレッジ<span class="term-popup">テストがコードのどれくらいの割合を確認できているかを表す数字（％）。80%なら、コードの8割が少なくとも1回はテストで実行されたことになる</span></span>で品質を担保、常時稼働の本番運用はしていない）。<strong>OpenClawがVPS上で実際に24時間稼働し続けているエージェント基盤</strong>（ニュース収集・Discord監視等）。「本番運用約5ヶ月」はOpenClawの実績であり、NexusCoreの実績ではない。</p>
 <p>⚠ <strong>OpenClaw自体は既存OSS</strong>（Peter Steinberger氏等・37万スター）で、自分が開発したものではない。自分の成果は OpenClawを安全に24h稼働させる<strong>運用インフラの構築・運用</strong>（VPS/SSH/VPN/Caddy/Docker・Discord操作設定）。外向きでは「OpenClawの運用インフラ構築・運用」と表現し「OpenClawを開発/作った」とは言わない。</p></div>
 <hr />
 <h2>全11件のソフトウェアプロジェクト一覧（聞かれたら答える用）</h2>
@@ -253,7 +253,7 @@
 <tr>
 <td>4</td>
 <td>atelier-kyo-manager</td>
-<td>BUYMA物販管理システム（価格最適化・スクレイピング）</td>
+<td>BUYMA物販管理システム（価格最適化・<span class="term" tabindex="0">スクレイピング<span class="term-popup">Webサイトのページを読み込んで、必要な情報（価格・在庫等）を自動で抜き出すこと</span></span>）</td>
 <td>稼働中</td>
 </tr>
 <tr>

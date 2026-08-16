@@ -148,7 +148,7 @@
 <hr />
 <h2>問1: セキュリティ修正（最もシンプル）</h2>
 <h3>コミットメッセージ</h3>
-<pre><code>fix: openrouter_key APIのログから例外詳細を除去（情報漏洩防止）
+<pre><code>fix: openrouter_key <span class="term" tabindex="0">API<span class="term-popup">Application Programming Interface（エーピーアイ）の略。あるプログラムの機能を、別のプログラムから呼び出せるようにした「窓口」。予約システムがLINE社の機能とやり取りするのもAPI経由</span></span>のログから例外詳細を除去（情報漏洩防止）
 </code></pre>
 <h3>diff</h3>
 <pre><code class="language-diff">--- a/src/nexuscore/api/routes/openrouter_key.py
@@ -191,7 +191,7 @@
 <tbody>
 <tr>
 <td><code>logger.error()</code></td>
-<td>エラーをログファイルに記録するPythonの命令</td>
+<td>エラーをログファイルに記録する<span class="term" tabindex="0">Python<span class="term-popup">AI・データ分析の分野で最も使われるプログラミング言語（読み: パイソン）。AI関連の道具が最も豊富で、文法が読みやすいのが特徴</span></span>の命令</td>
 </tr>
 <tr>
 <td><code>%s</code></td>
@@ -458,7 +458,7 @@
   &lt;div class=&quot;form-row&quot;&gt;
     &lt;input type=&quot;password&quot; name=&quot;api_key&quot; placeholder=&quot;sk-or-xxxx&quot; required /&gt;
 </code></pre>
-<h3>Flask Blueprintの登録</h3>
+<h3><span class="term" tabindex="0">Flask<span class="term-popup">PythonでWebアプリや管理画面を軽く作るためのフレームワーク。必要最小限の機能だけを提供する「軽量」設計が特徴で、小規模な社内ツール等に向く</span></span> Blueprintの登録</h3>
 <pre><code class="language-diff">-    from nexuscore.webapp import views_dashboard, views_logs, views_projects
 +    from nexuscore.webapp import views_dashboard, views_logs, views_projects, views_settings
 

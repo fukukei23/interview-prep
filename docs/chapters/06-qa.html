@@ -139,8 +139,8 @@
 <div class="callout callout-info"><p>面接で聞かれやすい質問と、回答のポイント。</p></div>
 <h2>Q1: 「このコードは自分で書いたのですか？」</h2>
 <p><strong>回答のポイント</strong>: 「AIが書きました。でも設計と品質判定は私がやっています」と正直に答える。</p>
-<div class="callout callout-info"><p>コードの記述はAI（Claude Code）が担当しています。ただし、<strong>要件定義・アーキテクチャ設計・品質判定・運用設計</strong>は全て私が指揮しています。</p>
-<p>例えばNexusCoreなら「12エージェントをどう分けるか」「品質ゲートを2層にするか」「LLMルーティングの基準」等の設計判断は全て私が行いました。AIはその設計に従ってコードを生成する役割です。</p>
+<div class="callout callout-info"><p>コードの記述はAI（Claude Code）が担当しています。ただし、<strong><span class="term" tabindex="0">要件定義<span class="term-popup">「何を・何のために作るか」を言葉に整理して関係者で合わせる最初の作業。ここが曖昧だと手戻りが最大になる</span></span>・<span class="term" tabindex="0">アーキテクチャ設計<span class="term-popup">システム全体の骨組み（部品の分け方・データの流れ・技術の選定）を決める設計作業</span></span>・品質判定・運用設計</strong>は全て私が指揮しています。</p>
+<p>例えばNexusCoreなら「12<span class="term" tabindex="0">エージェント<span class="term-popup">与えられた目標に向かって、自分で手順を組み立てて作業を進めるAIプログラム。質問に答えるだけのチャットAIと違い、「調べる→書く→確認する」を自律的に行う</span></span>をどう分けるか」「<span class="term" tabindex="0">品質ゲート<span class="term-popup">次の工程（例: 本番公開）に進んで良いかを判定する関門。テストが全部通っているか・コード検査で警告が出ていないか等を機械的にチェックし、不合格なら先に進めないようにする</span></span>を2層にするか」「<span class="term" tabindex="0">LLMルーティング<span class="term-popup">タスクの内容に応じて、どのLLM（AIモデル）に処理させるかを振り分ける（ルーティング＝経路選択する）仕組み。品質とコストのバランスを取るのが目的</span></span>の基準」等の設計判断は全て私が行いました。AIはその設計に従ってコードを生成する役割です。</p>
 <p>これは建築に例えると、私が建築家でAIが大工のような関係です。図面を描くのは建築家、壁を建てるのは大工、でも建物の責任は建築家にあります。</p></div>
 <h2>Q2: 「AIに任せて何が楽しいのですか？」</h2>
 <div class="callout callout-info"><p><strong>問題解決そのもの</strong>が楽しいです。コードを手書きすること自体が目的ではなく、課題を解決すること目的です。</p>
@@ -148,28 +148,28 @@
 <p>また、10件を超えるプロジェクトを1年で開発できたのは、AIのおかげです。手書きなら1プロジェクトに何ヶ月もかかっていたはずです。</p></div>
 <h2>Q3: 「なぜその技術を選んだのですか？」</h2>
 <p>プロジェクトごとに理由を答えられるようにする：</p>
-<p><strong>NexusCore → Python / FastAPI</strong></p>
+<p><strong>NexusCore → <span class="term" tabindex="0">Python<span class="term-popup">AI・データ分析の分野で最も使われるプログラミング言語（読み: パイソン）。AI関連の道具が最も豊富で、文法が読みやすいのが特徴</span></span> / <span class="term" tabindex="0">FastAPI<span class="term-popup">PythonでWeb API（他のプログラムから呼び出せる機能）を作るためのフレームワーク（骨組み部品のセット）。処理を待たせない「非同期」方式に対応して高速で、APIの説明書（OpenAPIドキュメント）を自動生成する</span></span></strong></p>
 <ul>
-<li>AI/ML領域のエコシステムが豊富</li>
-<li>FastAPIは非同期対応で高速、自動OpenAPIドキュメント生成</li>
+<li>AI/ML領域の<span class="term" tabindex="0">エコシステム<span class="term-popup">ある技術の周りに自然に集まった、関連道具・教材・コミュニティの総体。「エコシステムが豊富」＝困った時に道具や情報がすぐ見つかる状態</span></span>が豊富</li>
+<li>Fast<span class="term" tabindex="0">API<span class="term-popup">Application Programming Interface（エーピーアイ）の略。あるプログラムの機能を、別のプログラムから呼び出せるようにした「窓口」。予約システムがLINE社の機能とやり取りするのもAPI経由</span></span>は<span class="term" tabindex="0">非同期<span class="term-popup">1つの処理の完了を待たずに、他の処理を同時に進める方式。ファストフードで注文を受けて番号で呼ぶイメージ。Webサーバーが多数の利用者を同時に捌く時に効く</span></span>対応で高速、自動<span class="term" tabindex="0">OpenAPI<span class="term-popup">Web API（他のプログラムから使うための機能）の仕様書を書く標準的な書式。この書式に沿っておくと、APIの使い方を機械も人間もすぐ理解できる。FastAPIはコードからこの仕様書を自動生成する</span></span>ドキュメント生成</li>
 </ul>
-<p><strong>atelier-kyo-manager → Flask</strong></p>
+<p><strong>atelier-kyo-manager → <span class="term" tabindex="0">Flask<span class="term-popup">PythonでWebアプリや管理画面を軽く作るためのフレームワーク。必要最小限の機能だけを提供する「軽量」設計が特徴で、小規模な社内ツール等に向く</span></span></strong></p>
 <ul>
 <li>軽量な管理画面+APIの構成に最適</li>
-<li>Djangoの「全部入り」機能が不要だった</li>
+<li><span class="term" tabindex="0">Django<span class="term-popup">Python用の「全部入り」Webフレームワーク。管理画面・ユーザー認証・データベース操作等が最初から揃っている。大規模向けだが、小さい用途には過剰になりがち</span></span>の「全部入り」機能が不要だった</li>
 </ul>
-<p><strong>reserve-optimizer → Cloudflare Workers</strong></p>
+<p><strong>reserve-optimizer → <span class="term" tabindex="0">Cloudflare Workers<span class="term-popup">世界中に分散したサーバー上で小さなプログラムを動かす仕組み（Cloudflare社のサービス）。使った分だけの課金なので、アクセスが少ないサービスなら実質無料で運用できる</span></span></strong></p>
 <ul>
 <li>リクエスト単位の課金で、少量アクセスなら実質無料</li>
-<li>コールドスタートが速い（GASより速い）</li>
+<li><span class="term" tabindex="0">コールドスタート<span class="term-popup">しばらく使われていなかったプログラムを、次に利用が来た時にゼロから起動すること。この起動時間が長いと利用者が待たされる。Cloudflare Workersはこの起動が速いとされる</span></span>が速い（<span class="term" tabindex="0">GAS<span class="term-popup">Google Apps Script（グーグル・アップス・スクリプト）の略。Googleが提供する、Gmailやスプレッドシート等のGoogleサービスを自動化するための簡易プログラミング環境</span></span>より速い）</li>
 </ul>
 <h2>Q4: 「一番難しかった課題は？」</h2>
 <div class="callout callout-danger"><p><strong>LLMルーティングの最適化</strong>です。</p>
-<p>NexusCoreでは8つのLLMプロバイダーを使い分けていますが、「どのタスクをどのLLMに振るか」の基準を決めるのが難しかったです。安いLLMは品質が低く、高いLLMはコストがかさむ。品質とコストのトレードオフを33種のタスクごとに調整しました。</p>
-<p>最終的に、コード生成などの重要タスクは品質ティア、チャットや分類は軽量ティアに振り分け、月額コストを最適化しました。</p></div>
+<p>NexusCoreでは8つの<span class="term" tabindex="0">LLMプロバイダー<span class="term-popup">LLM（大規模言語モデル＝ChatGPTのような文章生成AI）を提供する事業者。OpenAI・Anthropic・Google等。性能・値段・得意分野が違うので使い分ける</span></span>を使い分けていますが、「どのタスクをどのLLMに振るか」の基準を決めるのが難しかったです。安いLLMは品質が低く、高いLLMはコストがかさむ。品質とコストのトレードオフを33種のタスクごとに調整しました。</p>
+<p>最終的に、コード生成などの重要タスクは<span class="term" tabindex="0">品質ティア<span class="term-popup">LLM（AI）を能力と値段のランク（ティア＝階層）で分けて使い分けること。難しい仕事は高性能・高コストのモデルへ、簡単な仕事は低コストのモデルへ振り分けて、全体のコストを下げる</span></span>、チャットや分類は軽量ティアに振り分け、月額コストを最適化しました。</p></div>
 <h2>Q5: 「チーム開発の経験は？」</h2>
 <div class="callout callout-info"><p>現在は個人開発中心ですが（※NexusCore等の<strong>自作プロジェクトが個人開発</strong>・OpenClawは既存OSSの運用インフラ構築で開発ではない）、自衛隊19年で培った**報連相（報告・連絡・相談）**の体得があります。</p>
-<p>個人開発でも、GitHub Issues/PRの運用、進捗の可視化（SSOTシステム）、問題の早期共有を自然に実行しています。チーム開発でも同じ习惯を活かせると考えています。</p></div>
+<p>個人開発でも、GitHub Issues/PRの運用、進捗の可視化（<span class="term" tabindex="0">SSOT<span class="term-popup">Single Source of Truth（エスエスオーティー・唯一の真実の情報源）の略。情報をあちこちに重複して持たず、1か所だけを正として管理する考え方。ズレや矛盾を構造的に防ぐ</span></span>システム）、問題の早期共有を自然に実行しています。チーム開発でも同じ习惯を活かせると考えています。</p></div>
 <h2>Q6: 「どうやって技術を学んでいますか？」</h2>
 <div class="callout callout-info"><p><strong>作りながら学ぶ</strong>スタイルです。チュートリアルを読むのではなく、実際にプロジェクトを作り始めて、必要な知識をその都度調べます。</p>
 <p>学んだことは公開ガイド15リポジトリとしてGitHub Pagesで公開しています。自分が理解したことを他人に説明できる形にまとめることで、理解度を確認しています。</p>
@@ -177,15 +177,15 @@
 <h2>Q7: 「自衛官の経験はITでどう活きる？」</h2>
 <p>5つの強みがあります：</p>
 <ol>
-<li><strong>標準化・SOP</strong>: 全業務がマニュアル化されている → CI/CD・品質ゲート・記録手順の自動化に直結</li>
+<li><strong>標準化・<span class="term" tabindex="0">SOP<span class="term-popup">Standard Operating Procedure（エスオーピー）の略。標準作業手順書。「どういう手順で何をするか」を文書化したもの。自衛隊の全業務マニュアル文化がこれに相当</span></span></strong>: 全業務がマニュアル化されている → <span class="term" tabindex="0">CI/CD<span class="term-popup">コードの変更のたびに、自動でビルド・テスト・公開まで行う仕組み。CI＝継続的インテグレーション（自動テスト等）、CD＝継続的デリバリー（自動公開等）。人的ミスとチェック忘れを防ぐ</span></span>・品質ゲート・記録手順の自動化に直結</li>
 <li><strong>報連相</strong>: 進捗の可視化・問題の早期共有 → GitHub運用に活きる</li>
 <li><strong>ミッション計画</strong>: 目的・資源配分・リスク評価 → 要件定義と同じ構造</li>
 <li><strong>異常対応</strong>: 冷静な対応力 → 本番障害対応に重宝</li>
-<li><strong>セキュリティ意識</strong>: 情報安全管理 → OWASP対応・シークレット管理に活きる</li>
+<li><strong>セキュリティ意識</strong>: 情報安全管理 → <span class="term" tabindex="0">OWASP<span class="term-popup">Open Web Application Security Project（オワスプ）の略。Webアプリの脆弱性（セキュリティ上の弱点）を体系的にまとめて公開している国際団体。「OWASP対応」＝このリストの弱点への対策経験</span></span>対応・シークレット管理に活きる</li>
 </ol>
 <h2>Q8: 「今後のキャリアビジョンは？」</h2>
 <div class="callout callout-info"><p>AIを活用した開発生産性の最大化を追求しつつ、チーム開発の現場でAI活用のナレッジを還元したいと考えています。</p>
-<p>1人で10件を超えるプロジェクトを開発した経験は、チームにAIを導入する際の知見として活かせるはずです。Claude CodeのHooks/Skills/MCP統合等の知識は、チーム全体の生産性向上に貢献できると考えています。</p></div>
+<p>1人で10件を超えるプロジェクトを開発した経験は、チームにAIを導入する際の知見として活かせるはずです。Claude CodeのHooks/Skills/<span class="term" tabindex="0">MCP<span class="term-popup">Model Context Protocol（エムシーピー）の略。AIに外部ツール（検索・GitHub・データベース等）を繋ぐための共通接続規格。USBのような「差せば繋がる」仕組みでAIの能力を拡張する</span></span>統合等の知識は、チーム全体の生産性向上に貢献できると考えています。</p></div>
 <hr />
 <h2>用語の平易な解説（専門用語を読み解く）</h2>
 <h3>📐 要件定義（ようけんていぎ）・アーキテクチャ設計</h3>
@@ -208,16 +208,16 @@
 <li>「重要タスクは品質ティア・簡単タスクは軽量ティア」と振り分けて全体コストを下げる</li>
 </ul>
 <h3>📟 SOP（エスオーピー）・OWASP（オワスプ）</h3>
-<p><strong>一言で</strong>: 「標準作業手順書」と「Webアプリの脆弱性まとめ」。</p>
+<p><strong>一言で</strong>: 「標準作業手順書」と「Webアプリの<span class="term" tabindex="0">脆弱性<span class="term-popup">セキュリティ上の弱点。攻撃者に悪用されると情報漏えい等の被害が出る、コードや設定の穴のこと</span></span>まとめ」。</p>
 <ul>
-<li><strong>SOP（Standard Operating Procedure）</strong>: 標準化作業手順書。自衛隊等で全業務がマニュアル化されている文化。CI/CD・品質ゲートの「手順を決めて機械化」に直結する</li>
+<li><strong>SOP（Standard Operating Procedure）</strong>: 標準化作業手順書。自衛隊等で全業務がマニュアル化されている文化。<span class="term" tabindex="0">CI<span class="term-popup">Continuous Integration（シーアイ・継続的インテグレーション）の略。コードを変更するたびに自動でテストとチェックを回し、壊れていないかを常に確認する仕組み</span></span>/CD・品質ゲートの「手順を決めて機械化」に直結する</li>
 <li><strong>OWASP（Open Web Application Security Project）</strong>: Webアプリのセキュリティ上の弱点（脆弱性）をまとめて公開している国際団体。この対応経験がある＝セキュリティ意識の証明</li>
 </ul>
 <h3>🔌 Hooks / Skills / MCP統合</h3>
 <p><strong>一言で</strong>: 「AI開発ツール（Claude Code）を拡張する3つの仕組み」。</p>
 <ul>
 <li><strong>Hooks</strong>: 特定のタイミングで自動処理を差し込む仕組み。「保存前にチェック」「終了時に記録」等</li>
-<li><strong>Skills</strong>: 再利用できる作業手順をまとめたもの。「テスト駆動開発」「デバッグ手順」等を定型化</li>
+<li><strong>Skills</strong>: 再利用できる作業手順をまとめたもの。「<span class="term" tabindex="0">テスト駆動<span class="term-popup">TDD（テスト駆動開発）。先にテストを書き、そのテストを通すようにコードを書く進め方。「何をもって正しいとするか」を最初に固定できる</span></span>開発」「デバッグ手順」等を定型化</li>
 <li><strong>MCP（Model Context Protocol）統合</strong>: AIに外部ツール（検索・GitHub・ブラウザ等）を繋ぐ仕組み。10以上のツールをシームレスに連携</li>
 </ul>
 

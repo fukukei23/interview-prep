@@ -136,14 +136,14 @@
 
         <article class="chapter-body">
             <h1>ワークフロー自動化パイプライン</h1>
-<div class="callout callout-info"><p>自前で構築した、ジョブ連携・スケジュール実行・承認フロー・状態管理の実装集。GitHub Actions・Python・OAuth1.0a・Selenium/Playwright を組み合わせ、ノーコードの連携ツールに依存しない再現可能なパイプラインとして設計・運用している。</p></div>
+<div class="callout callout-info"><p>自前で構築した、ジョブ連携・スケジュール実行・承認フロー・状態管理の実装集。GitHub Actions・<span class="term" tabindex="0">Python<span class="term-popup">AI・データ分析の分野で最も使われるプログラミング言語（読み: パイソン）。AI関連の道具が最も豊富で、文法が読みやすいのが特徴</span></span>・<span class="term" tabindex="0">OAuth<span class="term-popup">オーオースと読む。他のサービスの機能を、IDやパスワードを教えずに安全に使わせるための認可の標準規格。「○○でログイン」ボタンの裏側で動いている仕組み</span></span>1.0a・Selenium/Playwright を組み合わせ、ノーコードの連携ツールに依存しない再現可能なパイプラインとして設計・運用している。</p></div>
 <hr />
 <h2>概要</h2>
-<p><strong>「A が起きたら B を動かす」型のワークフロー</strong>を、コードベースで構築・運用している代表例。ジョブ連携・スケジュール実行・承認フロー・状態管理といった統合機能群を、自前の API + コードで設計・実装している。</p>
+<p><strong>「A が起きたら B を動かす」型のワークフロー</strong>を、コードベースで構築・運用している代表例。ジョブ連携・スケジュール実行・承認フロー・状態管理といった統合機能群を、自前の <span class="term" tabindex="0">API<span class="term-popup">Application Programming Interface（エーピーアイ）の略。あるプログラムの機能を、別のプログラムから呼び出せるようにした「窓口」。予約システムがLINE社の機能とやり取りするのもAPI経由</span></span> + コードで設計・実装している。</p>
 <ul>
 <li><strong>公開リポジトリ</strong>（参照可）: Zenn 記事パイプライン・LINE 予約システム・本ガイド</li>
 <li><strong>非公開リポジトリ</strong>（設計思想は本ガイド参照）: X 自動投稿・BUYMA 転売管理</li>
-<li><strong>受託・納品済</strong>: SHOWROOM 楽曲報告 RPA</li>
+<li><strong>受託・納品済</strong>: SHOWROOM 楽曲報告 <span class="term" tabindex="0">RPA<span class="term-popup">Robotic Process Automation（アールピーエー）の略。人がパソコンで行う定型作業（コピペ・転記等）をソフトウェアに代行させること</span></span></li>
 </ul>
 <hr />
 <h2>代表事例 1: Zenn 記事 自動投稿パイプライン（公開・稼働中）</h2>
@@ -177,7 +177,7 @@
 </tr>
 <tr>
 <td>JST タイムゾーン固定</td>
-<td>環境変数 <code>TZ: Asia/Tokyo</code> で CI 内 UTC と分離</td>
+<td>環境変数 <code>TZ: Asia/Tokyo</code> で <span class="term" tabindex="0">CI<span class="term-popup">Continuous Integration（シーアイ・継続的インテグレーション）の略。コードを変更するたびに自動でテストとチェックを回し、壊れていないかを常に確認する仕組み</span></span> 内 UTC と分離</td>
 <td>実行時刻の意図ズレ防止</td>
 </tr>
 <tr>

@@ -136,10 +136,10 @@
 
         <article class="chapter-body">
             <h1>NexusCore</h1>
-<div class="callout callout-info"><p>マルチエージェントAI開発フレームワーク。12の専門エージェントが協調動作し、
+<div class="callout callout-info"><p>マルチ<span class="term" tabindex="0">エージェント<span class="term-popup">与えられた目標に向かって、自分で手順を組み立てて作業を進めるAIプログラム。質問に答えるだけのチャットAIと違い、「調べる→書く→確認する」を自律的に行う</span></span>AI開発フレームワーク。12の専門エージェントが協調動作し、
 要件分析→設計→コード生成→テスト→品質保証まで自動化。</p></div>
 <h2>なぜ作ったか</h2>
-<p>ソフトウェア開発の各フェーズ（要件定義・設計・実装・テスト・レビュー）は、本来それぞれ異なる視点と専門性が必要です。一人のエンジニアが全フェーズを兼務すると、どうしても視点が偏ります。そこで<strong>各フェーズに専門のAIエージェントを割り当て、協調させる</strong>ことで、一人開発でも多様な視点での品質担保を実現できないか——という構想から生まれました。</p>
+<p>ソフトウェア開発の各フェーズ（<span class="term" tabindex="0">要件定義<span class="term-popup">「何を・何のために作るか」を言葉に整理して関係者で合わせる最初の作業。ここが曖昧だと手戻りが最大になる</span></span>・設計・実装・テスト・レビュー）は、本来それぞれ異なる視点と専門性が必要です。一人のエンジニアが全フェーズを兼務すると、どうしても視点が偏ります。そこで<strong>各フェーズに専門のAIエージェントを割り当て、協調させる</strong>ことで、一人開発でも多様な視点での品質担保を実現できないか——という構想から生まれました。</p>
 <h2>アーキテクチャ</h2>
 <h3>12の専門エージェント</h3>
 <p>エージェントは大きく3つのグループに分かれています：</p>
@@ -148,13 +148,13 @@
     ↓ 要件仕様書
 Planner（実装計画）
     ↓ 実装プラン
-Architect（アーキテクチャ設計）
+Architect（<span class="term" tabindex="0">アーキテクチャ設計<span class="term-popup">システム全体の骨組み（部品の分け方・データの流れ・技術の選定）を決める設計作業</span></span>）
     ↓ 設計書
 Coder（コード生成）
     ↓ コード
 Tester（テスト自動生成）
     ↓ テスト結果
-Guardian（品質ゲート判定）
+Guardian（<span class="term" tabindex="0">品質ゲート<span class="term-popup">次の工程（例: 本番公開）に進んで良いかを判定する関門。テストが全部通っているか・コード検査で警告が出ていないか等を機械的にチェックし、不合格なら先に進めないようにする</span></span>判定）
     ↓ 合格/不合格
 </code></pre>
 <p><strong>② 品質保証・分析</strong></p>
@@ -213,12 +213,12 @@ Guardian（品質ゲート判定）
 </ul>
 <p><strong>Q: なぜ2層の品質ゲートにしたのか？</strong></p>
 <ul>
-<li><strong>Tier 1（静的解析）</strong>: カバレッジ80%+ / Pylint 8.0+ / Mypy / Bandit → 機械的に検出できる問題は即座に弾く</li>
+<li><strong>Tier 1（静的解析）</strong>: <span class="term" tabindex="0">カバレッジ<span class="term-popup">テストがコードのどれくらいの割合を確認できているかを表す数字（％）。80%なら、コードの8割が少なくとも1回はテストで実行されたことになる</span></span>80%+ / Pylint 8.0+ / Mypy / Bandit → 機械的に検出できる問題は即座に弾く</li>
 <li><strong>Tier 2（動的テスト）</strong>: ミューテーションテスト → テストコードが「本当にバグを検出できるか」を検証する</li>
 <li><strong>理由</strong>: 静的解析だけでは「テストが形式的で実質的にバグを検出できない」問題を発見できないため</li>
 </ul>
-<h3>LLMルーティング（8プロバイダー）</h3>
-<pre><code>Task → LLM Router → [品質ティア: GPT-5.5 / Sonnet 4.6 / Gemini 3.1 Pro]
+<h3><span class="term" tabindex="0">LLMルーティング<span class="term-popup">タスクの内容に応じて、どのLLM（AIモデル）に処理させるかを振り分ける（ルーティング＝経路選択する）仕組み。品質とコストのバランスを取るのが目的</span></span>（8プロバイダー）</h3>
+<pre><code>Task → LLM Router → [<span class="term" tabindex="0">品質ティア<span class="term-popup">LLM（AI）を能力と値段のランク（ティア＝階層）で分けて使い分けること。難しい仕事は高性能・高コストのモデルへ、簡単な仕事は低コストのモデルへ振り分けて、全体のコストを下げる</span></span>: GPT-5.5 / Sonnet 4.6 / Gemini 3.1 Pro]
                      [軽量ティア: Claude / 代替プロバイダー / DeepSeek / Moonshot]
                       ↕
                  Budget Manager（日次上限・フォールバック制御）
@@ -264,9 +264,9 @@ Guardian（品質ゲート判定）
 </table></div>
 <h3>技術スタック</h3>
 <ul>
-<li>Python 3.12 / FastAPI / Gradio</li>
+<li><span class="term" tabindex="0">Python<span class="term-popup">AI・データ分析の分野で最も使われるプログラミング言語（読み: パイソン）。AI関連の道具が最も豊富で、文法が読みやすいのが特徴</span></span> 3.12 / <span class="term" tabindex="0">FastAPI<span class="term-popup">PythonでWeb API（他のプログラムから呼び出せる機能）を作るためのフレームワーク（骨組み部品のセット）。処理を待たせない「非同期」方式に対応して高速で、APIの説明書（OpenAPIドキュメント）を自動生成する</span></span> / Gradio</li>
 <li>pytest（5,000+テストケース）</li>
-<li>GitHub Actions CI/CD</li>
+<li>GitHub Actions <span class="term" tabindex="0">CI/CD<span class="term-popup">コードの変更のたびに、自動でビルド・テスト・公開まで行う仕組み。CI＝継続的インテグレーション（自動テスト等）、CD＝継続的デリバリー（自動公開等）。人的ミスとチェック忘れを防ぐ</span></span></li>
 <li>Apache 2.0 ライセンス</li>
 </ul>
 <hr />
@@ -295,7 +295,7 @@ Guardian（品質ゲート判定）
 <ul>
 <li><strong>静的解析</strong>: プログラムを動かさずにソースコードを検査する手法。「動的解析（実際に動かす）」の対義語</li>
 <li><strong>Pylint（ピーリント）</strong>: Pythonコードの書き方の規約違反を検出するツール</li>
-<li><strong>Mypy（エムワイピー）</strong>: 型ヒント（変数の種類）の矛盾を検出するツール</li>
+<li><strong>Mypy（エムワイピー）</strong>: <span class="term" tabindex="0">型ヒント<span class="term-popup">変数や関数の入出力が「数値か文字列か」等の型であると予め宣言する書き方。書き間違いを実行前に機械が検出できるようになる</span></span>（変数の種類）の矛盾を検出するツール</li>
 <li><strong>Bandit（バンディット）</strong>: セキュリティ上の危ない書き方を検出するツール</li>
 <li>いずれもPython界隈でよく使われる「コード検査員」</li>
 </ul>
@@ -318,14 +318,14 @@ Guardian（品質ゲート判定）
 <li><strong>フォールバック</strong>: 本命がダメな時に備えて予備へ退避すること。「予備系へ切り替え」</li>
 <li><strong>ティア</strong>: 階層・ランクのこと。「品質ティア（上位ランク）」「軽量ティア（下位ランク）」のようにランク分けして使う</li>
 </ul>
-<h3>🌐 FastAPI（ファストエーピーアイ）・Gradio（グラディオ）</h3>
+<h3>🌐 Fast<span class="term" tabindex="0">API<span class="term-popup">Application Programming Interface（エーピーアイ）の略。あるプログラムの機能を、別のプログラムから呼び出せるようにした「窓口」。予約システムがLINE社の機能とやり取りするのもAPI経由</span></span>（ファストエーピーアイ）・Gradio（グラディオ）</h3>
 <p><strong>一言で</strong>: 「Webサービスを簡単に作るためのPython道具」。</p>
 <ul>
-<li><strong>FastAPI</strong>: Web API（他のプログラムから利用される機能）を高速に作る枠組み。非同期処理が得意</li>
+<li><strong>FastAPI</strong>: Web API（他のプログラムから利用される機能）を高速に作る枠組み。<span class="term" tabindex="0">非同期<span class="term-popup">1つの処理の完了を待たずに、他の処理を同時に進める方式。ファストフードで注文を受けて番号で呼ぶイメージ。Webサーバーが多数の利用者を同時に捌く時に効く</span></span>処理が得意</li>
 <li><strong>Gradio（グラディオ）</strong>: AIの機能をブラウザ画面から試せるようにするツール。「ボタンを押したらAIが答える」ような簡易画面を数行で作れる</li>
 <li><strong>非同期（ひどうき）処理</strong>: 「待ち時間に別の仕事を進める」仕組み。1つの作業が終わるまで他を待たせない</li>
 </ul>
-<h3>🔁 CI/CD（シーアイスラシーディー）・pytest</h3>
+<h3>🔁 <span class="term" tabindex="0">CI<span class="term-popup">Continuous Integration（シーアイ・継続的インテグレーション）の略。コードを変更するたびに自動でテストとチェックを回し、壊れていないかを常に確認する仕組み</span></span>/CD（シーアイスラシーディー）・pytest</h3>
 <p><strong>一言で</strong>: 「更新のたびに自動でテスト・公開まで回す仕組み」と「テストを書く道具」。</p>
 <ul>
 <li><strong>CI/CD（継続的インテグレーション／継続的デリバリー）</strong>: コードを更新するたび自動でビルド・テスト・公開まで回す仕組み。GitHub Actions がその代表</li>

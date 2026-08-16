@@ -136,7 +136,7 @@
 
         <article class="chapter-body">
             <h1>OpenClaw</h1>
-<div class="callout callout-info"><p>AIエージェント24時間運用インフラ。VPS + ローカルPCの2台体制で、
+<div class="callout callout-info"><p>AI<span class="term" tabindex="0">エージェント<span class="term-popup">与えられた目標に向かって、自分で手順を組み立てて作業を進めるAIプログラム。質問に答えるだけのチャットAIと違い、「調べる→書く→確認する」を自律的に行う</span></span>24時間運用インフラ。VPS + ローカルPCの2台体制で、
 59体の専門エージェントが常時稼働。約5ヶ月連続稼働中。</p></div>
 <h2>なぜ作ったか</h2>
 <p>AIエージェントを「たまに使うツール」ではなく「24時間働く従業員」にしたい——その目的で構築しました。具体的には：</p>
@@ -148,7 +148,7 @@
 <h2>アーキテクチャ</h2>
 <h3>2台体制</h3>
 <pre><code>■ VPS（フクロウ）— 本番・常時稼働
-  インターネット → UFW Firewall → Caddy（HTTPS）→ OpenClaw Gateway → AI API
+  インターネット → UFW Firewall → Caddy（HTTPS）→ OpenClaw Gateway → AI <span class="term" tabindex="0">API<span class="term-popup">Application Programming Interface（エーピーアイ）の略。あるプログラムの機能を、別のプログラムから呼び出せるようにした「窓口」。予約システムがLINE社の機能とやり取りするのもAPI経由</span></span>
 
 ■ ローカルPC（よつば）— 開発・実験用
   Tailscale VPN → OpenClaw Gateway → AI API
@@ -157,7 +157,7 @@
 <ul>
 <li>VPSは本番用。安定稼働が最優先なので実験的変更を加えない</li>
 <li>ローカルPCは開発用。自由に設定変更や新機能のテストができる</li>
-<li>この分離により、本番環境の安定性を犠牲にせず開発を進められる</li>
+<li>この分離により、<span class="term" tabindex="0">本番環境<span class="term-popup">実際の利用者が使っている環境のこと。テスト環境と区別され、ここでの事故は直接利用者に影響する</span></span>の安定性を犠牲にせず開発を進められる</li>
 </ul>
 <h3>3層Heartbeat監視</h3>
 <p>エージェントが生きているかを3つの間隔で監視します：</p>
@@ -212,7 +212,7 @@
 <tr>
 <td>testing</td>
 <td>—</td>
-<td>テスト戦略、品質ゲート</td>
+<td>テスト戦略、<span class="term" tabindex="0">品質ゲート<span class="term-popup">次の工程（例: 本番公開）に進んで良いかを判定する関門。テストが全部通っているか・コード検査で警告が出ていないか等を機械的にチェックし、不合格なら先に進めないようにする</span></span></td>
 </tr>
 <tr>
 <td>design</td>
@@ -238,10 +238,10 @@
 <p>全てが独立して動いているわけではありません。エージェントには2種類あります：</p>
 <ol>
 <li><strong>常時稼働型</strong>: Heartbeatで定期的に起動するエージェント（ニュース収集・Discord監視等）</li>
-<li><strong>オンデマンド型</strong>: ユーザーからの要求に応じて起動するエージェント（コードレビュー・デバッグ等）</li>
+<li><strong>オンデマンド型</strong>: ユーザーからの要求に応じて起動するエージェント（<span class="term" tabindex="0">コードレビュー<span class="term-popup">書かれたコードを、書いた本人以外の視点で読んで問題を指摘する作業。バグ・読みにくさ・危険な書き方を第三者が見つけるのに有効</span></span>・デバッグ等）</li>
 </ol>
 <p>常時稼働しているのは数体で、残りは必要な時にだけ起動します。</p>
-<h3>「Docker + Caddy構成の理由」</h3>
+<h3>「<span class="term" tabindex="0">Docker<span class="term-popup">ドッカー。プログラムとその実行環境一式を「コンテナ」という箱に梱包して、どのPCでも同じように動かす技術。「私の環境では動くのに」という問題を防ぐ</span></span> + Caddy構成の理由」</h3>
 <ul>
 <li><strong>Docker</strong>: エージェントの実行環境をコンテナ化し、ホストOSへの影響を最小化</li>
 <li><strong>Caddy</strong>: リバースプロキシ + 自動HTTPS。Let's Encryptの証明書更新も自動</li>
@@ -250,7 +250,7 @@
 <h3>技術スタック</h3>
 <ul>
 <li>Docker Compose / Caddy（リバースプロキシ）</li>
-<li>Node.js / TypeScript / Python</li>
+<li>Node.js / TypeScript / <span class="term" tabindex="0">Python<span class="term-popup">AI・データ分析の分野で最も使われるプログラミング言語（読み: パイソン）。AI関連の道具が最も豊富で、文法が読みやすいのが特徴</span></span></li>
 <li>Discord API</li>
 <li>VPS（Ubuntu）+ Tailscale VPN</li>
 </ul>

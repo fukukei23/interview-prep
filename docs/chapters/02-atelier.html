@@ -137,7 +137,7 @@
         <article class="chapter-body">
             <h1>atelier-kyo-manager</h1>
 <div class="callout callout-info"><p>BUYMA転売管理システム。出品パイプライン・自動発注ステートマシン・
-AIチャットボット・価格スクレイピングを統合したFlaskアプリ。</p></div>
+AIチャットボット・価格<span class="term" tabindex="0">スクレイピング<span class="term-popup">Webサイトのページを読み込んで、必要な情報（価格・在庫等）を自動で抜き出すこと</span></span>を統合した<span class="term" tabindex="0">Flask<span class="term-popup">PythonでWebアプリや管理画面を軽く作るためのフレームワーク。必要最小限の機能だけを提供する「軽量」設計が特徴で、小規模な社内ツール等に向く</span></span>アプリ。</p></div>
 <h2>なぜ作ったか</h2>
 <p>BUYMA（海外ブランドの買い付け代行プラットフォーム）での転売業務は、出品・価格調整・発注・顧客対応など多岐にわたる手作業が発生します。これらをFlask Webアプリ + AI/LLMで自動化し、1人でもスケール可能な物販システムを目指して開発しました。</p>
 <h2>アーキテクチャ</h2>
@@ -198,21 +198,21 @@ AIチャットボット・価格スクレイピングを統合したFlaskアプ�
 </tbody>
 </table></div>
 <h2>面接で聞かれそうなポイント</h2>
-<h3>「なぜFlask？Djangoではない理由」</h3>
+<h3>「なぜFlask？<span class="term" tabindex="0">Django<span class="term-popup">Python用の「全部入り」Webフレームワーク。管理画面・ユーザー認証・データベース操作等が最初から揃っている。大規模向けだが、小さい用途には過剰になりがち</span></span>ではない理由」</h3>
 <ul>
-<li>atelier-kyo-managerは管理画面 + APIの構成で、DjangoのORM/admin/templates等の「全部入り」機能が不要だった</li>
+<li>atelier-kyo-managerは管理画面 + <span class="term" tabindex="0">API<span class="term-popup">Application Programming Interface（エーピーアイ）の略。あるプログラムの機能を、別のプログラムから呼び出せるようにした「窓口」。予約システムがLINE社の機能とやり取りするのもAPI経由</span></span>の構成で、DjangoのORM/admin/templates等の「全部入り」機能が不要だった</li>
 <li>Flaskの方が軽量で、必要なライブラリ（SQLAlchemy / Playwright / rembg等）を自由に選べる</li>
 <li>結果的にFlask App Factory + Blueprintの構成で十分スケールした</li>
 </ul>
 <h3>「なぜSQLite？PostgreSQLではない理由」</h3>
 <ul>
 <li>個人利用のシステムで同時接続数が少ないため、SQLiteで十分</li>
-<li>デプロイが簡単（サーバー不要、ファイル1つで完結）</li>
+<li><span class="term" tabindex="0">デプロイ<span class="term-popup">作ったプログラムを、実際に動くサーバーや公開環境へ設置して動かし始めること</span></span>が簡単（サーバー不要、ファイル1つで完結）</li>
 <li>将来的にスケールする必要があれば、SQLAlchemy経由でPostgreSQLに移行可能（モデル層の変更なし）</li>
 </ul>
 <h3>技術スタック</h3>
 <ul>
-<li>Python 3.10+ / Flask / SQLAlchemy</li>
+<li><span class="term" tabindex="0">Python<span class="term-popup">AI・データ分析の分野で最も使われるプログラミング言語（読み: パイソン）。AI関連の道具が最も豊富で、文法が読みやすいのが特徴</span></span> 3.10+ / Flask / SQLAlchemy</li>
 <li>Playwright（ヘッドレスブラウザ）</li>
 <li>pytest（2,000+テストケース）</li>
 <li>rembg（AI背景除去）</li>

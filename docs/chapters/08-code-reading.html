@@ -143,7 +143,7 @@
 <h2>1. Anthropicの研究が証明した事実</h2>
 <p>2026年1月、Anthropicが<strong>52人のジュニアエンジニア</strong>で実験を行いました。</p>
 <h3>実験内容</h3>
-<p>Pythonの新しいライブラリ（Trio）を学んでもらい、AI補助ありグループと手書きグループで比較。タスク後に<strong>理解度テスト</strong>（コード読解・デバッグ・概念理解）を実施。</p>
+<p><span class="term" tabindex="0">Python<span class="term-popup">AI・データ分析の分野で最も使われるプログラミング言語（読み: パイソン）。AI関連の道具が最も豊富で、文法が読みやすいのが特徴</span></span>の新しいライブラリ（Trio）を学んでもらい、AI補助ありグループと手書きグループで比較。タスク後に<strong>理解度テスト</strong>（コード読解・デバッグ・概念理解）を実施。</p>
 <h3>結果</h3>
 <div class="table-wrapper"><table>
 <thead>
@@ -240,11 +240,11 @@
 </table></div>
 <p>会議中に「ちょっとAIに聞いてきます」と言って終わるわけにはいきません。しかし「AIに説明させて、その内容を自分の言葉で伝える」ことは、AI丸投げの人にはできず、説明を求めた人（理解度65〜86%）にはできることです。</p>
 <h3>② 「品質判定」が売りなのに、理解しないと判定できない</h3>
-<p>私のスタンスは「要件定義・品質判定・運用設計を指揮する」です。</p>
+<p>私のスタンスは「<span class="term" tabindex="0">要件定義<span class="term-popup">「何を・何のために作るか」を言葉に整理して関係者で合わせる最初の作業。ここが曖昧だと手戻りが最大になる</span></span>・品質判定・運用設計を指揮する」です。</p>
 <p>品質判定の対象はコードの挙動ですが、それは「コード行を自力で読む」ことと同義ではありません。<strong>AIにコードを説明させ、テスト結果と動作確認で裏付け、設計意図と照合して判定する</strong>——このプロセスが私の品質担保の方法です。理解（＝AIに説明させて把握すること）を抜きに品質判定はできません。</p>
 <h3>③ AIが書いたコードの「最終責任」は人間</h3>
 <p>Anthropicの研究が指摘：</p>
-<div class="callout callout-danger"><p>「AI生成コードをデプロイ前に<strong>理解し検証する能力</strong>。このスキルは、AIがコードを書く時代にこそ最も重要になる」</p></div>
+<div class="callout callout-danger"><p>「AI生成コードを<span class="term" tabindex="0">デプロイ<span class="term-popup">作ったプログラムを、実際に動くサーバーや公開環境へ設置して動かし始めること</span></span>前に<strong>理解し検証する能力</strong>。このスキルは、AIがコードを書く時代にこそ最も重要になる」</p></div>
 <hr />
 <h2>4. AIに説明させて理解する3レベル</h2>
 <p>完全なプログラマーになる必要はありません。以下の3レベルができれば<strong>実務で困らない</strong>ラインです。</p>
@@ -279,7 +279,7 @@ TypeError: unsupported operand type(s) for *: 'str' and 'int'
 <li>「消費税率の引数が追加され、合計に税が含まれるようになった」</li>
 <li>「既存の呼び出し元で税なしを期待している場合、影響が出る可能性」</li>
 </ul>
-<p><strong>→ AIに説明させた変更意図と影響範囲を判断できれば、コードレビューに参加できます。</strong></p>
+<p><strong>→ AIに説明させた変更意図と影響範囲を判断できれば、<span class="term" tabindex="0">コードレビュー<span class="term-popup">書かれたコードを、書いた本人以外の視点で読んで問題を指摘する作業。バグ・読みにくさ・危険な書き方を第三者が見つけるのに有効</span></span>に参加できます。</strong></p>
 <h3>Level 3: 全体の流れをAIに解説させる（1〜2ヶ月）</h3>
 <pre><code class="language-python">@app.route(&quot;/api/orders&quot;, methods=[&quot;POST&quot;])
 def create_order():
