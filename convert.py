@@ -2,7 +2,6 @@
 """Interview Prep Guide: Markdown → モバイル最適化HTML変換スクリプト."""
 
 import re
-import unicodedata
 from pathlib import Path
 
 from jinja2 import Template
@@ -592,7 +591,7 @@ def rewrite_links(html: str, chapter_map: dict | None = None) -> str:
                 elif "#" in decoded:
                     anchor = "#" + decoded.split("#", 1)[1]
                 return f'href="{info["slug"]}.html{anchor}"'
-        return f'href="#"'
+        return 'href="#"'
 
     html = re.sub(r'href="([^"]*\.md[^"]*)"', replace_md_link, html)
 
@@ -626,6 +625,63 @@ def enhance_html(html: str) -> str:
 
     html = re.sub(r"<blockquote>\s*<p>(.*?)</p>\s*</blockquote>", callout_replace, html, flags=re.DOTALL)
 
+    return html
+
+
+# --- 用語ツールチップ（add-term-tooltip パターン・クリック/ホバーで解説表示） ---
+# source MD は html:False で生HTMLを書けないため、レンダリング後の後処理で囲む
+TERM_TOOLTIPS = {
+    "最もホットな新しいプログラミング言語は英語だ": (
+        "OpenAI共同創業者でAI研究者アンドレイ・カルパシー氏の言葉（2023年1月）。"
+        "「プログラミングは専門用語のコードでなく、普段の話し言葉（英語・日本語）で"
+        "AIに伝えれば良くなる」という時代の変化を、一言で言い表した発言。"
+        "本章の「言葉で伝えれば作れる」という私の実践と同じ方向を指す"
+    ),
+    "ケンタウロス・モデル": (
+        "チェスの元世界王者ガルリ・カスパロフが提唱した協働スタイルの名前。"
+        "半人半馬のケンタウロスに例えて「人間+AIのペア」を指す。"
+        "2005年頃のフリースタイル・チェス大会で、人間+AIのペアが"
+        "世界王者（人間単独）もAI単独も負かした実史がある。"
+        "「人間単独 ＜ AI単独 ＜ 人間+AI」という順番が実証された"
+    ),
+    "モラベックのパラドックス": (
+        "AI研究者ハンス・モラベックが指摘した逆説（1980年代）。"
+        "「人間に簡単なこと（歩く・物を見る・常識的な判断）はAIに難しく、"
+        "人間に難しいこと（暗記・計算）はAIに簡単」というもの。"
+        "だから知識の暗記はAIに任せて、問いを立てる・判断する役割が人間に残る——"
+        "という本章の論理の裏付けになる"
+    ),
+    "暗黙知の存在": (
+        "哲学者マイケル・ポランニーの用語（1958年）。"
+        "言葉やマニュアルで説明できる知識（形式知）に対し、"
+        "経験で体で覚える「言葉にできない知識」のこと。"
+        "自転車の乗り方や職人の勘が例。AIが扱えるのは形式知のみなので、"
+        "暗黙知は人間のまま——だからAIは「代替」でなく「拡張」だと論じられる"
+    ),
+    "Jensen Huang": (
+        "NVIDIA（AIチップ世界最大手）の創業者CEO。"
+        "「AIはあなたの仕事を奪わない。AIを使う人が奪う」"
+        "という言葉で知られ、AI時代の働き方を象徴する発言としてよく引用される。"
+        "「使いこなし方次第でチャレンジの幅が広がる」という私の実感と同じ構造"
+    ),
+    "歴史からの類推": (
+        "「新しい道具が出ると職人が消える」という心配は、歴史上いつもされてきた。"
+        "しかし電卓が登場しても数学者は消えず、写真が発明されても画家は消えなかった。"
+        "道具の進歩は「仕事の全滅」でなく「仕事の内容の変化」を毎回もたらしてきた——"
+        "という過去のパターンとの比較で考えること"
+    ),
+}
+
+
+def wrap_terms(html: str) -> str:
+    """登録用語の最初の出現箇所だけを、クリック解説付きマークアップで囲む."""
+    for term, desc in TERM_TOOLTIPS.items():
+        if term in html:
+            wrapped = (
+                f'<span class="term" tabindex="0">{term}'
+                f'<span class="term-popup">{desc}</span></span>'
+            )
+            html = html.replace(term, wrapped, 1)
     return html
 
 
@@ -664,6 +720,7 @@ def main():
         html_body = inject_mermaid(html_body, ch["filename"])
         html_body = rewrite_links(html_body, effective_map)
         html_body = enhance_html(html_body)
+        html_body = wrap_terms(html_body)
 
         prev_ch = chapters[i - 1] if i > 0 else None
         next_ch = chapters[i + 1] if i < len(chapters) - 1 else None

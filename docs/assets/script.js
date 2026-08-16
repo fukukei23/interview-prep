@@ -253,4 +253,14 @@
         initCopyButtons();
         initSearch();
     }
+
+    // --- Term Tooltips（用語タップ/クリックで解説表示・スマホ対応） ---
+    document.addEventListener("click", function (e) {
+        var term = e.target.closest(".term");
+        // 他の開いているツールチップを閉じる
+        document.querySelectorAll(".term.open").forEach(function (t) {
+            if (t !== term) t.classList.remove("open");
+        });
+        if (term) term.classList.toggle("open");
+    });
 })();
